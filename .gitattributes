@@ -1,0 +1,4 @@
+# Normalisiere Zeilenenden: im Repo immer LF, Checkout OS-abhängig.
+* text=auto eol=lf
+*.png binary
+*.svg text eol=lf
