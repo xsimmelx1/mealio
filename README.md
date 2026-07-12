@@ -87,6 +87,32 @@ sichtbar.
 Rezepte sind teils KI-generiert. Zutaten, Allergene, Nährwerte, Preise und Garanweisungen
 vor dem Kochen/Einkauf selbst prüfen. Keine medizinische oder ernährungsberatende Zusage.
 
+## Live-Deployment (kostenlos)
+
+Frontend und Backend werden getrennt deployt. Das Frontend ist eine statische PWA und
+funktioniert bereits allein (offline auf Seed-Daten); das Backend aktiviert nur die
+Opt-in-Extras.
+
+**Frontend → Vercel** (Root-Domain, ideal für PWA). Konfiguration liegt in `vercel.json`
+(`npm run build -w app` → `app/dist`, SPA-Rewrites). Repo in Vercel importieren, Env
+`VITE_API_URL` = Backend-URL setzen, deployen. Alternativen: Netlify (`_redirects`:
+`/* /index.html 200`, Publish `app/dist`) oder Cloudflare Pages.
+
+**Backend → Render (free)**. Blueprint liegt in `render.yaml`. Render „New → Blueprint" auf
+das Repo, deployen. Render setzt `PORT` selbst; `NUTRITION_ONLINE`/`PRICES_ONLINE`/`FDC_API_KEY`
+sind vorkonfiguriert. Nach dem Frontend-Deploy `APP_ORIGIN` = Vercel-URL setzen (CORS).
+
+**Reihenfolge & Verkopplung**: Push → Render deployen (API-URL notieren) → Vercel mit
+`VITE_API_URL`=API-URL deployen (Frontend-URL notieren) → Render `APP_ORIGIN`=Frontend-URL.
+`VITE_API_URL` wird zur Build-Zeit eingebacken → nach Änderung Vercel-Redeploy.
+
+> **Hinweis KI-Rezepte:** `LLM_API_KEY` bewusst **nicht** setzen. Der `HttpLlmClient` ist
+> noch ein Gerüst; mit gesetztem Key würde `/generate-plan` auf `seed-fallback` degradieren.
+> Ohne Key erzeugt der `MockLlmClient` gratis schema-konforme, prefs-gerechte Rezepte. Ein
+> echter LLM-Provider ist eine spätere, separate Aufgabe (HttpLlmClient implementieren).
+
+Kostenrahmen: Vercel (Hobby) + Render (free) + USDA DEMO_KEY / OFF / Open Prices = **0 €**.
+
 ## Capacitor (Android/iOS, später)
 
 Die App ist Capacitor-freundlich gebaut (keine harten `window`/Origin-Annahmen; alle

@@ -1,0 +1,26 @@
+# Render Blueprint für das Mealio-Backend (kostenloser Web Service).
+# Dashboard: "New" -> "Blueprint" -> dieses Repo auswählen.
+services:
+  - type: web
+    name: mealio-api
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build -w server
+    startCommand: npm run start -w server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Online-Datenquellen aktivieren (gratis): USDA/OFF + Open Prices.
+      - key: NUTRITION_ONLINE
+        value: "1"
+      - key: PRICES_ONLINE
+        value: "1"
+      - key: FDC_API_KEY
+        value: DEMO_KEY # öffentlicher USDA-Demo-Key (rate-limited)
+      # CORS-Allowlist: nach dem Frontend-Deploy auf die Vercel-URL setzen.
+      - key: APP_ORIGIN
+        sync: false
+      # LLM_API_KEY BEWUSST NICHT gesetzt -> MockLlmClient erzeugt schema-konforme
+      # KI-Rezepte gratis. Ein echter Key würde derzeit auf seed-fallback degradieren,
+      # da HttpLlmClient noch ein Gerüst ist.
