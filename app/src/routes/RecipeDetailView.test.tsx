@@ -11,6 +11,7 @@ const testRecipe: Recipe = {
   id: 'r-test',
   title: 'Test-Pfanne',
   mealStyles: ['schnell'],
+  mealTypes: ['abendessen'],
   dietTags: ['omnivor'],
   requiredAppliances: ['herd'],
   prepMinutes: 5,

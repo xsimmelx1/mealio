@@ -10,7 +10,7 @@
  */
 
 import type { GeneratePlanInput } from '../schemas/index.js';
-import type { LlmRecipe } from './recipeSchema.js';
+import type { LlmRecipe, MealType } from './recipeSchema.js';
 import { findAllergenViolation, normalizeDietPreference } from './dietRules.js';
 
 const round2 = (n: number): number => Math.round(n * 100) / 100;
@@ -20,6 +20,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Rote-Linsen-Dal mit Reis',
     mealStyles: ['budget', 'veggie'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['vegan', 'vegetarisch', 'glutenfrei', 'laktosefrei'],
     requiredAppliances: ['herd'],
     prepMinutes: 10,
@@ -42,6 +43,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Kichererbsen-Gemüse-Curry',
     mealStyles: ['budget', 'veggie', 'familienfreundlich'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['vegan', 'vegetarisch', 'glutenfrei', 'laktosefrei'],
     requiredAppliances: ['herd'],
     prepMinutes: 15,
@@ -64,6 +66,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Tofu-Gemüse-Wok mit Reisnudeln',
     mealStyles: ['schnell', 'veggie', 'fakeaway'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['vegan', 'vegetarisch', 'laktosefrei'],
     requiredAppliances: ['herd'],
     prepMinutes: 15,
@@ -86,6 +89,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Gemüse-Pasta mit Tomatensauce',
     mealStyles: ['schnell', 'familienfreundlich', 'budget'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['vegetarisch'],
     requiredAppliances: ['herd'],
     prepMinutes: 10,
@@ -108,6 +112,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Rührei mit Gemüse',
     mealStyles: ['schnell', 'high-protein', 'veggie'],
+    mealTypes: ['fruehstueck', 'mittagessen'],
     dietTags: ['vegetarisch', 'glutenfrei', 'low-carb'],
     requiredAppliances: ['herd'],
     prepMinutes: 8,
@@ -129,6 +134,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Hähnchen-Reispfanne mit Gemüse',
     mealStyles: ['high-protein', 'familienfreundlich'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['omnivor', 'glutenfrei', 'laktosefrei'],
     requiredAppliances: ['herd'],
     prepMinutes: 15,
@@ -151,6 +157,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Rinderhack-Zucchini-Pfanne',
     mealStyles: ['high-protein', 'schnell'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['omnivor', 'glutenfrei', 'laktosefrei', 'low-carb'],
     requiredAppliances: ['herd'],
     prepMinutes: 10,
@@ -172,6 +179,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Lachsfilet mit Ofengemüse',
     mealStyles: ['high-protein', 'familienfreundlich'],
+    mealTypes: ['abendessen'],
     dietTags: ['pescetarisch', 'glutenfrei', 'laktosefrei'],
     requiredAppliances: ['backofen'],
     prepMinutes: 15,
@@ -193,6 +201,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Ofenkartoffeln mit Kräuterquark',
     mealStyles: ['budget', 'familienfreundlich', 'veggie'],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['vegetarisch', 'glutenfrei'],
     requiredAppliances: ['backofen'],
     prepMinutes: 10,
@@ -214,6 +223,7 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
   {
     title: 'Overnight Oats mit Beeren',
     mealStyles: ['schnell', 'budget', 'veggie'],
+    mealTypes: ['fruehstueck'],
     dietTags: ['vegetarisch'],
     requiredAppliances: [],
     prepMinutes: 5,
@@ -229,6 +239,73 @@ export const SEED_RECIPES: readonly LlmRecipe[] = [
       'Haferflocken mit Milch verrühren und über Nacht kühlstellen.',
       'Am Morgen umrühren und bei Bedarf etwas Milch zugeben.',
       'Mit Beeren und Honig toppen und servieren.',
+    ],
+    nutritionPerServing: null,
+  },
+  {
+    title: 'Bananen-Porridge mit Haferdrink',
+    mealStyles: ['schnell', 'budget', 'veggie'],
+    mealTypes: ['fruehstueck'],
+    dietTags: ['vegan', 'vegetarisch', 'laktosefrei'],
+    requiredAppliances: ['herd'],
+    prepMinutes: 5,
+    cookMinutes: 10,
+    baseServings: 1,
+    ingredients: [
+      { name: 'Haferflocken', amount: 50, unit: 'g', aisle: 'trockenwaren' },
+      { name: 'Haferdrink', amount: 200, unit: 'ml', aisle: 'kühlregal' },
+      { name: 'Banane', amount: 1, unit: 'stück', aisle: 'obst-gemüse' },
+      { name: 'Ahornsirup', amount: 1, unit: 'tsp', aisle: 'trockenwaren' },
+    ],
+    steps: [
+      'Haferflocken mit dem Haferdrink aufkochen und 5 Minuten köcheln lassen.',
+      'Banane in Scheiben schneiden und unterheben.',
+      'In eine Schale füllen und mit Ahornsirup süßen.',
+    ],
+    nutritionPerServing: null,
+  },
+  {
+    title: 'Joghurt-Bowl mit Obst und Haferflocken',
+    mealStyles: ['schnell', 'high-protein', 'veggie'],
+    mealTypes: ['fruehstueck'],
+    dietTags: ['vegetarisch'],
+    requiredAppliances: [],
+    prepMinutes: 5,
+    cookMinutes: 0,
+    baseServings: 1,
+    ingredients: [
+      { name: 'Naturjoghurt', amount: 150, unit: 'g', aisle: 'kühlregal' },
+      { name: 'Banane', amount: 1, unit: 'stück', aisle: 'obst-gemüse' },
+      { name: 'Haferflocken', amount: 30, unit: 'g', aisle: 'trockenwaren' },
+      { name: 'Honig', amount: 1, unit: 'tsp', aisle: 'trockenwaren' },
+    ],
+    steps: [
+      'Joghurt in eine Schale geben.',
+      'Banane in Scheiben schneiden und mit den Haferflocken darauf verteilen.',
+      'Mit Honig beträufeln und servieren.',
+    ],
+    nutritionPerServing: null,
+  },
+  {
+    title: 'Shakshuka mit Feta',
+    mealStyles: ['veggie', 'high-protein'],
+    mealTypes: ['fruehstueck', 'mittagessen'],
+    dietTags: ['vegetarisch', 'glutenfrei', 'low-carb'],
+    requiredAppliances: ['herd'],
+    prepMinutes: 10,
+    cookMinutes: 20,
+    baseServings: 1,
+    ingredients: [
+      { name: 'Eier', amount: 2, unit: 'stück', aisle: 'kühlregal' },
+      { name: 'Gehackte Tomaten', amount: 200, unit: 'g', aisle: 'konserven' },
+      { name: 'Paprika', amount: 60, unit: 'g', aisle: 'obst-gemüse' },
+      { name: 'Zwiebel', amount: 0.5, unit: 'stück', aisle: 'obst-gemüse' },
+      { name: 'Feta', amount: 40, unit: 'g', aisle: 'kühlregal' },
+    ],
+    steps: [
+      'Zwiebel und Paprika würfeln und anschwitzen.',
+      'Gehackte Tomaten zugeben und 10 Minuten einköcheln lassen.',
+      'Eier hineingleiten lassen, stocken lassen und mit Feta bestreuen.',
     ],
     nutritionPerServing: null,
   },
@@ -257,13 +334,23 @@ export function normalizeTitle(title: string): string {
     .trim();
 }
 
+/** Angefragte Mahlzeiten aus den Prefs; nie leer (Default 'abendessen'). */
+export function requestedMealTypes(prefs: GeneratePlanInput): MealType[] {
+  const wanted = prefs.mealTypes.filter((m): m is MealType =>
+    (['fruehstueck', 'mittagessen', 'abendessen'] as const).includes(m as MealType),
+  );
+  return wanted.length > 0 ? wanted : ['abendessen'];
+}
+
 /**
  * Liefert die auf die Präferenzen gefilterten und auf die Personenzahl skalierten
  * Seed-Rezepte (jedes höchstens einmal). Filtert nach Diät, vermiedenen und
- * (per Keyword-Heuristik) allergenen Zutaten. Wird für den Fallback-Plan und für
- * das Ersetzen einzelner verworfener LLM-Rezepte genutzt.
+ * (per Keyword-Heuristik) allergenen Zutaten. Ist `meal` gesetzt, werden nur
+ * dafür geeignete Rezepte zurückgegeben und deren mealTypes auf genau [meal]
+ * eingeengt (Response-Kontrakt: mealTypes ⊆ angefragte Typen). Wird für den
+ * Fallback-Plan und für das Ersetzen einzelner verworfener LLM-Rezepte genutzt.
  */
-export function buildSeedPool(prefs: GeneratePlanInput): LlmRecipe[] {
+export function buildSeedPool(prefs: GeneratePlanInput, meal?: MealType): LlmRecipe[] {
   const wantedDiet = normalizeDietPreference(prefs.diet);
   const avoided = prefs.avoidedIngredients.map((a) => a.toLowerCase().trim()).filter(Boolean);
   const allergies = prefs.allergies;
@@ -272,6 +359,9 @@ export function buildSeedPool(prefs: GeneratePlanInput): LlmRecipe[] {
     if (!wantedDiet) return true;
     return recipe.dietTags.includes(wantedDiet);
   };
+
+  const matchesMeal = (recipe: LlmRecipe): boolean =>
+    meal === undefined || recipe.mealTypes.includes(meal);
 
   const hasAvoided = (recipe: LlmRecipe): boolean =>
     recipe.ingredients.some((ing) => {
@@ -287,40 +377,58 @@ export function buildSeedPool(prefs: GeneratePlanInput): LlmRecipe[] {
     ) !== null;
 
   let candidates = SEED_RECIPES.filter(
-    (r) => matchesDiet(r) && !hasAvoided(r) && !hasAllergen(r),
+    (r) => matchesMeal(r) && matchesDiet(r) && !hasAvoided(r) && !hasAllergen(r),
   );
 
-  // Nie leer ausliefern: Constraints schrittweise lockern (Diät zuletzt).
+  // Nie leer ausliefern: Constraints schrittweise lockern (Meal/Diät zuletzt).
   if (candidates.length === 0) {
-    candidates = SEED_RECIPES.filter((r) => matchesDiet(r) && !hasAllergen(r));
+    candidates = SEED_RECIPES.filter((r) => matchesMeal(r) && matchesDiet(r) && !hasAllergen(r));
   }
   if (candidates.length === 0) {
-    candidates = SEED_RECIPES.filter((r) => matchesDiet(r));
+    candidates = SEED_RECIPES.filter((r) => matchesMeal(r) && matchesDiet(r));
+  }
+  if (candidates.length === 0) {
+    candidates = SEED_RECIPES.filter((r) => matchesMeal(r));
   }
   if (candidates.length === 0) {
     candidates = [...SEED_RECIPES];
   }
 
-  return candidates.map((r) => scaleRecipe(r, prefs.numberOfPeople));
+  return candidates.map((r) => {
+    const scaled = scaleRecipe(r, prefs.numberOfPeople);
+    // Auf die angefragte Mahlzeit einengen, damit die Response nur ⊆ enthält.
+    return meal ? { ...scaled, mealTypes: [meal] } : scaled;
+  });
 }
 
 /**
- * Baut einen geprüften Seed-Plan: nutzt den gefilterten Pool und liefert genau
- * `days` Rezepte (wiederholt notfalls mit eindeutigem Titel-Suffix, damit keine
- * Plan-Duplikate entstehen).
+ * Baut einen geprüften Seed-Plan über ALLE angefragten Mahlzeiten. Pro Mahlzeit
+ * werden `days` Rezepte erzeugt (wiederholt notfalls mit eindeutigem Titel-Suffix,
+ * damit keine Plan-Duplikate entstehen). Jedes Rezept trägt mealTypes = [meal].
  */
 export function buildSeedPlan(prefs: GeneratePlanInput): LlmRecipe[] {
-  const candidates = buildSeedPool(prefs);
-  const wanted = Math.max(1, prefs.days);
+  const meals = requestedMealTypes(prefs);
+  const perMeal = Math.max(1, prefs.days);
+  const usedTitles = new Set<string>();
   const out: LlmRecipe[] = [];
-  for (let i = 0; i < wanted; i++) {
-    const base = candidates[i % candidates.length]; // bereits skaliert
-    // Bei Wiederholung eindeutigen Titel erzeugen (keine Plan-Duplikate).
-    const title =
-      i < candidates.length
-        ? base.title
-        : `${base.title} (Variante ${Math.floor(i / candidates.length) + 1})`;
-    out.push({ ...base, title });
+
+  for (const meal of meals) {
+    const candidates = buildSeedPool(prefs, meal);
+    let added = 0;
+    let i = 0;
+    let guard = 0;
+    while (added < perMeal && guard < perMeal * 4 + 8) {
+      guard++;
+      const base = candidates[i % candidates.length]; // bereits skaliert
+      const variant = Math.floor(i / candidates.length);
+      const title = variant === 0 ? base.title : `${base.title} (Variante ${variant + 1})`;
+      i++;
+      const key = normalizeTitle(title);
+      if (usedTitles.has(key)) continue;
+      usedTitles.add(key);
+      out.push({ ...base, title });
+      added++;
+    }
   }
   return out;
 }

@@ -1,5 +1,6 @@
-import type { Recipe, UserPreferences } from '../domain/schema';
-import { eligibleRecipes, preferenceScore } from './filterRecipes';
+import { MEAL_TYPES, type MealType } from '../domain/enums';
+import type { MealPlanEntry, Recipe, UserPreferences } from '../domain/schema';
+import { eligibleForMeal, preferenceScore } from './filterRecipes';
 
 export const DAYS_PER_WEEK = 7;
 
@@ -25,10 +26,7 @@ export function seededShuffle<T>(items: T[], rand: () => number): T[] {
   return arr;
 }
 
-/**
- * Ordnet zulässige Rezepte nach Präferenz-Score (desc), innerhalb gleicher Scores
- * seeded-zufällig. So kommen Favoriten/bevorzugte Styles zuerst, mit Varianz.
- */
+/** Ordnet Rezepte nach Präferenz-Score (desc), innerhalb gleicher Scores seeded-zufällig. */
 export function rankRecipes(
   recipes: Recipe[],
   prefs: UserPreferences,
@@ -41,48 +39,81 @@ export function rankRecipes(
     .map((x) => x.r);
 }
 
-/**
- * Erzeugt 7 Tages-Rezept-IDs (ohne Duplikate, solange genug Rezepte da sind).
- * Reicht der Pool nicht für 7 verschiedene, werden Rezepte wiederholt (in Reihenfolge).
- * Rein & deterministisch bei gegebenem seed.
- */
-export function pickWeek(recipes: Recipe[], prefs: UserPreferences, seed: number): string[] {
-  const rand = mulberry32(seed);
-  const pool = eligibleRecipes(recipes, prefs);
-  if (pool.length === 0) return [];
-
-  const ranked = rankRecipes(pool, prefs, rand);
-  const ids: string[] = [];
-  for (let day = 0; day < DAYS_PER_WEEK; day++) {
-    ids.push(ranked[day % ranked.length].id);
-  }
-  return ids;
+/** Sortiert Mahlzeiten in kanonische Reihenfolge (Frühstück → Mittag → Abend). */
+function orderedMealTypes(mealTypes: MealType[]): MealType[] {
+  return MEAL_TYPES.filter((m) => mealTypes.includes(m));
 }
 
 /**
- * Wählt für einen einzelnen Tag ein neues Rezept, das möglichst nicht bereits
- * in der Woche vorkommt (Duplikate-Vermeidung). Gibt null zurück, wenn kein
- * zulässiges Rezept existiert.
+ * Baut die Plan-Slots aus den Prefs: für jeden gewählten Wochentag × jede gewählte
+ * Mahlzeit ein Slot (kanonisch sortiert: Tag aufsteigend, dann Mahlzeit).
  */
-export function pickReplacement(
+export function buildSlots(prefs: UserPreferences): { dayOfWeek: number; mealType: MealType }[] {
+  const days = [...prefs.planDays].sort((a, b) => a - b);
+  const meals = orderedMealTypes(prefs.mealTypes);
+  const slots: { dayOfWeek: number; mealType: MealType }[] = [];
+  for (const day of days) for (const mt of meals) slots.push({ dayOfWeek: day, mealType: mt });
+  return slots;
+}
+
+/**
+ * Erzeugt Plan-Einträge für alle Slots. Pro Mahlzeit werden Duplikate vermieden,
+ * solange genug passende Rezepte existieren; sonst wird wiederholt. Slots ohne
+ * passendes Rezept erhalten recipeId=null. Rein & deterministisch bei gegebenem seed.
+ */
+export function pickPlan(
   recipes: Recipe[],
   prefs: UserPreferences,
-  currentWeekIds: string[],
-  dayIndex: number,
+  seed: number,
+): MealPlanEntry[] {
+  const rand = mulberry32(seed);
+  const slots = buildSlots(prefs);
+
+  // Pro Mahlzeit einmal ranken (deterministisch über den geteilten rand).
+  const rankedByMeal = new Map<MealType, Recipe[]>();
+  for (const mt of orderedMealTypes(prefs.mealTypes)) {
+    rankedByMeal.set(mt, rankRecipes(eligibleForMeal(recipes, prefs, mt), prefs, rand));
+  }
+
+  const usedByMeal = new Map<MealType, Set<string>>();
+  return slots.map((slot) => {
+    const ranked = rankedByMeal.get(slot.mealType) ?? [];
+    const used = usedByMeal.get(slot.mealType) ?? new Set<string>();
+    const pick = ranked.find((r) => !used.has(r.id)) ?? ranked[0] ?? null;
+    if (pick) {
+      used.add(pick.id);
+      usedByMeal.set(slot.mealType, used);
+    }
+    return { dayOfWeek: slot.dayOfWeek, mealType: slot.mealType, recipeId: pick ? pick.id : null };
+  });
+}
+
+/**
+ * Wählt für einen einzelnen Slot (Tag × Mahlzeit) ein neues Rezept, möglichst
+ * verschieden vom aktuellen und von anderen Slots derselben Mahlzeit.
+ * Gibt null zurück, wenn kein passendes Rezept existiert.
+ */
+export function pickReplacementSlot(
+  recipes: Recipe[],
+  prefs: UserPreferences,
+  entries: MealPlanEntry[],
+  dayOfWeek: number,
+  mealType: MealType,
   seed: number,
 ): string | null {
   const rand = mulberry32(seed);
-  const pool = eligibleRecipes(recipes, prefs);
-  if (pool.length === 0) return null;
+  const ranked = rankRecipes(eligibleForMeal(recipes, prefs, mealType), prefs, rand);
+  if (ranked.length === 0) return null;
 
-  const ranked = rankRecipes(pool, prefs, rand);
-  const usedElsewhere = new Set(currentWeekIds.filter((_, i) => i !== dayIndex));
-  const current = currentWeekIds[dayIndex];
+  const usedElsewhere = new Set(
+    entries
+      .filter((e) => e.mealType === mealType && e.dayOfWeek !== dayOfWeek && e.recipeId)
+      .map((e) => e.recipeId as string),
+  );
+  const current = entries.find((e) => e.dayOfWeek === dayOfWeek && e.mealType === mealType)?.recipeId;
 
-  // Bevorzugt: nicht anderswo verwendet UND nicht das aktuelle.
   const fresh = ranked.find((r) => !usedElsewhere.has(r.id) && r.id !== current);
   if (fresh) return fresh.id;
-  // Sonst: irgendeins, das nicht das aktuelle ist.
   const notCurrent = ranked.find((r) => r.id !== current);
   return (notCurrent ?? ranked[0]).id;
 }

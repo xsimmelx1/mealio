@@ -1,4 +1,4 @@
-import type { Diet } from '../domain/enums';
+import type { Diet, MealType } from '../domain/enums';
 import type { Recipe, UserPreferences } from '../domain/schema';
 
 /**
@@ -85,6 +85,24 @@ export function preferenceScore(recipe: Recipe, prefs: UserPreferences): number 
 /** Alle zulässigen Rezepte für die Prefs. */
 export function eligibleRecipes(recipes: Recipe[], prefs: UserPreferences): Recipe[] {
   return recipes.filter((r) => isEligible(r, prefs));
+}
+
+/**
+ * Passt ein Rezept zu einer Tageszeit? Leeres mealTypes gilt als Mittag/Abend
+ * (nie Frühstück), damit ungetaggte/ältere Rezepte nicht als Frühstück auftauchen.
+ */
+export function matchesMealType(recipe: Recipe, mealType: MealType): boolean {
+  if (recipe.mealTypes.length === 0) return mealType !== 'fruehstueck';
+  return recipe.mealTypes.includes(mealType);
+}
+
+/** Zulässige Rezepte für eine bestimmte Tageszeit. */
+export function eligibleForMeal(
+  recipes: Recipe[],
+  prefs: UserPreferences,
+  mealType: MealType,
+): Recipe[] {
+  return recipes.filter((r) => isEligible(r, prefs) && matchesMealType(r, mealType));
 }
 
 /**

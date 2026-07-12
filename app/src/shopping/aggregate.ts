@@ -37,6 +37,7 @@ export function aggregateShoppingItems(
   const groups = new Map<string, Accum>();
 
   for (const entry of plan.entries) {
+    if (!entry.recipeId) continue; // übersprungener Slot
     const recipe = byId.get(entry.recipeId);
     if (!recipe) continue;
     for (const ing of recipe.ingredients) {

@@ -28,6 +28,20 @@ export class MealioDB extends Dexie {
       priceOverrides: 'productKey',
       preferences: 'id',
     });
+    // v2: Plan-Slots erhielten mealType; alte Pläne/Listen (altes Schema) verwerfen
+    // (abgeleitete Daten, werden neu generiert). Rezepte/Prefs bleiben erhalten.
+    this.version(2)
+      .stores({
+        recipes: 'id, isFavorite, source, *mealStyles, *mealTypes, *dietTags',
+        mealPlans: 'id, weekStartDate',
+        shoppingItems: 'id, aisle, isChecked',
+        priceOverrides: 'productKey',
+        preferences: 'id',
+      })
+      .upgrade(async (tx) => {
+        await tx.table('mealPlans').clear();
+        await tx.table('shoppingItems').clear();
+      });
   }
 }
 

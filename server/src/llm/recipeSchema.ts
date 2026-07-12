@@ -27,6 +27,10 @@ export const MEAL_STYLES = [
 ] as const;
 export type MealStyle = (typeof MEAL_STYLES)[number];
 
+/** Mahlzeit-Typen (Tageszeit), Spiegel des Frontends (app/src/domain/enums.ts). */
+export const MEAL_TYPES = ['fruehstueck', 'mittagessen', 'abendessen'] as const;
+export type MealType = (typeof MEAL_TYPES)[number];
+
 /** Diät-Tags, die ein Rezept erfüllt. */
 export const DIET_TAGS = [
   'omnivor',
@@ -88,6 +92,11 @@ export type LlmIngredient = z.infer<typeof llmIngredientSchema>;
 export const llmRecipeSchema = z.object({
   title: z.string().trim().min(1).max(160),
   mealStyles: z.array(z.enum(MEAL_STYLES)).default([]),
+  // Für welche Tageszeit(en) das Rezept gedacht ist. Nie leer: fehlt es, wird
+  // 'abendessen' angenommen. Ein explizit leeres Array wird von validateRecipe
+  // als Verstoß behandelt (Repair/Seed-Fallback), damit die Response nie ein
+  // Rezept ohne mealTypes ausliefert.
+  mealTypes: z.array(z.enum(MEAL_TYPES)).default(['abendessen']),
   dietTags: z.array(z.enum(DIET_TAGS)).default([]),
   requiredAppliances: z.array(z.enum(APPLIANCES)).default([]),
   prepMinutes: z.number().int().nonnegative(),
@@ -134,6 +143,7 @@ export const llmPlanJsonSchema: Record<string, unknown> = {
         required: [
           'title',
           'mealStyles',
+          'mealTypes',
           'dietTags',
           'requiredAppliances',
           'prepMinutes',
@@ -146,6 +156,7 @@ export const llmPlanJsonSchema: Record<string, unknown> = {
         properties: {
           title: { type: 'string' },
           mealStyles: { type: 'array', items: { enum: [...MEAL_STYLES] } },
+          mealTypes: { type: 'array', minItems: 1, items: { enum: [...MEAL_TYPES] } },
           dietTags: { type: 'array', items: { enum: [...DIET_TAGS] } },
           requiredAppliances: { type: 'array', items: { enum: [...APPLIANCES] } },
           prepMinutes: { type: 'integer', minimum: 0 },

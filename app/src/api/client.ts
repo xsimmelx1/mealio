@@ -64,6 +64,7 @@ export async function generatePlan(
     avoidedIngredients: prefs.avoidedIngredients,
     appliances: prefs.appliances,
     preferredStyles: prefs.preferredStyles,
+    mealTypes: prefs.mealTypes,
     budget: prefs.budget,
     days,
   };

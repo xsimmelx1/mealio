@@ -25,8 +25,9 @@ import {
   type LlmIngredient,
   type LlmRecipe,
 } from './recipeSchema.js';
+import type { MealType } from './recipeSchema.js';
 import { findAllergenViolation } from './dietRules.js';
-import { buildSeedPool, normalizeTitle, scaleRecipe } from './seedRecipes.js';
+import { buildSeedPool, normalizeTitle, requestedMealTypes, scaleRecipe } from './seedRecipes.js';
 
 /** Ergebnis des Schema-Parse. */
 export type ParseResult =
@@ -124,11 +125,24 @@ export function checkRecipe(recipe: LlmRecipe, prefs: GeneratePlanInput): CheckR
     return { ok: false, reason: `Garzeit ${recipe.cookMinutes} min zu hoch` };
   }
 
-  // 7) baseServings == numberOfPeople: bei Abweichung korrigieren (skalieren).
-  let corrected = recipe;
-  if (recipe.baseServings !== prefs.numberOfPeople) {
-    corrected = scaleRecipe(recipe, prefs.numberOfPeople);
+  // 7) mealTypes: nicht leer UND Schnittmenge mit den angefragten Mahlzeiten.
+  //    Auf die Schnittmenge einengen, damit die Response nur ⊆ angefragt enthält.
+  const wantedMeals = requestedMealTypes(prefs);
+  const intersect = recipe.mealTypes.filter((m): m is MealType =>
+    wantedMeals.includes(m as MealType),
+  );
+  if (intersect.length === 0) {
+    return {
+      ok: false,
+      reason: `mealTypes [${recipe.mealTypes.join(', ') || 'leer'}] passt nicht zu angefragten [${wantedMeals.join(', ')}]`,
+    };
   }
+
+  // 8) baseServings == numberOfPeople: bei Abweichung korrigieren (skalieren).
+  let corrected = recipe.baseServings !== prefs.numberOfPeople
+    ? scaleRecipe(recipe, prefs.numberOfPeople)
+    : recipe;
+  corrected = { ...corrected, mealTypes: intersect };
 
   return { ok: true, recipe: corrected };
 }
@@ -142,10 +156,12 @@ export type ValidatePlanResult =
  * Validiert einen kompletten (rohen) LLM-Plan gegen die Präferenzen.
  *
  * - Schema-Parse; scheitert er -> { ok:false } (Aufrufer entscheidet über Repair).
- * - Je Rezept harte Checks; verletzte werden verworfen.
- * - Titel-Duplikate werden entfernt.
- * - Verworfene/fehlende Slots werden mit geprüften Seed-Rezepten aufgefüllt,
- *   bis genau `days` eindeutige Rezepte vorliegen. So wird NIE ungeprüft geliefert.
+ * - Je Rezept harte Checks (inkl. mealTypes ⊆ angefragte Typen); verletzte werden
+ *   verworfen. checkRecipe engt mealTypes auf die Schnittmenge ein.
+ * - Der Plan wird PRO angefragter Mahlzeit gefüllt: jeweils `days` eindeutige
+ *   Rezepte, jedes einer Mahlzeit fest zugeordnet (mealTypes = [meal]).
+ * - Fehlende Slots werden mit geprüften Seed-Rezepten der jeweiligen Mahlzeit
+ *   aufgefüllt. So wird NIE ungeprüft geliefert; Gesamtzahl ~ days * #Mahlzeiten.
  */
 export function validatePlan(raw: unknown, prefs: GeneratePlanInput): ValidatePlanResult {
   const parsed = parsePlan(raw);
@@ -153,12 +169,13 @@ export function validatePlan(raw: unknown, prefs: GeneratePlanInput): ValidatePl
     return { ok: false, reason: parsed.reason };
   }
 
-  const days = Math.max(1, prefs.days);
+  const meals = requestedMealTypes(prefs);
+  const perMeal = Math.max(1, prefs.days);
   const usedTitles = new Set<string>();
-  const accepted: LlmRecipe[] = [];
+  // Ein Eimer je angefragter Mahlzeit; Reihenfolge = Reihenfolge der Anfrage.
+  const buckets = new Map<MealType, LlmRecipe[]>(meals.map((m) => [m, []]));
 
   for (const recipe of parsed.recipes) {
-    if (accepted.length >= days) break;
     const check = checkRecipe(recipe, prefs);
     if (!check.ok) {
       logger.warn('validatePlan: Rezept verworfen', {
@@ -167,38 +184,47 @@ export function validatePlan(raw: unknown, prefs: GeneratePlanInput): ValidatePl
       });
       continue;
     }
-    const key = normalizeTitle(check.recipe.title);
+    const r = check.recipe; // mealTypes bereits auf angefragte Schnittmenge eingeengt
+    const key = normalizeTitle(r.title);
     if (usedTitles.has(key)) {
-      logger.warn('validatePlan: Duplikat verworfen', { title: check.recipe.title });
+      logger.warn('validatePlan: Duplikat verworfen', { title: r.title });
       continue;
     }
+    // Genau EINER noch nicht vollen Mahlzeit zuordnen (kein Doppelzählen).
+    const target = r.mealTypes.find((m) => (buckets.get(m as MealType)?.length ?? perMeal) < perMeal);
+    if (!target) continue; // alle passenden Mahlzeiten schon voll
     usedTitles.add(key);
-    accepted.push(check.recipe);
+    buckets.get(target as MealType)!.push({ ...r, mealTypes: [target as MealType] });
   }
 
-  // Auffüllen mit geprüften Seed-Rezepten (eindeutige Titel garantiert).
-  if (accepted.length < days) {
-    fillFromSeed(accepted, usedTitles, prefs, days);
+  // Je Mahlzeit mit geprüften Seed-Rezepten auffüllen.
+  for (const meal of meals) {
+    const bucket = buckets.get(meal)!;
+    if (bucket.length < perMeal) {
+      fillFromSeed(bucket, usedTitles, prefs, perMeal, meal);
+    }
   }
 
-  return { ok: true, recipes: accepted.slice(0, days) };
+  const recipes = meals.flatMap((m) => buckets.get(m)!);
+  return { ok: true, recipes };
 }
 
-/** Füllt `accepted` mit Seed-Rezepten auf, ohne Titel-Duplikate zu erzeugen. */
+/** Füllt einen Mahlzeit-Eimer mit Seed-Rezepten auf, ohne Titel-Duplikate. */
 function fillFromSeed(
-  accepted: LlmRecipe[],
+  bucket: LlmRecipe[],
   usedTitles: Set<string>,
   prefs: GeneratePlanInput,
-  days: number,
+  perMeal: number,
+  meal: MealType,
 ): void {
-  const pool = buildSeedPool(prefs);
+  const pool = buildSeedPool(prefs, meal);
   if (pool.length === 0) return;
 
   let variant = 0;
   let poolIndex = 0;
   // Sicherheitslimit gegen Endlosschleifen.
   let guard = 0;
-  while (accepted.length < days && guard < days * 4 + 8) {
+  while (bucket.length < perMeal && guard < perMeal * 4 + 8) {
     guard++;
     const base = pool[poolIndex % pool.length];
     poolIndex++;
@@ -208,6 +234,6 @@ function fillFromSeed(
     if (poolIndex % pool.length === 0) variant++;
     if (usedTitles.has(key)) continue;
     usedTitles.add(key);
-    accepted.push({ ...base, title });
+    bucket.push({ ...base, title });
   }
 }

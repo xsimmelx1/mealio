@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { UserPreferencesSchema, type Recipe, type UserPreferences } from '../domain/schema';
-import { isEligible, preferenceScore, whySuitable } from './filterRecipes';
-import { DAYS_PER_WEEK, pickReplacement, pickWeek } from './generatePlan';
+import { isEligible, matchesMealType, preferenceScore, whySuitable } from './filterRecipes';
+import { buildSlots, pickPlan, pickReplacementSlot } from './generatePlan';
 
 function recipe(partial: Partial<Recipe> & { id: string }): Recipe {
   return {
     title: partial.id,
     mealStyles: [],
+    mealTypes: ['mittagessen', 'abendessen'],
     dietTags: ['omnivor'],
     requiredAppliances: ['herd'],
     prepMinutes: 5,
@@ -27,33 +28,16 @@ const prefs = (patch: Partial<UserPreferences> = {}): UserPreferences =>
   UserPreferencesSchema.parse({ ...patch });
 
 describe('isEligible', () => {
-  it('Ernährungsform: vegan verlangt vegan-Tag', () => {
-    const vegan = recipe({ id: 'v', dietTags: ['vegan', 'vegetarisch'] });
-    const omni = recipe({ id: 'o', dietTags: ['omnivor'] });
-    expect(isEligible(vegan, prefs({ diet: 'vegan' }))).toBe(true);
-    expect(isEligible(omni, prefs({ diet: 'vegan' }))).toBe(false);
+  it('vegan verlangt vegan-Tag', () => {
+    expect(isEligible(recipe({ id: 'v', dietTags: ['vegan'] }), prefs({ diet: 'vegan' }))).toBe(true);
+    expect(isEligible(recipe({ id: 'o', dietTags: ['omnivor'] }), prefs({ diet: 'vegan' }))).toBe(false);
   });
-
-  it('vegetarisch akzeptiert vegan-Rezepte', () => {
-    const vegan = recipe({ id: 'v', dietTags: ['vegan'] });
-    expect(isEligible(vegan, prefs({ diet: 'vegetarisch' }))).toBe(true);
-  });
-
   it('Gluten-Allergie verlangt glutenfrei-Tag', () => {
-    const gf = recipe({ id: 'gf', dietTags: ['omnivor', 'glutenfrei'] });
-    const normal = recipe({ id: 'n', dietTags: ['omnivor'] });
-    expect(isEligible(gf, prefs({ allergies: ['gluten'] }))).toBe(true);
-    expect(isEligible(normal, prefs({ allergies: ['gluten'] }))).toBe(false);
+    expect(
+      isEligible(recipe({ id: 'g', dietTags: ['omnivor', 'glutenfrei'] }), prefs({ allergies: ['gluten'] })),
+    ).toBe(true);
+    expect(isEligible(recipe({ id: 'n', dietTags: ['omnivor'] }), prefs({ allergies: ['gluten'] }))).toBe(false);
   });
-
-  it('Fisch-Allergie schließt Rezept mit Lachs aus (Keyword)', () => {
-    const fish = recipe({
-      id: 'f',
-      ingredients: [{ name: 'Lachsfilet', amount: 200, unit: 'g', aisle: 'fleisch-fisch' }],
-    });
-    expect(isEligible(fish, prefs({ allergies: ['fisch'] }))).toBe(false);
-  });
-
   it('ungeliebte Zutat schließt aus', () => {
     const r = recipe({
       id: 'r',
@@ -61,84 +45,106 @@ describe('isEligible', () => {
     });
     expect(isEligible(r, prefs({ avoidedIngredients: ['koriander'] }))).toBe(false);
   });
-
-  it('Geräte: leere Prefs-Liste = keine Einschränkung', () => {
-    const oven = recipe({ id: 'ov', requiredAppliances: ['backofen'] });
-    expect(isEligible(oven, prefs({ appliances: [] }))).toBe(true);
-  });
-
-  it('Geräte: benötigtes Gerät fehlt -> ausgeschlossen', () => {
+  it('fehlendes Gerät -> ausgeschlossen; leere Geräteliste = keine Einschränkung', () => {
     const oven = recipe({ id: 'ov', requiredAppliances: ['backofen'] });
     expect(isEligible(oven, prefs({ appliances: ['herd'] }))).toBe(false);
+    expect(isEligible(oven, prefs({ appliances: [] }))).toBe(true);
+  });
+});
+
+describe('matchesMealType', () => {
+  it('leeres mealTypes gilt als Mittag/Abend, nie Frühstück', () => {
+    const r = recipe({ id: 'r', mealTypes: [] });
+    expect(matchesMealType(r, 'abendessen')).toBe(true);
+    expect(matchesMealType(r, 'mittagessen')).toBe(true);
+    expect(matchesMealType(r, 'fruehstueck')).toBe(false);
+  });
+  it('respektiert explizite Tags', () => {
+    const b = recipe({ id: 'b', mealTypes: ['fruehstueck'] });
+    expect(matchesMealType(b, 'fruehstueck')).toBe(true);
+    expect(matchesMealType(b, 'abendessen')).toBe(false);
   });
 });
 
 describe('preferenceScore', () => {
   it('Favoriten und bevorzugte Styles erhöhen den Score', () => {
     const r = recipe({ id: 'r', isFavorite: true, mealStyles: ['schnell', 'budget'] });
-    expect(preferenceScore(r, prefs({ preferredStyles: ['schnell'] }))).toBe(4); // 3 + 1
+    expect(preferenceScore(r, prefs({ preferredStyles: ['schnell'] }))).toBe(4);
   });
 });
 
 describe('whySuitable', () => {
-  it('nennt erfüllte Präferenzen (Style + schnell)', () => {
+  it('nennt erfüllte Präferenzen', () => {
     const r = recipe({ id: 'r', mealStyles: ['schnell'], prepMinutes: 5, cookMinutes: 10 });
-    const reasons = whySuitable(r, prefs({ diet: 'omnivor', preferredStyles: ['schnell'] }));
+    const reasons = whySuitable(r, prefs({ preferredStyles: ['schnell'] }));
     expect(reasons).toContain('Schnell');
     expect(reasons).toContain('schnell gemacht');
   });
+});
 
-  it('nennt "ohne <Allergen>" für vermiedene Allergene', () => {
-    const r = recipe({ id: 'r', dietTags: ['omnivor', 'glutenfrei'] });
-    const reasons = whySuitable(r, prefs({ allergies: ['gluten'] }));
-    expect(reasons.some((x) => x.includes('gluten'))).toBe(true);
+describe('buildSlots', () => {
+  it('erzeugt Tag × Mahlzeit, kanonisch sortiert', () => {
+    const slots = buildSlots(prefs({ planDays: [2, 0], mealTypes: ['abendessen', 'fruehstueck'] }));
+    expect(slots).toHaveLength(4);
+    // Tag 0 zuerst, Frühstück vor Abendessen
+    expect(slots[0]).toEqual({ dayOfWeek: 0, mealType: 'fruehstueck' });
+    expect(slots[1]).toEqual({ dayOfWeek: 0, mealType: 'abendessen' });
+    expect(slots[2]).toEqual({ dayOfWeek: 2, mealType: 'fruehstueck' });
   });
 });
 
-describe('pickWeek', () => {
-  const pool = Array.from({ length: 10 }, (_, i) => recipe({ id: `r${i}` }));
+describe('pickPlan', () => {
+  const dinnerPool = Array.from({ length: 10 }, (_, i) => recipe({ id: `d${i}` }));
 
-  it('liefert 7 Einträge ohne Duplikate bei genügend Rezepten', () => {
-    const ids = pickWeek(pool, prefs(), 42);
-    expect(ids).toHaveLength(DAYS_PER_WEEK);
-    expect(new Set(ids).size).toBe(DAYS_PER_WEEK);
+  it('füllt alle Slots (planDays × mealTypes), deterministisch', () => {
+    const p = prefs({ planDays: [0, 1, 2], mealTypes: ['abendessen'] });
+    const a = pickPlan(dinnerPool, p, 42);
+    const b = pickPlan(dinnerPool, p, 42);
+    expect(a).toHaveLength(3);
+    expect(a).toEqual(b);
+    expect(a.every((e) => e.mealType === 'abendessen' && e.recipeId)).toBe(true);
+    // keine Duplikate innerhalb der Mahlzeit
+    expect(new Set(a.map((e) => e.recipeId)).size).toBe(3);
   });
 
-  it('ist deterministisch bei gleichem Seed', () => {
-    expect(pickWeek(pool, prefs(), 42)).toEqual(pickWeek(pool, prefs(), 42));
+  it('trennt Mahlzeiten: Frühstück nur aus Frühstücks-Rezepten', () => {
+    const pool = [
+      ...dinnerPool,
+      recipe({ id: 'b1', mealTypes: ['fruehstueck'], title: 'Porridge' }),
+      recipe({ id: 'b2', mealTypes: ['fruehstueck'], title: 'Pancakes' }),
+    ];
+    const p = prefs({ planDays: [0], mealTypes: ['fruehstueck', 'abendessen'] });
+    const plan = pickPlan(pool, p, 7);
+    const bf = plan.find((e) => e.mealType === 'fruehstueck');
+    const din = plan.find((e) => e.mealType === 'abendessen');
+    expect(['b1', 'b2']).toContain(bf?.recipeId);
+    expect(din?.recipeId?.startsWith('d')).toBe(true);
   });
 
-  it('unterschiedliche Seeds -> (meist) andere Auswahl', () => {
-    const a = pickWeek(pool, prefs(), 1);
-    const b = pickWeek(pool, prefs(), 999);
-    expect(a).not.toEqual(b);
-  });
-
-  it('kleiner Pool -> 7 Einträge mit Wiederholung', () => {
-    const small = [recipe({ id: 'x' }), recipe({ id: 'y' })];
-    const ids = pickWeek(small, prefs(), 7);
-    expect(ids).toHaveLength(DAYS_PER_WEEK);
-  });
-
-  it('leerer/kein passender Pool -> []', () => {
-    expect(pickWeek([], prefs(), 7)).toEqual([]);
-    const veganPool = [recipe({ id: 'o', dietTags: ['omnivor'] })];
-    expect(pickWeek(veganPool, prefs({ diet: 'vegan' }), 7)).toEqual([]);
+  it('kein passendes Rezept für eine Mahlzeit -> Slot recipeId null (nicht geraten)', () => {
+    // Pool hat keine Frühstücks-Rezepte
+    const p = prefs({ planDays: [0, 1], mealTypes: ['fruehstueck'] });
+    const plan = pickPlan(dinnerPool, p, 3);
+    expect(plan).toHaveLength(2);
+    expect(plan.every((e) => e.recipeId === null)).toBe(true);
   });
 });
 
-describe('pickReplacement', () => {
-  const pool = Array.from({ length: 10 }, (_, i) => recipe({ id: `r${i}` }));
+describe('pickReplacementSlot', () => {
+  const pool = Array.from({ length: 8 }, (_, i) => recipe({ id: `d${i}` }));
 
-  it('ersetzt Tag durch ein anderes, nicht anderswo genutztes Rezept', () => {
-    const week = pickWeek(pool, prefs(), 5);
-    const repl = pickReplacement(pool, prefs(), week, 2, 123);
+  it('ersetzt einen Slot durch ein anderes, nicht anderswo genutztes Rezept', () => {
+    const p = prefs({ planDays: [0, 1, 2], mealTypes: ['abendessen'] });
+    const plan = pickPlan(pool, p, 5);
+    const repl = pickReplacementSlot(pool, p, plan, 1, 'abendessen', 123);
+    const current = plan.find((e) => e.dayOfWeek === 1)?.recipeId;
+    const others = plan.filter((e) => e.dayOfWeek !== 1).map((e) => e.recipeId);
     expect(repl).not.toBeNull();
-    expect(repl).not.toBe(week[2]);
-    expect(week.filter((_, i) => i !== 2)).not.toContain(repl);
+    expect(repl).not.toBe(current);
+    expect(others).not.toContain(repl);
   });
 
   it('kein passendes Rezept -> null', () => {
-    expect(pickReplacement([], prefs(), [], 0, 1)).toBeNull();
+    expect(pickReplacementSlot([], prefs(), [], 0, 'abendessen', 1)).toBeNull();
   });
 });

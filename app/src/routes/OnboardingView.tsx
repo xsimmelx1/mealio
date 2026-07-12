@@ -11,16 +11,21 @@ import {
   DIETS,
   MEAL_STYLES,
   MEAL_STYLE_LABELS,
+  MEAL_TYPES,
+  MEAL_TYPE_LABELS,
   type Allergy,
   type Appliance,
   type Currency,
   type Diet,
   type MealStyle,
+  type MealType,
 } from '../domain/enums';
 import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
+import { WEEKDAY_LABELS } from '../plan/week';
 import { usePrefsStore } from '../state/prefsStore';
 
-const STEP_COUNT = 7;
+const STEP_COUNT = 8;
+const DAY_OPTIONS = WEEKDAY_LABELS.map((label, i) => ({ value: String(i), label }));
 
 export default function OnboardingView() {
   const navigate = useNavigate();
@@ -41,6 +46,8 @@ export default function OnboardingView() {
   const [avoided, setAvoided] = useState<string[]>(prefs.avoidedIngredients);
   const [styles, setStyles] = useState<MealStyle[]>(prefs.preferredStyles);
   const [appliances, setAppliances] = useState<Appliance[]>(prefs.appliances);
+  const [planDays, setPlanDays] = useState<number[]>(prefs.planDays);
+  const [mealTypes, setMealTypes] = useState<MealType[]>(prefs.mealTypes);
 
   const toggle = <T extends string>(list: T[], value: T, set: (v: T[]) => void) =>
     set(list.includes(value) ? list.filter((x) => x !== value) : [...list, value]);
@@ -62,6 +69,8 @@ export default function OnboardingView() {
           avoidedIngredients: avoided,
           preferredStyles: styles,
           appliances,
+          planDays,
+          mealTypes,
           onboardingComplete: true,
         });
       }
@@ -231,6 +240,37 @@ export default function OnboardingView() {
               onToggle={(v) => toggle(appliances, v, setAppliances)}
               ariaLabel="Küchengeräte"
             />
+          </StepShell>
+        )}
+
+        {step === 7 && (
+          <StepShell
+            emoji="📆"
+            title="Wann kochst du?"
+            hint="Wähle die Wochentage und Mahlzeiten, die geplant werden sollen."
+          >
+            <Field label="Wochentage">
+              <ChipMultiSelect
+                options={DAY_OPTIONS}
+                selected={planDays.map(String)}
+                onToggle={(v) =>
+                  setPlanDays(
+                    planDays.includes(Number(v))
+                      ? planDays.filter((d) => d !== Number(v))
+                      : [...planDays, Number(v)],
+                  )
+                }
+                ariaLabel="Wochentage"
+              />
+            </Field>
+            <Field label="Mahlzeiten pro Tag">
+              <ChipMultiSelect
+                options={toOptions(MEAL_TYPES, MEAL_TYPE_LABELS)}
+                selected={mealTypes}
+                onToggle={(v) => toggle(mealTypes, v, setMealTypes)}
+                ariaLabel="Mahlzeiten"
+              />
+            </Field>
           </StepShell>
         )}
       </div>

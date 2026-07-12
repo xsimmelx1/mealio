@@ -12,6 +12,7 @@ function recipe(overrides: Partial<LlmRecipe> = {}): LlmRecipe {
   return {
     title: 'Test-Rezept',
     mealStyles: ['schnell'],
+    mealTypes: ['abendessen'],
     dietTags: ['vegetarisch'],
     requiredAppliances: ['herd'],
     prepMinutes: 10,
@@ -102,6 +103,19 @@ describe('checkRecipe (harte Checks)', () => {
       expect(res.recipe.ingredients[0].amount).toBe(320);
     }
   });
+
+  it('verwirft Rezept, dessen mealTypes nicht zur angefragten Mahlzeit passen', () => {
+    const r = recipe({ mealTypes: ['fruehstueck'] });
+    const res = checkRecipe(r, prefs({ mealTypes: ['abendessen'] }));
+    expect(res.ok).toBe(false);
+  });
+
+  it('engt mealTypes auf die Schnittmenge mit den angefragten Typen ein', () => {
+    const r = recipe({ mealTypes: ['mittagessen', 'abendessen'] });
+    const res = checkRecipe(r, prefs({ mealTypes: ['abendessen'] }));
+    expect(res.ok).toBe(true);
+    if (res.ok) expect(res.recipe.mealTypes).toEqual(['abendessen']);
+  });
 });
 
 describe('validatePlan (Plan-Ebene)', () => {
@@ -145,6 +159,39 @@ describe('validatePlan (Plan-Ebene)', () => {
     if (res.ok) {
       expect(res.recipes.length).toBe(4);
       expect(res.recipes.every((r) => r.baseServings === 3)).toBe(true);
+    }
+  });
+
+  it('liefert ~days Rezepte JE angefragter Mahlzeit, jeweils passend getaggt', () => {
+    const res = validatePlan({ recipes: [recipe()] }, prefs({ days: 3, mealTypes: ['fruehstueck', 'abendessen'] }));
+    expect(res.ok).toBe(true);
+    if (res.ok) {
+      // days=3 x 2 Mahlzeiten = 6 Rezepte insgesamt.
+      expect(res.recipes.length).toBe(6);
+      const fruehstueck = res.recipes.filter((r) => r.mealTypes.includes('fruehstueck'));
+      const abendessen = res.recipes.filter((r) => r.mealTypes.includes('abendessen'));
+      expect(fruehstueck.length).toBe(3);
+      expect(abendessen.length).toBe(3);
+      // Jedes Rezept trägt genau EINE der angefragten Mahlzeiten (nicht leer, ⊆).
+      for (const r of res.recipes) {
+        expect(r.mealTypes.length).toBeGreaterThanOrEqual(1);
+        expect(r.mealTypes.every((m) => ['fruehstueck', 'abendessen'].includes(m))).toBe(true);
+      }
+    }
+  });
+
+  it('ordnet ein Frühstücks-LLM-Rezept korrekt der Frühstücks-Mahlzeit zu', () => {
+    const b = recipe({
+      title: 'Haferbrei mit Apfel',
+      mealTypes: ['fruehstueck'],
+      dietTags: ['vegetarisch'],
+      ingredients: [{ name: 'Haferflocken', amount: 60, unit: 'g', aisle: 'trockenwaren' }],
+    });
+    const res = validatePlan({ recipes: [b] }, prefs({ days: 2, mealTypes: ['fruehstueck', 'abendessen'] }));
+    expect(res.ok).toBe(true);
+    if (res.ok) {
+      const match = res.recipes.find((r) => r.title === 'Haferbrei mit Apfel');
+      expect(match?.mealTypes).toEqual(['fruehstueck']);
     }
   });
 });

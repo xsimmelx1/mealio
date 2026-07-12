@@ -31,6 +31,7 @@ function recipe(id: string, ingredients: Recipe['ingredients']): Recipe {
     id,
     title: id,
     mealStyles: [],
+    mealTypes: ['abendessen'],
     dietTags: ['omnivor'],
     requiredAppliances: ['herd'],
     prepMinutes: 5,
@@ -61,8 +62,8 @@ const plan: MealPlan = {
   id: 'plan-x',
   weekStartDate: '2026-07-06',
   entries: [
-    { dayOfWeek: 0, recipeId: 'A' },
-    { dayOfWeek: 1, recipeId: 'B' },
+    { dayOfWeek: 0, mealType: 'abendessen', recipeId: 'A' },
+    { dayOfWeek: 1, mealType: 'abendessen', recipeId: 'B' },
   ],
 };
 

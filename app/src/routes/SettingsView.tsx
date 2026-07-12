@@ -12,10 +12,15 @@ import {
   DIETS,
   MEAL_STYLES,
   MEAL_STYLE_LABELS,
+  MEAL_TYPES,
+  MEAL_TYPE_LABELS,
 } from '../domain/enums';
 import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
 import { resetPriceOverrides } from '../db/priceActions';
+import { WEEKDAY_LABELS } from '../plan/week';
 import { usePrefsStore } from '../state/prefsStore';
+
+const DAY_OPTIONS = WEEKDAY_LABELS.map((label, i) => ({ value: String(i), label }));
 
 export default function SettingsView() {
   const prefs = usePrefsStore((s) => s.prefs);
@@ -57,6 +62,32 @@ export default function SettingsView() {
             value={prefs.currency}
             onChange={(v) => void update({ currency: v })}
             ariaLabel="Währung"
+          />
+        </Field>
+      </Section>
+
+      {/* Planung */}
+      <Section title="Planung">
+        <Field label="Wochentage">
+          <ChipMultiSelect
+            options={DAY_OPTIONS}
+            selected={prefs.planDays.map(String)}
+            onToggle={(v) =>
+              void update({
+                planDays: prefs.planDays.includes(Number(v))
+                  ? prefs.planDays.filter((d) => d !== Number(v))
+                  : [...prefs.planDays, Number(v)],
+              })
+            }
+            ariaLabel="Wochentage"
+          />
+        </Field>
+        <Field label="Mahlzeiten pro Tag">
+          <ChipMultiSelect
+            options={toOptions(MEAL_TYPES, MEAL_TYPE_LABELS)}
+            selected={prefs.mealTypes}
+            onToggle={(v) => void update({ mealTypes: toggleIn(prefs.mealTypes, v) })}
+            ariaLabel="Mahlzeiten"
           />
         </Field>
       </Section>

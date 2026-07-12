@@ -18,6 +18,16 @@ export const MEAL_STYLES = [
 ] as const;
 export type MealStyle = (typeof MEAL_STYLES)[number];
 
+/** Mahlzeit-Typen (Tageszeit). */
+export const MEAL_TYPES = ['fruehstueck', 'mittagessen', 'abendessen'] as const;
+export type MealType = (typeof MEAL_TYPES)[number];
+
+export const MEAL_TYPE_LABELS: Record<MealType, string> = {
+  fruehstueck: 'Frühstück',
+  mittagessen: 'Mittagessen',
+  abendessen: 'Abendessen',
+};
+
 /** Ernährungsform / Diät-Tags eines Rezepts (was das Rezept erfüllt). */
 export const DIET_TAGS = [
   'omnivor',

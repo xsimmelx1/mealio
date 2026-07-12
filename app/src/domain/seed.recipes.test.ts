@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import seedRecipes from '../assets/recipes.seed.json';
 import { SeedRecipeSchema } from './schema';
+import { MEAL_TYPES } from './enums';
 
 /**
  * Guardrail-Tests für die kuratierten Seed-Rezepte.
@@ -78,9 +79,29 @@ function containsAnimalKeyword(name: string): string | null {
 }
 
 describe('recipes.seed.json', () => {
-  it('ist ein Array mit mindestens 25 Rezepten', () => {
+  it('ist ein Array mit mindestens 39 Rezepten', () => {
     expect(Array.isArray(seedRecipes)).toBe(true);
-    expect(seedRecipes.length).toBeGreaterThanOrEqual(25);
+    expect(seedRecipes.length).toBeGreaterThanOrEqual(39);
+  });
+
+  it('jedes Rezept hat mind. einen gültigen mealTypes-Eintrag', () => {
+    for (const recipe of seedRecipes) {
+      expect(
+        recipe.mealTypes.length,
+        `Rezept ${recipe.id} hat keine mealTypes`,
+      ).toBeGreaterThanOrEqual(1);
+      for (const mt of recipe.mealTypes) {
+        expect(
+          (MEAL_TYPES as readonly string[]).includes(mt),
+          `Rezept ${recipe.id} hat ungültigen mealType "${mt}"`,
+        ).toBe(true);
+      }
+    }
+  });
+
+  it('enthält mindestens 8 Frühstücks-Rezepte', () => {
+    const fruehstueck = seedRecipes.filter((r) => r.mealTypes.includes('fruehstueck'));
+    expect(fruehstueck.length).toBeGreaterThanOrEqual(8);
   });
 
   it('jedes Rezept ist gegen SeedRecipeSchema valide', () => {

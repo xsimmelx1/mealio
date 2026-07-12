@@ -7,6 +7,7 @@ import {
   DIET_TAGS,
   DIETS,
   MEAL_STYLES,
+  MEAL_TYPES,
   UNITS,
 } from './enums';
 
@@ -44,6 +45,8 @@ export const RecipeSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   mealStyles: z.array(z.enum(MEAL_STYLES)).default([]),
+  /** Für welche Tageszeiten das Rezept geeignet ist. Leer = Mittag/Abend (Default). */
+  mealTypes: z.array(z.enum(MEAL_TYPES)).default([]),
   dietTags: z.array(z.enum(DIET_TAGS)).default([]),
   requiredAppliances: z.array(z.enum(APPLIANCES)).default([]),
   prepMinutes: z.number().int().nonnegative(),
@@ -61,10 +64,14 @@ export const RecipeSchema = z.object({
 });
 export type Recipe = z.infer<typeof RecipeSchema>;
 
-/** Ein Wochenplan: 7 Einträge (dayOfWeek 0=Mo … 6=So) mit Rezept-Referenz. */
+/**
+ * Ein Plan-Slot: (Wochentag 0=Mo…6=So) × Mahlzeit.
+ * recipeId=null bedeutet „übersprungen/leer" (Nutzer will hier kein Gericht).
+ */
 export const MealPlanEntrySchema = z.object({
   dayOfWeek: z.number().int().min(0).max(6),
-  recipeId: z.string().min(1),
+  mealType: z.enum(MEAL_TYPES),
+  recipeId: z.string().min(1).nullable(),
 });
 export type MealPlanEntry = z.infer<typeof MealPlanEntrySchema>;
 
@@ -124,6 +131,10 @@ export const UserPreferencesSchema = z.object({
   avoidedIngredients: z.array(z.string()).default([]),
   appliances: z.array(z.enum(APPLIANCES)).default([]),
   numberOfPeople: z.number().int().positive().default(2),
+  /** Wochentage, die geplant werden sollen (0=Mo…6=So). */
+  planDays: z.array(z.number().int().min(0).max(6)).default([0, 1, 2, 3, 4, 5, 6]),
+  /** Mahlzeiten, die pro geplantem Tag vorkommen sollen. */
+  mealTypes: z.array(z.enum(MEAL_TYPES)).default(['abendessen']),
   /** Online-Preise (experimentell) opt-in. */
   onlinePricesEnabled: z.boolean().default(false),
   /** KI-Rezeptgenerierung (experimentell) opt-in; sonst Seed-Katalog. */

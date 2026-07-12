@@ -14,6 +14,7 @@ const catalog: Recipe[] = [
     id: 'A',
     title: 'Hähnchen-Reis',
     mealStyles: [],
+    mealTypes: ['abendessen'],
     dietTags: ['omnivor'],
     requiredAppliances: ['herd'],
     prepMinutes: 5,
@@ -35,7 +36,7 @@ const catalog: Recipe[] = [
 const plan: MealPlan = {
   id: 'plan-test',
   weekStartDate: '2026-07-06',
-  entries: [{ dayOfWeek: 0, recipeId: 'A' }],
+  entries: [{ dayOfWeek: 0, mealType: 'abendessen', recipeId: 'A' }],
 };
 
 function renderList() {

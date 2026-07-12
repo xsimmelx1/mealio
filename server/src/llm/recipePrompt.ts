@@ -8,7 +8,15 @@
  */
 
 import type { GeneratePlanInput } from '../schemas/index.js';
-import { AISLES, APPLIANCES, DIET_TAGS, MEAL_STYLES, UNITS } from './recipeSchema.js';
+import { AISLES, APPLIANCES, DIET_TAGS, MEAL_STYLES, MEAL_TYPES, UNITS } from './recipeSchema.js';
+
+/** Menschenlesbare Labels + Beispiele je Mahlzeit für den Prompt. */
+const MEAL_TYPE_HINTS: Record<string, string> = {
+  fruehstueck:
+    'Frühstück (tageszeit-typisch: z. B. Porridge, Overnight Oats, Rührei, Joghurt-Bowl, Pancakes, Shakshuka, belegtes Brot — KEINE Currys, Braten oder Abend-Hauptgerichte)',
+  mittagessen: 'Mittagessen (sättigend, alltagstauglich: Bowls, Salate, Suppen, Pfannengerichte, Pasta)',
+  abendessen: 'Abendessen (warme Hauptgerichte: Pfannen, Aufläufe, Currys, Pasta, Fleisch-/Fisch-/Gemüsegerichte)',
+};
 
 /** Statische Ausgaberegeln (Format + Vollständigkeit). Enthält keine Nutzerdaten. */
 export function buildRecipeSystemPrompt(): string {
@@ -20,6 +28,7 @@ export function buildRecipeSystemPrompt(): string {
     'Jedes Rezept-Objekt MUSS exakt diese Felder haben:',
     '- title: string (deutsch, prägnant)',
     `- mealStyles: string[] — nur aus [${MEAL_STYLES.join(', ')}]`,
+    `- mealTypes: string[] (NICHT leer) — nur aus [${MEAL_TYPES.join(', ')}]; passend zur Tageszeit des Gerichts`,
     `- dietTags: string[] — nur aus [${DIET_TAGS.join(', ')}]`,
     `- requiredAppliances: string[] — nur aus [${APPLIANCES.join(', ')}]`,
     '- prepMinutes: integer >= 0 (realistisch, <= 120)',
@@ -59,10 +68,18 @@ function budgetLine(budget: GeneratePlanInput['budget']): string {
  */
 export function buildRecipeUserPrompt(prefs: GeneratePlanInput): string {
   const days = Math.max(1, prefs.days);
+  const meals = prefs.mealTypes.length > 0 ? prefs.mealTypes : ['abendessen'];
+  const total = days * meals.length;
   const lines: string[] = [
-    `Erstelle GENAU ${days} verschiedene Rezepte (keine Duplikate, keine Titel-Wiederholungen).`,
+    `Erstelle GENAU ${total} verschiedene Rezepte (keine Duplikate, keine Titel-Wiederholungen).`,
+    `Davon je ${days} Rezepte PRO angefragter Mahlzeit.`,
+    '',
+    'Angefragte Mahlzeiten (jedes Rezept genau EINER zuordnen und mealTypes entsprechend setzen):',
+    ...meals.map((m) => `- ${MEAL_TYPE_HINTS[m] ?? m}`),
     '',
     'HARTE Constraints (alle Rezepte MÜSSEN sie erfüllen):',
+    `- Jedes Rezept ist tageszeit-typisch für seine Mahlzeit; ein Frühstück ist KEIN Curry/Braten.`,
+    `- mealTypes enthält NUR angefragte Typen (${meals.join(', ')}) und ist nie leer.`,
     `- Personenzahl: ${prefs.numberOfPeople} — setze baseServings bei JEDEM Rezept auf genau ${prefs.numberOfPeople} und skaliere die Mengen entsprechend.`,
     `- Ernährungsform: ${prefs.diet} — jedes Rezept muss dazu passen (setze passende dietTags).`,
     `- Allergien/Unverträglichkeiten (STRIKT meiden, auch versteckte Quellen): ${list(prefs.allergies)}`,

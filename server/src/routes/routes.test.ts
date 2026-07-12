@@ -60,6 +60,44 @@ describe('POST /generate-plan', () => {
     expect(r).not.toHaveProperty('source');
   });
 
+  it('mealTypes im Request -> Rezepte für alle Mahlzeiten, jedes mit mealTypes ⊆ angefragt', async () => {
+    const res = await request(app)
+      .post('/generate-plan')
+      .send({
+        numberOfPeople: 2,
+        diet: 'vegetarisch',
+        days: 3,
+        mealTypes: ['fruehstueck', 'abendessen'],
+      });
+    expect(res.status).toBe(200);
+    expect(res.body.source).toBe('llm');
+    // days=3 x 2 Mahlzeiten -> 6 Rezepte insgesamt.
+    expect(res.body.recipes.length).toBe(6);
+    const fruehstueck = res.body.recipes.filter((r: { mealTypes: string[] }) =>
+      r.mealTypes.includes('fruehstueck'),
+    );
+    const abendessen = res.body.recipes.filter((r: { mealTypes: string[] }) =>
+      r.mealTypes.includes('abendessen'),
+    );
+    expect(fruehstueck.length).toBe(3);
+    expect(abendessen.length).toBe(3);
+    for (const r of res.body.recipes as { mealTypes: string[] }[]) {
+      expect(r.mealTypes.length).toBeGreaterThanOrEqual(1);
+      expect(r.mealTypes.every((m) => ['fruehstueck', 'abendessen'].includes(m))).toBe(true);
+    }
+  });
+
+  it('ohne mealTypes -> Default abendessen (rückwärtskompatibel)', async () => {
+    const res = await request(app)
+      .post('/generate-plan')
+      .send({ numberOfPeople: 2, days: 5 });
+    expect(res.status).toBe(200);
+    expect(res.body.recipes.length).toBe(5);
+    for (const r of res.body.recipes as { mealTypes: string[] }[]) {
+      expect(r.mealTypes).toEqual(['abendessen']);
+    }
+  });
+
   it('ungültiger Body (numberOfPeople=0) -> 400 mit issues', async () => {
     const res = await request(app)
       .post('/generate-plan')

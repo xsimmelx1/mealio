@@ -2,19 +2,62 @@
   {
     "id": "seed-haehnchen-reispfanne",
     "title": "Schnelle Hähnchen-Reispfanne",
-    "mealStyles": ["schnell", "high-protein", "familienfreundlich"],
-    "dietTags": ["omnivor", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "schnell",
+      "high-protein",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "omnivor",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 20,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Hähnchenbrust", "amount": 300, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Reis", "amount": 150, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Paprika", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Sojasauce", "amount": 2, "unit": "tbsp", "aisle": "konserven" },
-      { "name": "Sonnenblumenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Hähnchenbrust",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Reis",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Paprika",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sojasauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Sonnenblumenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Reis nach Packungsanweisung kochen.",
@@ -22,23 +65,68 @@
       "Paprika in Streifen dazugeben und 5 Minuten mitbraten.",
       "Reis unterheben, mit Sojasauce und Salz abschmecken."
     ],
-    "nutritionPerServing": { "kcal": 520, "protein": 42, "carbs": 60, "fat": 12 }
+    "nutritionPerServing": {
+      "kcal": 520,
+      "protein": 42,
+      "carbs": 60,
+      "fat": 12
+    }
   },
   {
     "id": "seed-linsen-dal",
     "title": "Cremiges Rote-Linsen-Dal",
-    "mealStyles": ["budget", "veggie", "familienfreundlich"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "budget",
+      "veggie",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 25,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Rote Linsen", "amount": 200, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Kokosmilch", "amount": 400, "unit": "ml", "aisle": "konserven" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Currypulver", "amount": 1, "unit": "tbsp", "aisle": "gewürze" },
-      { "name": "Gemüsebrühe", "amount": 300, "unit": "ml", "aisle": "konserven" }
+      {
+        "name": "Rote Linsen",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Kokosmilch",
+        "amount": 400,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Currypulver",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Gemüsebrühe",
+        "amount": 300,
+        "unit": "ml",
+        "aisle": "konserven"
+      }
     ],
     "steps": [
       "Zwiebel würfeln und glasig anschwitzen.",
@@ -46,24 +134,72 @@
       "Mit Brühe und Kokosmilch aufgießen, 20 Minuten köcheln lassen.",
       "Mit Salz abschmecken und servieren."
     ],
-    "nutritionPerServing": { "kcal": 480, "protein": 20, "carbs": 52, "fat": 20 }
+    "nutritionPerServing": {
+      "kcal": 480,
+      "protein": 20,
+      "carbs": 52,
+      "fat": 20
+    }
   },
   {
     "id": "seed-spaghetti-aglio-e-olio",
     "title": "Spaghetti Aglio e Olio",
-    "mealStyles": ["schnell", "budget", "veggie"],
-    "dietTags": ["vegan", "vegetarisch"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "schnell",
+      "budget",
+      "veggie"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 5,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Spaghetti", "amount": 250, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Knoblauch", "amount": 4, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 4, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Chiliflocken", "amount": 1, "unit": "tsp", "aisle": "gewürze" },
-      { "name": "Petersilie", "amount": 0.5, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Spaghetti",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Knoblauch",
+        "amount": 4,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 4,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Chiliflocken",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Petersilie",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Spaghetti in reichlich Salzwasser al dente kochen.",
@@ -71,24 +207,70 @@
       "Etwas Nudelwasser zum Öl geben und emulgieren.",
       "Abgetropfte Spaghetti unterheben, mit gehackter Petersilie und Salz abschmecken."
     ],
-    "nutritionPerServing": { "kcal": 560, "protein": 14, "carbs": 82, "fat": 20 }
+    "nutritionPerServing": {
+      "kcal": 560,
+      "protein": 14,
+      "carbs": 82,
+      "fat": 20
+    }
   },
   {
     "id": "seed-caprese-salat",
     "title": "Caprese-Salat mit Mozzarella",
-    "mealStyles": ["schnell", "veggie"],
-    "dietTags": ["vegetarisch", "glutenfrei", "low-carb"],
+    "mealStyles": [
+      "schnell",
+      "veggie"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
     "requiredAppliances": [],
     "prepMinutes": 10,
     "cookMinutes": 0,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Tomaten", "amount": 4, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Mozzarella", "amount": 250, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Basilikum", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" },
-      { "name": "Pfeffer", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Tomaten",
+        "amount": 4,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Mozzarella",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Basilikum",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Pfeffer",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Tomaten und Mozzarella in gleichmäßige Scheiben schneiden.",
@@ -96,25 +278,80 @@
       "Mit Olivenöl beträufeln und mit Salz und Pfeffer würzen.",
       "Vor dem Servieren kurz ziehen lassen."
     ],
-    "nutritionPerServing": { "kcal": 380, "protein": 20, "carbs": 8, "fat": 30 }
+    "nutritionPerServing": {
+      "kcal": 380,
+      "protein": 20,
+      "carbs": 8,
+      "fat": 30
+    }
   },
   {
     "id": "seed-kichererbsen-curry",
     "title": "Kichererbsen-Curry mit Spinat",
-    "mealStyles": ["veggie", "budget", "familienfreundlich"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "veggie",
+      "budget",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 25,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Kichererbsen", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Kokosmilch", "amount": 400, "unit": "ml", "aisle": "konserven" },
-      { "name": "Gehackte Tomaten", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Currypulver", "amount": 1, "unit": "tbsp", "aisle": "gewürze" },
-      { "name": "Blattspinat", "amount": 200, "unit": "g", "aisle": "tiefkühl" },
-      { "name": "Reis", "amount": 150, "unit": "g", "aisle": "trockenwaren" }
+      {
+        "name": "Kichererbsen",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Kokosmilch",
+        "amount": 400,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Gehackte Tomaten",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Currypulver",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Blattspinat",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "tiefkühl"
+      },
+      {
+        "name": "Reis",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Reis nach Packungsanweisung kochen.",
@@ -122,24 +359,72 @@
       "Gehackte Tomaten und Kokosmilch zugeben, Kichererbsen unterrühren.",
       "10 Minuten köcheln, Spinat einrühren und auftauen lassen, mit Reis servieren."
     ],
-    "nutritionPerServing": { "kcal": 610, "protein": 19, "carbs": 72, "fat": 26 }
+    "nutritionPerServing": {
+      "kcal": 610,
+      "protein": 19,
+      "carbs": 72,
+      "fat": 26
+    }
   },
   {
     "id": "seed-ofen-lachs-gemuese",
     "title": "Ofen-Lachs mit mediterranem Gemüse",
-    "mealStyles": ["high-protein"],
-    "dietTags": ["pescetarisch", "glutenfrei", "laktosefrei", "low-carb"],
-    "requiredAppliances": ["backofen"],
+    "mealStyles": [
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "pescetarisch",
+      "glutenfrei",
+      "laktosefrei",
+      "low-carb"
+    ],
+    "requiredAppliances": [
+      "backofen"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 20,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Lachsfilet", "amount": 300, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Zucchini", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Kirschtomaten", "amount": 200, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Zitrone", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Lachsfilet",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Zucchini",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Kirschtomaten",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Zitrone",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Ofen auf 200 °C vorheizen.",
@@ -147,24 +432,71 @@
       "Lachsfilet darauflegen, mit Zitronensaft und Salz würzen.",
       "20 Minuten backen, bis der Lachs gar ist."
     ],
-    "nutritionPerServing": { "kcal": 420, "protein": 34, "carbs": 9, "fat": 27 }
+    "nutritionPerServing": {
+      "kcal": 420,
+      "protein": 34,
+      "carbs": 9,
+      "fat": 27
+    }
   },
   {
     "id": "seed-thunfisch-pasta",
     "title": "Thunfisch-Pasta mit Tomatensugo",
-    "mealStyles": ["schnell", "budget"],
-    "dietTags": ["pescetarisch", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "schnell",
+      "budget"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "pescetarisch",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 5,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Penne", "amount": 250, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Thunfisch in Dose", "amount": 150, "unit": "g", "aisle": "konserven" },
-      { "name": "Passierte Tomaten", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Knoblauch", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Oregano", "amount": 1, "unit": "tsp", "aisle": "gewürze" }
+      {
+        "name": "Penne",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Thunfisch in Dose",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Passierte Tomaten",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Knoblauch",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Oregano",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Penne in Salzwasser al dente kochen.",
@@ -172,24 +504,70 @@
       "Abgetropften Thunfisch unterrühren und mit Oregano würzen, 8 Minuten köcheln.",
       "Sauce mit den Nudeln vermengen und servieren."
     ],
-    "nutritionPerServing": { "kcal": 540, "protein": 30, "carbs": 78, "fat": 12 }
+    "nutritionPerServing": {
+      "kcal": 540,
+      "protein": 30,
+      "carbs": 78,
+      "fat": 12
+    }
   },
   {
     "id": "seed-rindergulasch",
     "title": "Klassisches Rindergulasch",
-    "mealStyles": ["familienfreundlich"],
-    "dietTags": ["omnivor", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "abendessen"
+    ],
+    "dietTags": [
+      "omnivor",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 20,
     "cookMinutes": 90,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Rindergulasch", "amount": 400, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Zwiebel", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Paprika", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Tomatenmark", "amount": 2, "unit": "tbsp", "aisle": "konserven" },
-      { "name": "Rinderbrühe", "amount": 400, "unit": "ml", "aisle": "konserven" },
-      { "name": "Paprikapulver", "amount": 1, "unit": "tbsp", "aisle": "gewürze" }
+      {
+        "name": "Rindergulasch",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Paprika",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Tomatenmark",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Rinderbrühe",
+        "amount": 400,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Paprikapulver",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Rindergulasch portionsweise scharf anbraten und herausnehmen.",
@@ -197,24 +575,72 @@
       "Fleisch zurückgeben, mit Rinderbrühe ablöschen und Paprika zugeben.",
       "Zugedeckt 90 Minuten schmoren, bis das Fleisch zart ist."
     ],
-    "nutritionPerServing": { "kcal": 460, "protein": 44, "carbs": 12, "fat": 24 }
+    "nutritionPerServing": {
+      "kcal": 460,
+      "protein": 44,
+      "carbs": 12,
+      "fat": 24
+    }
   },
   {
     "id": "seed-chili-con-carne",
     "title": "Herzhaftes Chili con Carne",
-    "mealStyles": ["familienfreundlich", "high-protein"],
-    "dietTags": ["omnivor", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "familienfreundlich",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "omnivor",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 30,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Rinderhackfleisch", "amount": 300, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Kidneybohnen", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Mais", "amount": 150, "unit": "g", "aisle": "konserven" },
-      { "name": "Gehackte Tomaten", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Chilipulver", "amount": 1, "unit": "tsp", "aisle": "gewürze" }
+      {
+        "name": "Rinderhackfleisch",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Kidneybohnen",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Mais",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Gehackte Tomaten",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Chilipulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Zwiebel würfeln und mit dem Hackfleisch krümelig anbraten.",
@@ -222,25 +648,80 @@
       "Abgetropfte Kidneybohnen und Mais unterrühren.",
       "25 Minuten köcheln lassen und mit Salz abschmecken."
     ],
-    "nutritionPerServing": { "kcal": 520, "protein": 38, "carbs": 40, "fat": 22 }
+    "nutritionPerServing": {
+      "kcal": 520,
+      "protein": 38,
+      "carbs": 40,
+      "fat": 22
+    }
   },
   {
     "id": "seed-chili-sin-carne",
     "title": "Veganes Chili sin Carne",
-    "mealStyles": ["veggie", "budget", "high-protein"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "veggie",
+      "budget",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 30,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Sojagranulat", "amount": 80, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Kidneybohnen", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Mais", "amount": 150, "unit": "g", "aisle": "konserven" },
-      { "name": "Gehackte Tomaten", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Paprika", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Chilipulver", "amount": 1, "unit": "tsp", "aisle": "gewürze" }
+      {
+        "name": "Sojagranulat",
+        "amount": 80,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Kidneybohnen",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Mais",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Gehackte Tomaten",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Paprika",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Chilipulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Sojagranulat in heißer Gemüsebrühe einweichen und abtropfen lassen.",
@@ -248,24 +729,68 @@
       "Mit Chilipulver würzen, gehackte Tomaten angießen.",
       "Bohnen und Mais unterrühren und 25 Minuten köcheln lassen."
     ],
-    "nutritionPerServing": { "kcal": 430, "protein": 30, "carbs": 48, "fat": 9 }
+    "nutritionPerServing": {
+      "kcal": 430,
+      "protein": 30,
+      "carbs": 48,
+      "fat": 9
+    }
   },
   {
     "id": "seed-american-pancakes",
     "title": "Fluffige American Pancakes",
-    "mealStyles": ["familienfreundlich"],
-    "dietTags": ["vegetarisch"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Weizenmehl", "amount": 200, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Milch", "amount": 250, "unit": "ml", "aisle": "kühlregal" },
-      { "name": "Eier", "amount": 2, "unit": "stück", "aisle": "kühlregal" },
-      { "name": "Zucker", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Backpulver", "amount": 2, "unit": "tsp", "aisle": "backwaren" },
-      { "name": "Butter", "amount": 20, "unit": "g", "aisle": "kühlregal" }
+      {
+        "name": "Weizenmehl",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Milch",
+        "amount": 250,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Eier",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Zucker",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Backpulver",
+        "amount": 2,
+        "unit": "tsp",
+        "aisle": "backwaren"
+      },
+      {
+        "name": "Butter",
+        "amount": 20,
+        "unit": "g",
+        "aisle": "kühlregal"
+      }
     ],
     "steps": [
       "Mehl, Zucker und Backpulver vermengen.",
@@ -273,24 +798,73 @@
       "In einer Pfanne mit etwas Butter kleine Pancakes goldbraun backen.",
       "Beidseitig ausbacken und warm servieren."
     ],
-    "nutritionPerServing": { "kcal": 490, "protein": 17, "carbs": 68, "fat": 15 }
+    "nutritionPerServing": {
+      "kcal": 490,
+      "protein": 17,
+      "carbs": 68,
+      "fat": 15
+    }
   },
   {
     "id": "seed-gemuese-frittata",
     "title": "Gemüse-Frittata aus dem Ofen",
-    "mealStyles": ["high-protein", "veggie"],
-    "dietTags": ["vegetarisch", "glutenfrei", "low-carb"],
-    "requiredAppliances": ["herd", "backofen"],
+    "mealStyles": [
+      "high-protein",
+      "veggie"
+    ],
+    "mealTypes": [
+      "fruehstueck",
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
+    "requiredAppliances": [
+      "herd",
+      "backofen"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 20,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Eier", "amount": 6, "unit": "stück", "aisle": "kühlregal" },
-      { "name": "Zucchini", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Paprika", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Geriebener Käse", "amount": 80, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Olivenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" }
+      {
+        "name": "Eier",
+        "amount": 6,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Zucchini",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Paprika",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Geriebener Käse",
+        "amount": 80,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Ofen auf 180 °C vorheizen und Gemüse würfeln.",
@@ -298,22 +872,61 @@
       "Eier verquirlen, mit Käse verrühren und über das Gemüse gießen.",
       "15 Minuten im Ofen stocken lassen und stürzen."
     ],
-    "nutritionPerServing": { "kcal": 400, "protein": 28, "carbs": 10, "fat": 27 }
+    "nutritionPerServing": {
+      "kcal": 400,
+      "protein": 28,
+      "carbs": 10,
+      "fat": 27
+    }
   },
   {
     "id": "seed-airfryer-suesskartoffel-pommes",
     "title": "Süßkartoffel-Pommes aus dem Airfryer",
-    "mealStyles": ["budget", "veggie"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["airfryer"],
+    "mealStyles": [
+      "budget",
+      "veggie"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "airfryer"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 20,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Süßkartoffeln", "amount": 500, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Paprikapulver", "amount": 1, "unit": "tsp", "aisle": "gewürze" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Süßkartoffeln",
+        "amount": 500,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Paprikapulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Süßkartoffeln waschen und in gleichmäßige Stifte schneiden.",
@@ -321,23 +934,65 @@
       "Airfryer auf 200 °C vorheizen.",
       "Pommes 20 Minuten knusprig garen, dabei einmal wenden."
     ],
-    "nutritionPerServing": { "kcal": 300, "protein": 4, "carbs": 55, "fat": 7 }
+    "nutritionPerServing": {
+      "kcal": 300,
+      "protein": 4,
+      "carbs": 55,
+      "fat": 7
+    }
   },
   {
     "id": "seed-airfryer-chicken-wings",
     "title": "Knusprige Airfryer Chicken Wings",
-    "mealStyles": ["fakeaway", "high-protein"],
-    "dietTags": ["omnivor", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["airfryer"],
+    "mealStyles": [
+      "fakeaway",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "abendessen"
+    ],
+    "dietTags": [
+      "omnivor",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "airfryer"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 25,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Hähnchenflügel", "amount": 600, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Paprikapulver", "amount": 1, "unit": "tbsp", "aisle": "gewürze" },
-      { "name": "Knoblauchpulver", "amount": 1, "unit": "tsp", "aisle": "gewürze" },
-      { "name": "Olivenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Hähnchenflügel",
+        "amount": 600,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Paprikapulver",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Knoblauchpulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Hähnchenflügel trocken tupfen.",
@@ -345,25 +1000,76 @@
       "Airfryer auf 200 °C vorheizen.",
       "Wings 25 Minuten knusprig garen, nach der Hälfte wenden."
     ],
-    "nutritionPerServing": { "kcal": 480, "protein": 40, "carbs": 2, "fat": 34 }
+    "nutritionPerServing": {
+      "kcal": 480,
+      "protein": 40,
+      "carbs": 2,
+      "fat": 34
+    }
   },
   {
     "id": "seed-doener-bowl",
     "title": "Fakeaway Döner-Bowl mit Hähnchen",
-    "mealStyles": ["fakeaway", "high-protein"],
-    "dietTags": ["omnivor"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "fakeaway",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "omnivor"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Hähnchenbrust", "amount": 300, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Salatmix", "amount": 150, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Tomaten", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Gurke", "amount": 0.5, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Rote Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Naturjoghurt", "amount": 150, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Döner-Gewürz", "amount": 1, "unit": "tbsp", "aisle": "gewürze" }
+      {
+        "name": "Hähnchenbrust",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Salatmix",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Tomaten",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Gurke",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Rote Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Naturjoghurt",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Döner-Gewürz",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Hähnchenbrust in Streifen schneiden, mit Döner-Gewürz würzen und anbraten.",
@@ -371,24 +1077,69 @@
       "Joghurt mit etwas Salz zu einer Sauce verrühren.",
       "Alles in Schalen anrichten und mit der Joghurtsauce beträufeln."
     ],
-    "nutritionPerServing": { "kcal": 380, "protein": 42, "carbs": 16, "fat": 15 }
+    "nutritionPerServing": {
+      "kcal": 380,
+      "protein": 42,
+      "carbs": 16,
+      "fat": 15
+    }
   },
   {
     "id": "seed-pizza-margherita",
     "title": "Selbstgemachte Pizza Margherita",
-    "mealStyles": ["fakeaway", "familienfreundlich"],
-    "dietTags": ["vegetarisch"],
-    "requiredAppliances": ["backofen"],
+    "mealStyles": [
+      "fakeaway",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "backofen"
+    ],
     "prepMinutes": 25,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Weizenmehl", "amount": 300, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Trockenhefe", "amount": 7, "unit": "g", "aisle": "backwaren" },
-      { "name": "Olivenöl", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Passierte Tomaten", "amount": 200, "unit": "g", "aisle": "konserven" },
-      { "name": "Mozzarella", "amount": 200, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Basilikum", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" }
+      {
+        "name": "Weizenmehl",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Trockenhefe",
+        "amount": 7,
+        "unit": "g",
+        "aisle": "backwaren"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Passierte Tomaten",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Mozzarella",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Basilikum",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      }
     ],
     "steps": [
       "Mehl, Hefe, Olivenöl, Salz und Wasser zu einem Teig kneten und 45 Minuten gehen lassen.",
@@ -396,25 +1147,78 @@
       "Mit passierten Tomaten bestreichen und Mozzarella verteilen.",
       "12 bis 15 Minuten backen und mit Basilikum belegen."
     ],
-    "nutritionPerServing": { "kcal": 650, "protein": 26, "carbs": 88, "fat": 22 }
+    "nutritionPerServing": {
+      "kcal": 650,
+      "protein": 26,
+      "carbs": 88,
+      "fat": 22
+    }
   },
   {
     "id": "seed-veggie-bibimbap",
     "title": "Veggie-Bibimbap-Bowl",
-    "mealStyles": ["veggie", "high-protein"],
-    "dietTags": ["vegan", "vegetarisch", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "veggie",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 20,
     "cookMinutes": 20,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Reis", "amount": 160, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Räuchertofu", "amount": 200, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Karotte", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Blattspinat", "amount": 150, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Sojasprossen", "amount": 100, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Sojasauce", "amount": 2, "unit": "tbsp", "aisle": "konserven" },
-      { "name": "Sesamöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" }
+      {
+        "name": "Reis",
+        "amount": 160,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Räuchertofu",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Karotte",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Blattspinat",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sojasprossen",
+        "amount": 100,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sojasauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Sesamöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Reis nach Packungsanweisung kochen.",
@@ -422,22 +1226,59 @@
       "Karotte in feine Streifen schneiden, Spinat und Sojasprossen kurz blanchieren.",
       "Reis in Schalen füllen und Tofu sowie Gemüse getrennt anrichten."
     ],
-    "nutritionPerServing": { "kcal": 500, "protein": 24, "carbs": 62, "fat": 16 }
+    "nutritionPerServing": {
+      "kcal": 500,
+      "protein": 24,
+      "carbs": 62,
+      "fat": 16
+    }
   },
   {
     "id": "seed-gruener-smoothie",
     "title": "Grüner Power-Smoothie",
-    "mealStyles": ["schnell"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["mixer"],
+    "mealStyles": [
+      "schnell"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "mixer"
+    ],
     "prepMinutes": 5,
     "cookMinutes": 0,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Blattspinat", "amount": 60, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Banane", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Apfel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Haferdrink", "amount": 300, "unit": "ml", "aisle": "kühlregal" }
+      {
+        "name": "Blattspinat",
+        "amount": 60,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Banane",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Apfel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Haferdrink",
+        "amount": 300,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      }
     ],
     "steps": [
       "Spinat waschen und Apfel entkernen und grob würfeln.",
@@ -445,24 +1286,73 @@
       "Mit dem Haferdrink auffüllen.",
       "Etwa 1 Minute cremig mixen und sofort servieren."
     ],
-    "nutritionPerServing": { "kcal": 210, "protein": 4, "carbs": 44, "fat": 3 }
+    "nutritionPerServing": {
+      "kcal": 210,
+      "protein": 4,
+      "carbs": 44,
+      "fat": 3
+    }
   },
   {
     "id": "seed-kartoffelsuppe",
     "title": "Deftige Kartoffelsuppe",
-    "mealStyles": ["budget", "familienfreundlich"],
-    "dietTags": ["vegan", "vegetarisch", "laktosefrei"],
-    "requiredAppliances": ["herd", "pürierstab"],
+    "mealStyles": [
+      "budget",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd",
+      "pürierstab"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 25,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Kartoffeln", "amount": 500, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Karotte", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Lauch", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Gemüsebrühe", "amount": 800, "unit": "ml", "aisle": "konserven" },
-      { "name": "Majoran", "amount": 1, "unit": "tsp", "aisle": "gewürze" }
+      {
+        "name": "Kartoffeln",
+        "amount": 500,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Karotte",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Lauch",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Gemüsebrühe",
+        "amount": 800,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Majoran",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Kartoffeln, Karotten, Lauch und Zwiebel schälen und würfeln.",
@@ -470,24 +1360,74 @@
       "20 Minuten köcheln, bis alles weich ist.",
       "Mit dem Pürierstab teilweise pürieren und mit Majoran abschmecken."
     ],
-    "nutritionPerServing": { "kcal": 320, "protein": 8, "carbs": 58, "fat": 5 }
+    "nutritionPerServing": {
+      "kcal": 320,
+      "protein": 8,
+      "carbs": 58,
+      "fat": 5
+    }
   },
   {
     "id": "seed-tomaten-basilikum-suppe",
     "title": "Tomaten-Basilikum-Suppe",
-    "mealStyles": ["budget", "veggie"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd", "pürierstab"],
+    "mealStyles": [
+      "budget",
+      "veggie"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd",
+      "pürierstab"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 20,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Passierte Tomaten", "amount": 800, "unit": "g", "aisle": "konserven" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Knoblauch", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Gemüsebrühe", "amount": 300, "unit": "ml", "aisle": "konserven" },
-      { "name": "Basilikum", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" }
+      {
+        "name": "Passierte Tomaten",
+        "amount": 800,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Knoblauch",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Gemüsebrühe",
+        "amount": 300,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Basilikum",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Zwiebel und Knoblauch würfeln und in Olivenöl anschwitzen.",
@@ -495,25 +1435,76 @@
       "15 Minuten köcheln lassen und Basilikum zugeben.",
       "Mit dem Pürierstab fein pürieren und abschmecken."
     ],
-    "nutritionPerServing": { "kcal": 190, "protein": 6, "carbs": 26, "fat": 7 }
+    "nutritionPerServing": {
+      "kcal": 190,
+      "protein": 6,
+      "carbs": 26,
+      "fat": 7
+    }
   },
   {
     "id": "seed-griechischer-salat",
     "title": "Griechischer Bauernsalat",
-    "mealStyles": ["schnell", "veggie"],
-    "dietTags": ["vegetarisch", "glutenfrei", "low-carb"],
+    "mealStyles": [
+      "schnell",
+      "veggie"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
     "requiredAppliances": [],
     "prepMinutes": 15,
     "cookMinutes": 0,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Tomaten", "amount": 3, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Gurke", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Rote Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Feta", "amount": 200, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Oliven", "amount": 80, "unit": "g", "aisle": "konserven" },
-      { "name": "Olivenöl", "amount": 3, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Oregano", "amount": 1, "unit": "tsp", "aisle": "gewürze" }
+      {
+        "name": "Tomaten",
+        "amount": 3,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Gurke",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Rote Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Feta",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Oliven",
+        "amount": 80,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 3,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Oregano",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Tomaten und Gurke in mundgerechte Stücke schneiden.",
@@ -521,23 +1512,66 @@
       "Alles mit Oliven in eine Schüssel geben und Feta darüber bröseln.",
       "Mit Olivenöl beträufeln und mit Oregano würzen."
     ],
-    "nutritionPerServing": { "kcal": 360, "protein": 12, "carbs": 12, "fat": 29 }
+    "nutritionPerServing": {
+      "kcal": 360,
+      "protein": 12,
+      "carbs": 12,
+      "fat": 29
+    }
   },
   {
     "id": "seed-ruehrei-schnittlauch",
     "title": "Cremiges Rührei mit Schnittlauch",
-    "mealStyles": ["schnell", "high-protein"],
-    "dietTags": ["vegetarisch", "glutenfrei", "low-carb"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "schnell",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "fruehstueck",
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 5,
     "cookMinutes": 5,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Eier", "amount": 6, "unit": "stück", "aisle": "kühlregal" },
-      { "name": "Butter", "amount": 15, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Schnittlauch", "amount": 0.5, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Salz", "amount": 1, "unit": "prise", "aisle": "gewürze" },
-      { "name": "Pfeffer", "amount": 1, "unit": "prise", "aisle": "gewürze" }
+      {
+        "name": "Eier",
+        "amount": 6,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Butter",
+        "amount": 15,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Schnittlauch",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Pfeffer",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Eier mit Salz und Pfeffer verquirlen.",
@@ -545,23 +1579,63 @@
       "Eiermasse zugeben und langsam stocken lassen, dabei rühren.",
       "Mit fein geschnittenem Schnittlauch bestreuen und servieren."
     ],
-    "nutritionPerServing": { "kcal": 320, "protein": 22, "carbs": 2, "fat": 25 }
+    "nutritionPerServing": {
+      "kcal": 320,
+      "protein": 22,
+      "carbs": 2,
+      "fat": 25
+    }
   },
   {
     "id": "seed-overnight-oats",
     "title": "Overnight Oats mit Banane",
-    "mealStyles": ["schnell", "budget"],
-    "dietTags": ["vegan", "vegetarisch", "laktosefrei"],
+    "mealStyles": [
+      "schnell",
+      "budget"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "laktosefrei"
+    ],
     "requiredAppliances": [],
     "prepMinutes": 10,
     "cookMinutes": 0,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Haferflocken", "amount": 120, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Haferdrink", "amount": 300, "unit": "ml", "aisle": "kühlregal" },
-      { "name": "Banane", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Chiasamen", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Ahornsirup", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" }
+      {
+        "name": "Haferflocken",
+        "amount": 120,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Haferdrink",
+        "amount": 300,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Banane",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Chiasamen",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Ahornsirup",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Haferflocken und Chiasamen in ein Glas geben.",
@@ -569,25 +1643,77 @@
       "Über Nacht abgedeckt im Kühlschrank quellen lassen.",
       "Am Morgen mit Bananenscheiben toppen und servieren."
     ],
-    "nutritionPerServing": { "kcal": 310, "protein": 9, "carbs": 54, "fat": 7 }
+    "nutritionPerServing": {
+      "kcal": 310,
+      "protein": 9,
+      "carbs": 54,
+      "fat": 7
+    }
   },
   {
     "id": "seed-gebratener-reis-mit-ei",
     "title": "Gebratener Reis mit Ei",
-    "mealStyles": ["schnell", "budget", "fakeaway"],
-    "dietTags": ["vegetarisch"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "schnell",
+      "budget",
+      "fakeaway"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 10,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Reis", "amount": 200, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Eier", "amount": 3, "unit": "stück", "aisle": "kühlregal" },
-      { "name": "Erbsen", "amount": 150, "unit": "g", "aisle": "tiefkühl" },
-      { "name": "Karotte", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Sojasauce", "amount": 2, "unit": "tbsp", "aisle": "konserven" },
-      { "name": "Frühlingszwiebel", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Sesamöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" }
+      {
+        "name": "Reis",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Eier",
+        "amount": 3,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Erbsen",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "tiefkühl"
+      },
+      {
+        "name": "Karotte",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sojasauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Frühlingszwiebel",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sesamöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Reis kochen und am besten kalt verwenden.",
@@ -595,25 +1721,76 @@
       "Eier zugeben und stocken lassen, dann den Reis unterheben.",
       "Mit Sojasauce ablöschen und mit Frühlingszwiebel bestreuen."
     ],
-    "nutritionPerServing": { "kcal": 470, "protein": 18, "carbs": 68, "fat": 13 }
+    "nutritionPerServing": {
+      "kcal": 470,
+      "protein": 18,
+      "carbs": 68,
+      "fat": 13
+    }
   },
   {
     "id": "seed-pad-thai-garnelen",
     "title": "Pad Thai mit Garnelen",
-    "mealStyles": ["fakeaway"],
-    "dietTags": ["pescetarisch", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "fakeaway"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "pescetarisch",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 20,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Reisnudeln", "amount": 200, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Garnelen", "amount": 200, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Eier", "amount": 2, "unit": "stück", "aisle": "kühlregal" },
-      { "name": "Sojasprossen", "amount": 100, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Erdnüsse", "amount": 40, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Limette", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Sojasauce", "amount": 3, "unit": "tbsp", "aisle": "konserven" }
+      {
+        "name": "Reisnudeln",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Garnelen",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Eier",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Sojasprossen",
+        "amount": 100,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Erdnüsse",
+        "amount": 40,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Limette",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sojasauce",
+        "amount": 3,
+        "unit": "tbsp",
+        "aisle": "konserven"
+      }
     ],
     "steps": [
       "Reisnudeln nach Packungsanweisung einweichen.",
@@ -621,25 +1798,77 @@
       "Eier in der Pfanne verrühren, Nudeln und Sojasauce zugeben.",
       "Garnelen und Sojasprossen unterheben, mit Erdnüssen und Limette servieren."
     ],
-    "nutritionPerServing": { "kcal": 520, "protein": 28, "carbs": 66, "fat": 16 }
+    "nutritionPerServing": {
+      "kcal": 520,
+      "protein": 28,
+      "carbs": 66,
+      "fat": 16
+    }
   },
   {
     "id": "seed-ofen-gemuese-feta",
     "title": "Ofen-Gemüse mit Feta",
-    "mealStyles": ["veggie"],
-    "dietTags": ["vegetarisch", "glutenfrei", "low-carb"],
-    "requiredAppliances": ["backofen"],
+    "mealStyles": [
+      "veggie"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
+    "requiredAppliances": [
+      "backofen"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 30,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Zucchini", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Paprika", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Kirschtomaten", "amount": 250, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Rote Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Feta", "amount": 200, "unit": "g", "aisle": "kühlregal" },
-      { "name": "Olivenöl", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Oregano", "amount": 1, "unit": "tsp", "aisle": "gewürze" }
+      {
+        "name": "Zucchini",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Paprika",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Kirschtomaten",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Rote Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Feta",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Oregano",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
     ],
     "steps": [
       "Ofen auf 200 °C vorheizen und Gemüse in grobe Stücke schneiden.",
@@ -647,25 +1876,75 @@
       "Feta in Würfeln darauf verteilen.",
       "30 Minuten backen, bis das Gemüse weich und leicht gebräunt ist."
     ],
-    "nutritionPerServing": { "kcal": 340, "protein": 14, "carbs": 18, "fat": 24 }
+    "nutritionPerServing": {
+      "kcal": 340,
+      "protein": 14,
+      "carbs": 18,
+      "fat": 24
+    }
   },
   {
     "id": "seed-spaghetti-bolognese",
     "title": "Spaghetti Bolognese",
-    "mealStyles": ["familienfreundlich"],
-    "dietTags": ["omnivor"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "omnivor"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 40,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Spaghetti", "amount": 250, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Rinderhackfleisch", "amount": 300, "unit": "g", "aisle": "fleisch-fisch" },
-      { "name": "Passierte Tomaten", "amount": 400, "unit": "g", "aisle": "konserven" },
-      { "name": "Zwiebel", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Karotte", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Knoblauch", "amount": 2, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 1, "unit": "tbsp", "aisle": "trockenwaren" }
+      {
+        "name": "Spaghetti",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Rinderhackfleisch",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Passierte Tomaten",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Karotte",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Knoblauch",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
     ],
     "steps": [
       "Zwiebel, Karotte und Knoblauch fein würfeln und in Olivenöl anschwitzen.",
@@ -673,25 +1952,79 @@
       "Mit passierten Tomaten aufgießen und 30 Minuten köcheln lassen.",
       "Spaghetti al dente kochen und mit der Sauce servieren."
     ],
-    "nutritionPerServing": { "kcal": 620, "protein": 38, "carbs": 74, "fat": 20 }
+    "nutritionPerServing": {
+      "kcal": 620,
+      "protein": 38,
+      "carbs": 74,
+      "fat": 20
+    }
   },
   {
     "id": "seed-quinoa-salat",
     "title": "Proteinreicher Quinoa-Salat",
-    "mealStyles": ["veggie", "high-protein"],
-    "dietTags": ["vegan", "vegetarisch", "glutenfrei", "laktosefrei"],
-    "requiredAppliances": ["herd"],
+    "mealStyles": [
+      "veggie",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen",
+      "abendessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
     "prepMinutes": 15,
     "cookMinutes": 15,
     "baseServings": 2,
     "ingredients": [
-      { "name": "Quinoa", "amount": 150, "unit": "g", "aisle": "trockenwaren" },
-      { "name": "Kichererbsen", "amount": 250, "unit": "g", "aisle": "konserven" },
-      { "name": "Gurke", "amount": 0.5, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Kirschtomaten", "amount": 200, "unit": "g", "aisle": "obst-gemüse" },
-      { "name": "Zitrone", "amount": 1, "unit": "stück", "aisle": "obst-gemüse" },
-      { "name": "Olivenöl", "amount": 2, "unit": "tbsp", "aisle": "trockenwaren" },
-      { "name": "Petersilie", "amount": 0.5, "unit": "stück", "aisle": "obst-gemüse" }
+      {
+        "name": "Quinoa",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Kichererbsen",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Gurke",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Kirschtomaten",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zitrone",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Petersilie",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      }
     ],
     "steps": [
       "Quinoa gründlich waschen und in Salzwasser 15 Minuten garen, dann abkühlen lassen.",
@@ -699,6 +2032,860 @@
       "Alles mit gehackter Petersilie vermengen.",
       "Aus Zitronensaft, Olivenöl und Salz ein Dressing rühren und unterheben."
     ],
-    "nutritionPerServing": { "kcal": 450, "protein": 17, "carbs": 58, "fat": 16 }
+    "nutritionPerServing": {
+      "kcal": 450,
+      "protein": 17,
+      "carbs": 58,
+      "fat": 16
+    }
+  },
+  {
+    "id": "seed-porridge-apfel-zimt",
+    "title": "Warmes Porridge mit Apfel und Zimt",
+    "mealStyles": [
+      "schnell",
+      "budget",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
+    "prepMinutes": 5,
+    "cookMinutes": 10,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Haferflocken",
+        "amount": 100,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Milch",
+        "amount": 400,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Apfel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Honig",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Zimt",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Haferflocken mit der Milch in einen Topf geben und aufkochen.",
+      "Bei geringer Hitze unter Rühren 5 Minuten cremig köcheln lassen.",
+      "Apfel raspeln und mit Zimt unterrühren.",
+      "In Schalen füllen und mit Honig süßen."
+    ],
+    "nutritionPerServing": {
+      "kcal": 350,
+      "protein": 12,
+      "carbs": 55,
+      "fat": 8
+    }
+  },
+  {
+    "id": "seed-porridge-banane-vegan",
+    "title": "Veganes Bananen-Porridge mit Haferdrink",
+    "mealStyles": [
+      "schnell",
+      "budget",
+      "veggie"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
+    "prepMinutes": 5,
+    "cookMinutes": 10,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Haferflocken",
+        "amount": 100,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Haferdrink",
+        "amount": 400,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Banane",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Ahornsirup",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Zimt",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Haferflocken mit dem Haferdrink aufkochen und 5 Minuten köcheln lassen.",
+      "Eine Banane mit der Gabel zerdrücken und einrühren.",
+      "Die zweite Banane in Scheiben schneiden.",
+      "Porridge in Schalen füllen, mit Bananenscheiben, Ahornsirup und Zimt toppen."
+    ],
+    "nutritionPerServing": {
+      "kcal": 330,
+      "protein": 8,
+      "carbs": 60,
+      "fat": 6
+    }
+  },
+  {
+    "id": "seed-highprotein-ruehrei-kaese",
+    "title": "High-Protein-Rührei mit Käse",
+    "mealStyles": [
+      "high-protein",
+      "schnell"
+    ],
+    "mealTypes": [
+      "fruehstueck",
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
+    "prepMinutes": 5,
+    "cookMinutes": 7,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Eier",
+        "amount": 6,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Geriebener Käse",
+        "amount": 60,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Butter",
+        "amount": 15,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Schnittlauch",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Salz",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      },
+      {
+        "name": "Pfeffer",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Eier mit Salz und Pfeffer verquirlen.",
+      "Butter in einer Pfanne schmelzen und die Eier zugeben.",
+      "Bei mittlerer Hitze langsam stocken lassen, dabei rühren.",
+      "Käse unterheben, schmelzen lassen und mit Schnittlauch bestreuen."
+    ],
+    "nutritionPerServing": {
+      "kcal": 400,
+      "protein": 30,
+      "carbs": 3,
+      "fat": 30
+    }
+  },
+  {
+    "id": "seed-joghurt-bowl-banane",
+    "title": "Joghurt-Bowl mit Banane und Haferflocken",
+    "mealStyles": [
+      "schnell",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [],
+    "prepMinutes": 5,
+    "cookMinutes": 0,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Naturjoghurt",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Banane",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Haferflocken",
+        "amount": 60,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Apfel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Honig",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
+    ],
+    "steps": [
+      "Joghurt in zwei Schalen verteilen.",
+      "Banane und Apfel in Scheiben bzw. Würfel schneiden.",
+      "Obst und Haferflocken auf dem Joghurt anrichten.",
+      "Mit Honig beträufeln und servieren."
+    ],
+    "nutritionPerServing": {
+      "kcal": 320,
+      "protein": 15,
+      "carbs": 48,
+      "fat": 7
+    }
+  },
+  {
+    "id": "seed-vollkorn-sandwich-gouda",
+    "title": "Vollkorn-Sandwich mit Gouda und Tomate",
+    "mealStyles": [
+      "schnell",
+      "budget"
+    ],
+    "mealTypes": [
+      "fruehstueck",
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "toaster"
+    ],
+    "prepMinutes": 5,
+    "cookMinutes": 3,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Brot",
+        "amount": 4,
+        "unit": "stück",
+        "aisle": "backwaren"
+      },
+      {
+        "name": "Gouda",
+        "amount": 80,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Tomaten",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Butter",
+        "amount": 15,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Pfeffer",
+        "amount": 1,
+        "unit": "prise",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Brotscheiben im Toaster goldbraun rösten.",
+      "Die Scheiben dünn mit Butter bestreichen.",
+      "Mit Gouda und Tomatenscheiben belegen.",
+      "Mit Pfeffer würzen und zu Sandwiches zusammenklappen."
+    ],
+    "nutritionPerServing": {
+      "kcal": 340,
+      "protein": 16,
+      "carbs": 38,
+      "fat": 14
+    }
+  },
+  {
+    "id": "seed-shakshuka-feta",
+    "title": "Shakshuka mit Feta",
+    "mealStyles": [
+      "veggie",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "fruehstueck",
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegetarisch",
+      "glutenfrei",
+      "low-carb"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
+    "prepMinutes": 10,
+    "cookMinutes": 20,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Eier",
+        "amount": 4,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Gehackte Tomaten",
+        "amount": 400,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Paprika",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Knoblauch",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Feta",
+        "amount": 80,
+        "unit": "g",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Paprikapulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Zwiebel, Knoblauch und Paprika würfeln und in Olivenöl anschwitzen.",
+      "Gehackte Tomaten und Paprikapulver zugeben und 10 Minuten einköcheln.",
+      "Mit einem Löffel Mulden formen und die Eier hineingleiten lassen.",
+      "Zugedeckt stocken lassen, Feta darüber bröseln und servieren."
+    ],
+    "nutritionPerServing": {
+      "kcal": 360,
+      "protein": 22,
+      "carbs": 16,
+      "fat": 24
+    }
+  },
+  {
+    "id": "seed-overnight-oats-apfel-vegan",
+    "title": "Vegane Apfel-Zimt Overnight Oats",
+    "mealStyles": [
+      "schnell",
+      "budget",
+      "veggie"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [],
+    "prepMinutes": 10,
+    "cookMinutes": 0,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Haferflocken",
+        "amount": 120,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Haferdrink",
+        "amount": 300,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Apfel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Ahornsirup",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Zimt",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Haferflocken mit Haferdrink und Zimt in ein Glas geben und verrühren.",
+      "Über Nacht abgedeckt im Kühlschrank quellen lassen.",
+      "Am Morgen den Apfel raspeln und unterheben.",
+      "Mit Ahornsirup abschmecken und servieren."
+    ],
+    "nutritionPerServing": {
+      "kcal": 300,
+      "protein": 8,
+      "carbs": 52,
+      "fat": 6
+    }
+  },
+  {
+    "id": "seed-bananen-hafer-pancakes",
+    "title": "Bananen-Haferflocken-Pancakes",
+    "mealStyles": [
+      "high-protein",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "fruehstueck"
+    ],
+    "dietTags": [
+      "vegetarisch"
+    ],
+    "requiredAppliances": [
+      "herd",
+      "mixer"
+    ],
+    "prepMinutes": 10,
+    "cookMinutes": 10,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Banane",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Eier",
+        "amount": 3,
+        "unit": "stück",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Haferflocken",
+        "amount": 100,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Milch",
+        "amount": 100,
+        "unit": "ml",
+        "aisle": "kühlregal"
+      },
+      {
+        "name": "Backpulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "backwaren"
+      }
+    ],
+    "steps": [
+      "Bananen, Eier, Haferflocken, Milch und Backpulver im Mixer glatt pürieren.",
+      "Teig 5 Minuten quellen lassen.",
+      "Portionsweise kleine Pancakes in einer beschichteten Pfanne goldbraun backen.",
+      "Beidseitig ausbacken und warm servieren."
+    ],
+    "nutritionPerServing": {
+      "kcal": 390,
+      "protein": 18,
+      "carbs": 50,
+      "fat": 12
+    }
+  },
+  {
+    "id": "seed-kichererbsen-reis-bowl",
+    "title": "Kichererbsen-Reis-Bowl mit Gemüse",
+    "mealStyles": [
+      "veggie",
+      "high-protein",
+      "budget"
+    ],
+    "mealTypes": [
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
+    "prepMinutes": 15,
+    "cookMinutes": 15,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Reis",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Kichererbsen",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Paprika",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Gurke",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zitrone",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Petersilie",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      }
+    ],
+    "steps": [
+      "Reis nach Packungsanweisung kochen und abkühlen lassen.",
+      "Kichererbsen abtropfen lassen, Paprika und Gurke würfeln.",
+      "Aus Zitronensaft, Olivenöl und gehackter Petersilie ein Dressing rühren.",
+      "Alles in Schalen anrichten und mit dem Dressing beträufeln."
+    ],
+    "nutritionPerServing": {
+      "kcal": 480,
+      "protein": 16,
+      "carbs": 66,
+      "fat": 16
+    }
+  },
+  {
+    "id": "seed-thunfisch-mais-salat",
+    "title": "Thunfisch-Mais-Salat",
+    "mealStyles": [
+      "schnell",
+      "high-protein"
+    ],
+    "mealTypes": [
+      "mittagessen"
+    ],
+    "dietTags": [
+      "pescetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [],
+    "prepMinutes": 10,
+    "cookMinutes": 0,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Thunfisch in Dose",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Mais",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Salatmix",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Gurke",
+        "amount": 0.5,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Tomaten",
+        "amount": 2,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Olivenöl",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Zitrone",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      }
+    ],
+    "steps": [
+      "Salatmix waschen und in eine Schüssel geben.",
+      "Gurke und Tomaten würfeln, Thunfisch und Mais abtropfen lassen.",
+      "Alles vermengen und aus Zitronensaft und Olivenöl ein Dressing rühren.",
+      "Salat mit dem Dressing anmachen und servieren."
+    ],
+    "nutritionPerServing": {
+      "kcal": 340,
+      "protein": 26,
+      "carbs": 24,
+      "fat": 15
+    }
+  },
+  {
+    "id": "seed-karotten-kokos-suppe",
+    "title": "Cremige Karotten-Kokos-Suppe",
+    "mealStyles": [
+      "budget",
+      "veggie",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen"
+    ],
+    "dietTags": [
+      "vegan",
+      "vegetarisch",
+      "glutenfrei",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd",
+      "pürierstab"
+    ],
+    "prepMinutes": 15,
+    "cookMinutes": 25,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Karotte",
+        "amount": 500,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Kartoffeln",
+        "amount": 200,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Zwiebel",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Kokosmilch",
+        "amount": 200,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Gemüsebrühe",
+        "amount": 500,
+        "unit": "ml",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Currypulver",
+        "amount": 1,
+        "unit": "tsp",
+        "aisle": "gewürze"
+      }
+    ],
+    "steps": [
+      "Karotten, Kartoffeln und Zwiebel schälen und würfeln.",
+      "Gemüse kurz anschwitzen, Currypulver zugeben und mit Brühe aufgießen.",
+      "20 Minuten köcheln, bis alles weich ist, dann Kokosmilch zugeben.",
+      "Mit dem Pürierstab fein pürieren und abschmecken."
+    ],
+    "nutritionPerServing": {
+      "kcal": 320,
+      "protein": 6,
+      "carbs": 42,
+      "fat": 14
+    }
+  },
+  {
+    "id": "seed-haehnchen-reis-bowl",
+    "title": "Hähnchen-Reis-Bowl mit Brokkoli",
+    "mealStyles": [
+      "high-protein",
+      "familienfreundlich"
+    ],
+    "mealTypes": [
+      "mittagessen"
+    ],
+    "dietTags": [
+      "omnivor",
+      "laktosefrei"
+    ],
+    "requiredAppliances": [
+      "herd"
+    ],
+    "prepMinutes": 15,
+    "cookMinutes": 20,
+    "baseServings": 2,
+    "ingredients": [
+      {
+        "name": "Hähnchenbrust",
+        "amount": 300,
+        "unit": "g",
+        "aisle": "fleisch-fisch"
+      },
+      {
+        "name": "Reis",
+        "amount": 150,
+        "unit": "g",
+        "aisle": "trockenwaren"
+      },
+      {
+        "name": "Brokkoli",
+        "amount": 250,
+        "unit": "g",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Karotte",
+        "amount": 1,
+        "unit": "stück",
+        "aisle": "obst-gemüse"
+      },
+      {
+        "name": "Sojasauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "aisle": "konserven"
+      },
+      {
+        "name": "Sesamöl",
+        "amount": 1,
+        "unit": "tbsp",
+        "aisle": "trockenwaren"
+      }
+    ],
+    "steps": [
+      "Reis nach Packungsanweisung kochen.",
+      "Hähnchenbrust würfeln und in Sesamöl kräftig anbraten.",
+      "Brokkoli und Karotte in Röschen bzw. Scheiben zugeben und garen.",
+      "Mit Sojasauce ablöschen und mit dem Reis in Schalen anrichten."
+    ],
+    "nutritionPerServing": {
+      "kcal": 520,
+      "protein": 44,
+      "carbs": 58,
+      "fat": 14
+    }
   }
 ]

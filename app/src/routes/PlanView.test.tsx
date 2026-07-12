@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -45,20 +45,17 @@ describe('PlanView (Integration)', () => {
     expect(state.plan?.entries).toHaveLength(7);
   });
 
-  it('würfelt einen einzelnen Tag neu', async () => {
+  it('würfelt einen einzelnen Slot neu (Montag Abendessen)', async () => {
     const user = userEvent.setup();
     renderPlan();
     await user.click(await screen.findByRole('button', { name: /plan generieren/i }));
     await screen.findByText('Montag');
 
     const before = usePlanStore.getState().plan?.entries.find((e) => e.dayOfWeek === 0)?.recipeId;
-
-    // Alle Tageskarten haben einen "neu"-Button; den ersten (Montag) klicken.
-    const mondayCard = screen.getByText('Montag').closest('li') as HTMLElement;
-    await user.click(within(mondayCard).getByRole('button', { name: /montag neu würfeln/i }));
+    // Slot-Shuffle-Button für Tag 0 (Montag) Abendessen.
+    await user.click(screen.getByRole('button', { name: /abendessen am 0 neu würfeln/i }));
 
     const after = usePlanStore.getState().plan?.entries.find((e) => e.dayOfWeek === 0)?.recipeId;
-    // Bei 28 Rezepten wird ein anderes gewählt.
     expect(after).not.toBe(before);
   });
 });

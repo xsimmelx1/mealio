@@ -23,8 +23,8 @@ describe('OnboardingView', () => {
     // Schritt 1: Personen von 2 auf 3 erhöhen.
     await user.click(screen.getByRole('button', { name: 'Personenzahl erhöhen' }));
 
-    // Durch alle Schritte klicken.
-    for (let i = 0; i < 6; i++) {
+    // Durch alle Schritte klicken (8 Schritte -> 7× Weiter, dann Fertig).
+    for (let i = 0; i < 7; i++) {
       await user.click(screen.getByRole('button', { name: 'Weiter' }));
     }
     await user.click(screen.getByRole('button', { name: 'Fertig' }));
@@ -55,8 +55,8 @@ describe('OnboardingView', () => {
     await user.click(screen.getByRole('button', { name: 'Weiter' }));
     await user.click(screen.getByRole('radio', { name: 'Vegan' }));
 
-    // Restliche Schritte + Fertig.
-    for (let i = 0; i < 4; i++) {
+    // Restliche Schritte + Fertig (von Schritt 2 -> 5× Weiter bis Schritt 7).
+    for (let i = 0; i < 5; i++) {
       await user.click(screen.getByRole('button', { name: 'Weiter' }));
     }
     await user.click(screen.getByRole('button', { name: 'Fertig' }));
