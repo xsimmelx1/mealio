@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import seedPrices from '../assets/prices.seed.json';
+import seedRecipes from '../assets/recipes.seed.json';
+import { matchProductKey } from '../pricing/productMatch';
 import { SeedPriceSchema } from './schema';
 
 /**
@@ -10,6 +12,9 @@ import { SeedPriceSchema } from './schema';
 
 /** Mindestzahl abgedeckter Kernzutaten (eindeutige productKeys). */
 const MIN_CORE_INGREDIENTS = 25;
+
+/** Mindest-Match-Quote der Rezept-Zutat-Vorkommen gegen den Seed-Preiskatalog. */
+const MIN_MATCH_RATE = 0.88;
 
 describe('prices.seed.json', () => {
   it('ist ein nicht-leeres Array', () => {
@@ -64,5 +69,25 @@ describe('prices.seed.json', () => {
       const max = Math.max(...prices);
       expect(max / min, `Grundpreis-Spreizung zu groß für "${key}"`).toBeLessThanOrEqual(5);
     }
+  });
+
+  it(`matcht mindestens ${Math.round(MIN_MATCH_RATE * 100)}% der Rezept-Zutat-Vorkommen`, () => {
+    const knownKeys = new Set(seedPrices.map((entry) => entry.productKey));
+    const names = seedRecipes.flatMap((recipe) => recipe.ingredients.map((ing) => ing.name));
+    expect(names.length, 'Keine Rezept-Zutaten gefunden').toBeGreaterThan(0);
+
+    const unmatched: string[] = [];
+    let matched = 0;
+    for (const name of names) {
+      if (matchProductKey(name, knownKeys)) matched += 1;
+      else unmatched.push(name);
+    }
+
+    const rate = matched / names.length;
+    expect(
+      rate,
+      `Match-Quote ${(rate * 100).toFixed(1)}% < ${MIN_MATCH_RATE * 100}%. ` +
+        `Unmatched: ${[...new Set(unmatched)].join(', ')}`,
+    ).toBeGreaterThanOrEqual(MIN_MATCH_RATE);
   });
 });

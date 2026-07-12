@@ -66,6 +66,19 @@ const ALIASES: Record<string, string> = {
   'rote-linsen': 'rote-linsen',
   kidneybohnen: 'kidneybohnen',
   kichererbsen: 'kichererbsen',
+  // Brühen (Gemüse-/Rinderbrühe -> generischer Brühe-Key)
+  gemuesebruehe: 'bruehe',
+  rinderbruehe: 'bruehe',
+  bruehe: 'bruehe',
+  // Kräuter/Gewürze
+  chilipulver: 'chili',
+  chiliflocken: 'chili',
+  majoran: 'oregano',
+  schnittlauch: 'petersilie',
+  // Zitrusfrüchte
+  limette: 'zitrone',
+  // weitere Zwiebel-Variante (Singular)
+  fruehlingszwiebel: 'zwiebeln',
 };
 
 /**
