@@ -7,12 +7,14 @@ import TagInput from '../components/forms/TagInput';
 import {
   ALLERGIES,
   APPLIANCES,
+  COMMON_DISLIKED,
   CURRENCIES,
   DIETS,
   MEAL_STYLES,
   MEAL_STYLE_LABELS,
   MEAL_TYPES,
   MEAL_TYPE_LABELS,
+  SUPERMARKETS,
   type Allergy,
   type Appliance,
   type Currency,
@@ -26,6 +28,7 @@ import { usePrefsStore } from '../state/prefsStore';
 
 const STEP_COUNT = 8;
 const DAY_OPTIONS = WEEKDAY_LABELS.map((label, i) => ({ value: String(i), label }));
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export default function OnboardingView() {
   const navigate = useNavigate();
@@ -154,10 +157,10 @@ export default function OnboardingView() {
             hint="Für passende Preisschätzungen. Optional."
           >
             <Field label="Supermarkt">
-              <TextField
+              <ChipSingleSelect
+                options={SUPERMARKETS.map((s) => ({ value: s.value, label: s.label }))}
                 value={supermarket}
                 onChange={setSupermarket}
-                placeholder="z. B. Aldi, Rewe, Edeka …"
                 ariaLabel="Supermarkt"
               />
             </Field>
@@ -202,12 +205,18 @@ export default function OnboardingView() {
           <StepShell
             emoji="🙅"
             title="Ungeliebte Zutaten"
-            hint="Zutaten, die du nicht magst. Enter oder Komma zum Hinzufügen."
+            hint="Tippe auf typische Zutaten oder ergänze eigene (Enter/Komma)."
           >
+            <ChipMultiSelect
+              options={COMMON_DISLIKED.map((v) => ({ value: v, label: cap(v) }))}
+              selected={avoided.filter((a) => (COMMON_DISLIKED as readonly string[]).includes(a))}
+              onToggle={(v) => toggle(avoided, v, setAvoided)}
+              ariaLabel="Typische ungeliebte Zutaten"
+            />
             <TagInput
               tags={avoided}
               onChange={setAvoided}
-              placeholder="z. B. koriander"
+              placeholder="weitere, z. B. koriander"
               ariaLabel="Ungeliebte Zutat hinzufügen"
             />
           </StepShell>

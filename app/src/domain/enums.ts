@@ -88,6 +88,41 @@ export const AISLES = [
 ] as const;
 export type Aisle = (typeof AISLES)[number];
 
+/** Vordefinierte Supermärkte (Wert = productKey-kompatibler storeId-Hint). */
+export const SUPERMARKETS = [
+  { value: '', label: 'Egal', storeType: null },
+  { value: 'aldi', label: 'Aldi', storeType: 'discounter' },
+  { value: 'lidl', label: 'Lidl', storeType: 'discounter' },
+  { value: 'penny', label: 'Penny', storeType: 'discounter' },
+  { value: 'netto', label: 'Netto', storeType: 'discounter' },
+  { value: 'rewe', label: 'Rewe', storeType: 'vollsortimenter' },
+  { value: 'edeka', label: 'Edeka', storeType: 'vollsortimenter' },
+  { value: 'kaufland', label: 'Kaufland', storeType: 'vollsortimenter' },
+] as const;
+
+export type StoreType = 'discounter' | 'vollsortimenter';
+
+/** Liefert den Store-Typ (Preisniveau) zu einem Supermarkt-Wert. */
+export function storeTypeFor(supermarket: string): StoreType | null {
+  return SUPERMARKETS.find((s) => s.value === supermarket)?.storeType ?? null;
+}
+
+/** Typische ungeliebte Zutaten (vordefinierte Schnellauswahl, ergänzt Freitext). */
+export const COMMON_DISLIKED = [
+  'koriander',
+  'oliven',
+  'pilze',
+  'rosenkohl',
+  'sellerie',
+  'fenchel',
+  'tofu',
+  'feta',
+  'rosinen',
+  'lakritz',
+  'blauschimmelkäse',
+  'sardellen',
+] as const;
+
 /** Unterstützte Währungen. */
 export const CURRENCIES = ['EUR', 'CHF', 'USD', 'GBP'] as const;
 export type Currency = (typeof CURRENCIES)[number];

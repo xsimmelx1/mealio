@@ -75,15 +75,16 @@ export function pickPlan(
     rankedByMeal.set(mt, rankRecipes(eligibleForMeal(recipes, prefs, mt), prefs, rand));
   }
 
-  const usedByMeal = new Map<MealType, Set<string>>();
+  // GLOBALE Dedup: kein Rezept wiederholt sich irgendwo im Plan, solange der Pool reicht
+  // (verhindert z. B. dasselbe Gericht bei Frühstück UND Mittag). Erst wenn eine Mahlzeit
+  // zu wenige verschiedene Rezepte hat, wird innerhalb dieser Mahlzeit wiederholt.
+  const used = new Set<string>();
   return slots.map((slot) => {
     const ranked = rankedByMeal.get(slot.mealType) ?? [];
-    const used = usedByMeal.get(slot.mealType) ?? new Set<string>();
+    // Bevorzugt ein global noch nicht verwendetes Rezept; sonst (Pool erschöpft) das
+    // best-gerankte, auch wenn es sich wiederholt.
     const pick = ranked.find((r) => !used.has(r.id)) ?? ranked[0] ?? null;
-    if (pick) {
-      used.add(pick.id);
-      usedByMeal.set(slot.mealType, used);
-    }
+    if (pick) used.add(pick.id);
     return { dayOfWeek: slot.dayOfWeek, mealType: slot.mealType, recipeId: pick ? pick.id : null };
   });
 }

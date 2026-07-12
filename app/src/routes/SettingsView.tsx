@@ -8,12 +8,14 @@ import ScreenHeader from '../components/ScreenHeader';
 import {
   ALLERGIES,
   APPLIANCES,
+  COMMON_DISLIKED,
   CURRENCIES,
   DIETS,
   MEAL_STYLES,
   MEAL_STYLE_LABELS,
   MEAL_TYPES,
   MEAL_TYPE_LABELS,
+  SUPERMARKETS,
 } from '../domain/enums';
 import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
 import { resetPriceOverrides } from '../db/priceActions';
@@ -21,6 +23,7 @@ import { WEEKDAY_LABELS } from '../plan/week';
 import { usePrefsStore } from '../state/prefsStore';
 
 const DAY_OPTIONS = WEEKDAY_LABELS.map((label, i) => ({ value: String(i), label }));
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export default function SettingsView() {
   const prefs = usePrefsStore((s) => s.prefs);
@@ -62,6 +65,14 @@ export default function SettingsView() {
             value={prefs.currency}
             onChange={(v) => void update({ currency: v })}
             ariaLabel="Währung"
+          />
+        </Field>
+        <Field label="Supermarkt (Preisniveau)">
+          <ChipSingleSelect
+            options={SUPERMARKETS.map((s) => ({ value: s.value, label: s.label }))}
+            value={prefs.supermarket}
+            onChange={(v) => void update({ supermarket: v })}
+            ariaLabel="Supermarkt"
           />
         </Field>
       </Section>
@@ -111,10 +122,18 @@ export default function SettingsView() {
           />
         </Field>
         <Field label="Ungeliebte Zutaten">
+          <ChipMultiSelect
+            options={COMMON_DISLIKED.map((v) => ({ value: v, label: cap(v) }))}
+            selected={prefs.avoidedIngredients.filter((a) =>
+              (COMMON_DISLIKED as readonly string[]).includes(a),
+            )}
+            onToggle={(v) => void update({ avoidedIngredients: toggleIn(prefs.avoidedIngredients, v) })}
+            ariaLabel="Typische ungeliebte Zutaten"
+          />
           <TagInput
             tags={prefs.avoidedIngredients}
             onChange={(t) => void update({ avoidedIngredients: t })}
-            placeholder="z. B. koriander"
+            placeholder="weitere, z. B. koriander"
             ariaLabel="Ungeliebte Zutat"
           />
         </Field>

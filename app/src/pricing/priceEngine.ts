@@ -41,6 +41,8 @@ export interface RecipeCostEstimate {
 export interface PriceEngineOptions {
   /** Bevorzugter Store (storeId), z. B. aus Prefs.supermarket. */
   preferredStore?: string;
+  /** Bevorzugtes Preisniveau (discounter/vollsortimenter), abgeleitet aus dem Supermarkt. */
+  preferredStoreType?: 'discounter' | 'vollsortimenter';
 }
 
 export class PriceEngine {
@@ -48,6 +50,7 @@ export class PriceEngine {
   private overrideByKey = new Map<string, PriceOverride>();
   private knownKeys: Set<string>;
   private preferredStore?: string;
+  private preferredStoreType?: 'discounter' | 'vollsortimenter';
 
   constructor(seedPrices: SeedPrice[], overrides: PriceOverride[], opts: PriceEngineOptions = {}) {
     for (const p of seedPrices) {
@@ -60,6 +63,7 @@ export class PriceEngine {
     }
     this.knownKeys = new Set([...this.seedByKey.keys(), ...this.overrideByKey.keys()]);
     this.preferredStore = opts.preferredStore?.trim().toLowerCase() || undefined;
+    this.preferredStoreType = opts.preferredStoreType;
   }
 
   /** Alle bekannten productKeys (für Matching). */
@@ -67,21 +71,33 @@ export class PriceEngine {
     return this.knownKeys;
   }
 
-  /** Wählt den passendsten Seed-Preis für einen Key (Store-Präferenz > Discounter > günstigster Grundpreis). */
+  private cheapest(list: SeedPrice[]): SeedPrice {
+    return list.reduce((best, p) =>
+      p.pricePerPackage / p.packageSize < best.pricePerPackage / best.packageSize ? p : best,
+    );
+  }
+
+  /**
+   * Wählt den passendsten Seed-Preis: exakter Store > passendes Preisniveau
+   * (aus dem gewählten Supermarkt) > Discounter > günstigster Grundpreis.
+   */
   private pickSeed(productKey: string): SeedPrice | null {
     const list = this.seedByKey.get(productKey);
     if (!list || list.length === 0) return null;
 
+    // 1. Exakter Store-Treffer (z. B. Seed hat genau diese storeId).
     if (this.preferredStore) {
       const match = list.find((p) => p.storeId.toLowerCase() === this.preferredStore);
       if (match) return match;
     }
+    // 2. Passendes Preisniveau des gewählten Supermarkts (Discounter vs. Vollsortimenter).
+    if (this.preferredStoreType) {
+      const typed = list.filter((p) => p.storeType === this.preferredStoreType);
+      if (typed.length) return this.cheapest(typed);
+    }
+    // 3. Standard: Discounter, sonst günstigster.
     const discounter = list.filter((p) => p.storeType === 'discounter');
-    const pool = discounter.length ? discounter : list;
-    // günstigster Grundpreis
-    return pool.reduce((best, p) =>
-      p.pricePerPackage / p.packageSize < best.pricePerPackage / best.packageSize ? p : best,
-    );
+    return this.cheapest(discounter.length ? discounter : list);
   }
 
   /** Löst einen productKey zu einem konkreten Produkt inkl. Grundpreis auf. */

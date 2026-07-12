@@ -121,6 +121,18 @@ describe('pickPlan', () => {
     expect(din?.recipeId?.startsWith('d')).toBe(true);
   });
 
+  it('dedupliziert global: ein Rezept erscheint nicht bei Frühstück UND Abendessen', () => {
+    const pool = [
+      recipe({ id: 'multi', mealTypes: ['fruehstueck', 'abendessen'] }),
+      recipe({ id: 'b1', mealTypes: ['fruehstueck'] }),
+      recipe({ id: 'd1', mealTypes: ['abendessen'] }),
+    ];
+    const p = prefs({ planDays: [0], mealTypes: ['fruehstueck', 'abendessen'] });
+    const plan = pickPlan(pool, p, 11);
+    const ids = plan.map((e) => e.recipeId);
+    expect(new Set(ids).size).toBe(2); // zwei verschiedene Rezepte, kein Duplikat
+  });
+
   it('kein passendes Rezept für eine Mahlzeit -> Slot recipeId null (nicht geraten)', () => {
     // Pool hat keine Frühstücks-Rezepte
     const p = prefs({ planDays: [0, 1], mealTypes: ['fruehstueck'] });

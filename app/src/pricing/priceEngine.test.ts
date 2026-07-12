@@ -58,6 +58,16 @@ describe('PriceEngine.resolve', () => {
     expect(eng.resolve('haehnchenbrust')?.storeId).toBe('rewe');
   });
 
+  it('bevorzugtes Preisniveau (vollsortimenter) wählt teureren Store', () => {
+    const eng = new PriceEngine(seed, [], { preferredStoreType: 'vollsortimenter' });
+    expect(eng.resolve('haehnchenbrust')?.storeId).toBe('rewe');
+  });
+
+  it('Discounter-Preisniveau wählt günstigeren Store', () => {
+    const eng = new PriceEngine(seed, [], { preferredStoreType: 'discounter' });
+    expect(eng.resolve('haehnchenbrust')?.storeId).toBe('aldi');
+  });
+
   it('manueller Override schlägt Seed-Preis (Provider-Priorität)', () => {
     const override: PriceOverride = {
       productKey: 'haehnchenbrust',
