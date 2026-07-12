@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fetchNutrition, fetchPrices, generatePlan, importRecipes } from './client';
+import { estimatePrices, fetchNutrition, fetchPrices, generatePlan, importRecipes } from './client';
 import { UserPreferencesSchema } from '../domain/schema';
 
 const prefs = UserPreferencesSchema.parse({ numberOfPeople: 2 });
@@ -104,6 +104,29 @@ describe('apiClient.importRecipes', () => {
     expect(res.recipes).toHaveLength(1);
     expect(res.recipes[0].source).toBe('themealdb');
     expect(res.recipes[0].id).toContain('themealdb-52959');
+  });
+});
+
+describe('apiClient.estimatePrices', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('parst KI-Preisschätzungen (source ai)', async () => {
+    mockFetchOnce({
+      items: [
+        {
+          key: 'safran',
+          pricePerPackage: 3.5,
+          packageSize: 2,
+          packageUnit: 'g',
+          currency: 'EUR',
+          source: 'ai',
+          updatedAt: null,
+        },
+      ],
+    });
+    const res = await estimatePrices([{ key: 'safran', name: 'Safran' }]);
+    expect(res[0].source).toBe('ai');
+    expect(res[0].pricePerPackage).toBe(3.5);
   });
 });
 

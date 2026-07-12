@@ -8,6 +8,7 @@ import type { ShoppingItem } from '../domain/schema';
 import { setPackagePriceOverride } from '../db/priceActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { formatPrice } from '../pricing';
+import { fetchAiPricesCached } from '../pricing/aiPrices';
 import type { PriceEngine } from '../pricing/priceEngine';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { onlineItemCost } from '../shopping/onlinePrice';
@@ -48,18 +49,35 @@ export default function ShoppingListView() {
       return;
     }
     const unpriced = items.filter((i) => i.estimatedPrice == null);
-    if (unpriced.length === 0) return;
+    if (unpriced.length === 0) {
+      setOnlineMap({});
+      return;
+    }
     let cancelled = false;
-    fetchPrices(unpriced.map((i) => ({ key: i.productKey ?? i.id, query: i.name })))
-      .then((results) => {
-        if (cancelled) return;
-        const map: Record<string, OnlinePrice> = {};
+    void (async () => {
+      const map: Record<string, OnlinePrice> = {};
+      // 1) Echte Online-Preise (Open Prices).
+      try {
+        const results = await fetchPrices(
+          unpriced.map((i) => ({ key: i.productKey ?? i.id, query: i.name })),
+        );
         for (const r of results) if (r.source === 'open-prices') map[r.key] = r;
-        setOnlineMap(map);
-      })
-      .catch(() => {
-        /* Online-Preise sind optional; Fehler ignorieren (App-Flow nie blockieren). */
+      } catch {
+        /* optional */
+      }
+      // 2) KI-Schätzung als letzte Instanz — nur für weiterhin preislose Positionen.
+      const still = unpriced.filter((i) => {
+        const p = map[i.productKey ?? i.id];
+        return !(p && onlineItemCost(i, p) != null);
       });
+      if (still.length) {
+        const ai = await fetchAiPricesCached(
+          still.map((i) => ({ key: i.productKey ?? i.id, name: i.name })),
+        );
+        for (const [k, v] of Object.entries(ai)) if (!map[k]) map[k] = v;
+      }
+      if (!cancelled) setOnlineMap(map);
+    })();
     return () => {
       cancelled = true;
     };
@@ -158,7 +176,7 @@ export default function ShoppingListView() {
         )}
         {summary.onlineFilled > 0 && (
           <p className="mt-1 text-xs text-slate-400">
-            {summary.onlineFilled} Position(en) via Open Prices geschätzt (online).
+            {summary.onlineFilled} Position(en) online/per KI geschätzt.
           </p>
         )}
       </div>
@@ -275,9 +293,11 @@ function ShoppingRow({
           {item.estimatedPrice != null ? (
             `≈ ${formatPrice(item.estimatedPrice, currency)}`
           ) : onlineCost != null ? (
-            <span title="Online-Schätzung (Open Prices)">
+            <span title={online?.source === 'ai' ? 'KI-Schätzung' : 'Online-Schätzung (Open Prices)'}>
               ≈ {formatPrice(onlineCost, currency)}
-              <span className="ml-1 text-[10px] font-normal text-sky-500">online</span>
+              <span className="ml-1 text-[10px] font-normal text-sky-500">
+                {online?.source === 'ai' ? 'KI' : 'online'}
+              </span>
             </span>
           ) : (
             '—'

@@ -96,4 +96,14 @@ export const importRecipesSchema = z.object({
 
 export type ImportRecipesInput = z.infer<typeof importRecipesSchema>;
 
+/** Request-Vertrag für POST /estimate-prices (KI-Preisschätzung für Zutaten ohne Preis). */
+export const estimatePricesSchema = z.object({
+  items: z
+    .array(z.object({ key: shortString, name: z.string().trim().min(1).max(120) }))
+    .min(1)
+    .max(40),
+});
+
+export type EstimatePricesInput = z.infer<typeof estimatePricesSchema>;
+
 // Hinweis: Der validierte Rezept-Typ lebt in llm/recipeSchema.ts (recipe-engine, M9).

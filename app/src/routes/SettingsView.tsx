@@ -229,7 +229,7 @@ export default function SettingsView() {
         />
         <Toggle
           label="Online-Preise"
-          description="Preisschätzungen aus offenen Quellen (experimentell)."
+          description="Fehlende Preise online schätzen: Open Prices, sonst KI-Schätzung (experimentell)."
           checked={prefs.onlinePricesEnabled}
           onChange={(v) => void update({ onlinePricesEnabled: v })}
         />

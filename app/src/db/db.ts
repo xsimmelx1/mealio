@@ -7,6 +7,15 @@ import type {
   UserPreferences,
 } from '../domain/schema';
 
+/** Gecachte KI-Preisschätzung (spart Gemini-Quota über Sessions hinweg). */
+export interface AiPriceCacheEntry {
+  key: string;
+  pricePerPackage: number;
+  packageSize: number;
+  packageUnit: 'g' | 'ml' | 'stück';
+  cachedAt: number;
+}
+
 /**
  * Mealio IndexedDB (Dexie). Einzige Persistenz für Domänendaten.
  * Kein localStorage für Domänendaten (nur Prefs-Singleton lebt ebenfalls hier).
@@ -17,6 +26,7 @@ export class MealioDB extends Dexie {
   shoppingItems!: Table<ShoppingItem, string>;
   priceOverrides!: Table<PriceOverride, string>;
   preferences!: Table<UserPreferences, number>;
+  aiPrices!: Table<AiPriceCacheEntry, string>;
 
   constructor() {
     super('mealio');
@@ -42,6 +52,15 @@ export class MealioDB extends Dexie {
         await tx.table('mealPlans').clear();
         await tx.table('shoppingItems').clear();
       });
+    // v3: Cache für KI-Preisschätzungen.
+    this.version(3).stores({
+      recipes: 'id, isFavorite, source, *mealStyles, *mealTypes, *dietTags',
+      mealPlans: 'id, weekStartDate',
+      shoppingItems: 'id, aisle, isChecked',
+      priceOverrides: 'productKey',
+      preferences: 'id',
+      aiPrices: 'key',
+    });
   }
 }
 

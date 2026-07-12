@@ -127,7 +127,7 @@ const OnlinePriceSchema = z.object({
   packageSize: z.number().nullable(),
   packageUnit: z.enum(['g', 'ml', 'stück']).nullable(),
   currency: z.string(),
-  source: z.enum(['open-prices', 'unknown']),
+  source: z.enum(['open-prices', 'ai', 'unknown']),
   updatedAt: z.string().nullable(),
 });
 export type OnlinePrice = z.infer<typeof OnlinePriceSchema>;
@@ -199,6 +199,25 @@ export async function importRecipes(
   return { recipes, attribution: parsed.attribution ?? 'TheMealDB' };
 }
 
+/**
+ * KI-geschätzte Preise für Zutaten ohne gefundenen Preis (letzte Instanz).
+ * Gleiche Shape wie fetchPrices (source "ai" | "unknown"). Fehler werfen -> ignorieren.
+ */
+export async function estimatePrices(
+  items: { key: string; name: string }[],
+): Promise<OnlinePrice[]> {
+  const raw = await fetchJson(
+    '/estimate-prices',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items }),
+    },
+    60_000,
+  );
+  return PricesResponse.parse(raw).items;
+}
+
 /** Health-Check des Backends (für Feature-Gating / Statusanzeige). */
 export async function health(timeoutMs = 3000): Promise<boolean> {
   try {
@@ -213,6 +232,7 @@ export const apiClient = {
   generatePlan,
   fetchNutrition,
   fetchPrices,
+  estimatePrices,
   importRecipes,
   health,
   baseUrl: BASE_URL,

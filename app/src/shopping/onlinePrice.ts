@@ -11,7 +11,8 @@ export function onlineItemCost(
   item: Pick<ShoppingItem, 'totalAmount' | 'unit'>,
   price: OnlinePrice,
 ): number | null {
-  if (price.source !== 'open-prices' || price.pricePerPackage == null) return null;
+  if ((price.source !== 'open-prices' && price.source !== 'ai') || price.pricePerPackage == null)
+    return null;
   if (price.packageSize == null || price.packageUnit == null || price.packageSize <= 0) return null;
 
   const base = toBase(item.totalAmount, item.unit);
