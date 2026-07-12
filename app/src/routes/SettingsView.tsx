@@ -18,20 +18,58 @@ import {
   SUPERMARKETS,
 } from '../domain/enums';
 import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
+import { importRecipes } from '../api/client';
 import { resetPriceOverrides } from '../db/priceActions';
+import { importCatalogRecipes } from '../db/recipeActions';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { WEEKDAY_LABELS } from '../plan/week';
 import { usePrefsStore } from '../state/prefsStore';
 
 const DAY_OPTIONS = WEEKDAY_LABELS.map((label, i) => ({ value: String(i), label }));
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
+/** TheMealDB-Kategorien mit deutschen Labels. */
+const DISCOVER_CATEGORIES = [
+  { value: '', label: 'Zufällig' },
+  { value: 'Breakfast', label: 'Frühstück' },
+  { value: 'Vegetarian', label: 'Vegetarisch' },
+  { value: 'Vegan', label: 'Vegan' },
+  { value: 'Seafood', label: 'Fisch' },
+  { value: 'Chicken', label: 'Hähnchen' },
+  { value: 'Beef', label: 'Rind' },
+  { value: 'Pasta', label: 'Pasta' },
+  { value: 'Dessert', label: 'Dessert' },
+];
+
 export default function SettingsView() {
   const prefs = usePrefsStore((s) => s.prefs);
   const update = usePrefsStore((s) => s.update);
+  const online = useOnlineStatus();
   const [resetDone, setResetDone] = useState(false);
+  const [discoverCat, setDiscoverCat] = useState('');
+  const [importing, setImporting] = useState(false);
+  const [importMsg, setImportMsg] = useState<string | null>(null);
 
   const toggleIn = <T extends string>(list: readonly T[], value: T): T[] =>
     list.includes(value) ? list.filter((x) => x !== value) : [...list, value];
+
+  const runImport = async () => {
+    setImporting(true);
+    setImportMsg(null);
+    try {
+      const { recipes, attribution } = await importRecipes(discoverCat, 6);
+      const added = await importCatalogRecipes(recipes);
+      setImportMsg(
+        recipes.length === 0
+          ? 'Aktuell keine Rezepte verfügbar (evtl. KI-Kontingent erschöpft). Später erneut versuchen.'
+          : `${added} neue Rezepte importiert (${recipes.length} geladen · Quelle: ${attribution}).`,
+      );
+    } catch {
+      setImportMsg('Import fehlgeschlagen — Backend/Netz nicht erreichbar.');
+    } finally {
+      setImporting(false);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -155,6 +193,32 @@ export default function SettingsView() {
         </Field>
       </Section>
 
+      {/* Rezepte entdecken (TheMealDB-Import) */}
+      <Section title="Rezepte entdecken">
+        <p className="text-xs text-slate-500">
+          Importiere zusätzliche Rezepte aus TheMealDB — automatisch ins Deutsche übersetzt und
+          in dein Schema gebracht. Landen im Katalog und in künftigen Plänen.
+        </p>
+        <Field label="Kategorie">
+          <ChipSingleSelect
+            options={DISCOVER_CATEGORIES}
+            value={discoverCat}
+            onChange={setDiscoverCat}
+            ariaLabel="Import-Kategorie"
+          />
+        </Field>
+        <button
+          type="button"
+          onClick={() => void runImport()}
+          disabled={importing || !online}
+          className="self-start rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm active:scale-95 disabled:opacity-50"
+        >
+          {importing ? 'Importiere …' : 'Rezepte importieren'}
+        </button>
+        {!online && <p className="text-xs text-amber-600">Nur online verfügbar.</p>}
+        {importMsg && <p className="text-xs text-slate-500">{importMsg}</p>}
+      </Section>
+
       {/* Experimentell */}
       <Section title="Experimentell">
         <Toggle
@@ -218,6 +282,11 @@ export default function SettingsView() {
 }
 
 const ATTRIBUTIONS: { name: string; license: string; note: string }[] = [
+  {
+    name: 'TheMealDB (themealdb.com)',
+    license: 'frei · Link-Back',
+    note: 'Importierte Rezepte (übersetzt/normalisiert).',
+  },
   {
     name: 'USDA FoodData Central',
     license: 'Public Domain',

@@ -20,6 +20,7 @@ import { createLlmClient, type LlmClient } from './llm/llmClient.js';
 
 import { healthRouter } from './routes/health.js';
 import { createGeneratePlanRouter } from './routes/generatePlan.js';
+import { createImportRecipesRouter } from './routes/importRecipes.js';
 import { createNutritionRouter } from './routes/nutrition.js';
 import { createPricesRouter } from './routes/prices.js';
 import type { PriceProvider } from './prices/providers/types.js';
@@ -88,6 +89,7 @@ export function createApp(options: AppOptions = {}): Express {
   app.use(limiter);
 
   app.use(createGeneratePlanRouter(llm));
+  app.use(createImportRecipesRouter(llm));
   app.use(createNutritionRouter());
   app.use(
     createPricesRouter({ online: options.pricesOnline, providers: options.priceProviders }),

@@ -149,6 +149,56 @@ export async function fetchPrices(
   return PricesResponse.parse(raw).items;
 }
 
+const ImportResponse = z.object({
+  source: z.string().optional(),
+  attribution: z.string().optional(),
+  recipes: z.array(z.unknown()),
+});
+
+export interface ImportResult {
+  recipes: Recipe[];
+  attribution: string;
+}
+
+function deriveImportId(sourceUrl: string | undefined, title: string, i: number): string {
+  const mealId = sourceUrl?.match(/(\d{3,})/)?.[1];
+  return `themealdb-${mealId ?? (normalizeName(title) || 'rezept')}-${i}`;
+}
+
+/**
+ * Importiert Rezepte aus TheMealDB (serverseitig ins Deutsche + Schema normalisiert).
+ * Längeres Timeout, da pro Rezept eine LLM-Normalisierung läuft. Ungültige verworfen.
+ */
+export async function importRecipes(
+  category = '',
+  count = 6,
+  now = Date.now(),
+): Promise<ImportResult> {
+  const raw = await fetchJson(
+    '/import-recipes',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ category, count }),
+    },
+    90_000,
+  );
+  const parsed = ImportResponse.parse(raw);
+  const recipes: Recipe[] = [];
+  parsed.recipes.forEach((entry, i) => {
+    const r = LlmRecipeSchema.safeParse(entry);
+    if (!r.success) return;
+    recipes.push({
+      ...r.data,
+      id: deriveImportId(r.data.sourceUrl, r.data.title, i),
+      source: 'themealdb',
+      isFavorite: false,
+      createdAt: now,
+    });
+  });
+  return { recipes, attribution: parsed.attribution ?? 'TheMealDB' };
+}
+
 /** Health-Check des Backends (für Feature-Gating / Statusanzeige). */
 export async function health(timeoutMs = 3000): Promise<boolean> {
   try {
@@ -159,4 +209,11 @@ export async function health(timeoutMs = 3000): Promise<boolean> {
   }
 }
 
-export const apiClient = { generatePlan, fetchNutrition, fetchPrices, health, baseUrl: BASE_URL };
+export const apiClient = {
+  generatePlan,
+  fetchNutrition,
+  fetchPrices,
+  importRecipes,
+  health,
+  baseUrl: BASE_URL,
+};

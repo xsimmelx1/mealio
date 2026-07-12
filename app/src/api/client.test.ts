@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fetchNutrition, fetchPrices, generatePlan } from './client';
+import { fetchNutrition, fetchPrices, generatePlan, importRecipes } from './client';
 import { UserPreferencesSchema } from '../domain/schema';
 
 const prefs = UserPreferencesSchema.parse({ numberOfPeople: 2 });
@@ -76,6 +76,34 @@ describe('apiClient.fetchNutrition', () => {
     mockFetchOnce({ perServing: null, matchedCount: 0, unmatchedCount: 3, unknownIngredients: [] });
     const res = await fetchNutrition([{ name: 'X', amount: 1, unit: 'g' }], 1);
     expect(res.perServing).toBeNull();
+  });
+});
+
+describe('apiClient.importRecipes', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('parst importierte Rezepte, vergibt themealdb-id/source, verwirft ungültige', async () => {
+    const valid = {
+      title: 'Apfel-Porridge',
+      mealStyles: ['schnell'],
+      mealTypes: ['fruehstueck'],
+      dietTags: ['vegetarisch'],
+      requiredAppliances: ['herd'],
+      prepMinutes: 5,
+      cookMinutes: 10,
+      baseServings: 2,
+      ingredients: [{ name: 'Haferflocken', amount: 80, unit: 'g', aisle: 'trockenwaren' }],
+      steps: ['a', 'b', 'c'],
+      nutritionPerServing: null,
+      sourceUrl: 'https://www.themealdb.com/meal/52959',
+    };
+    const invalid = { ...valid, steps: ['nur einer'] };
+    mockFetchOnce({ source: 'themealdb', attribution: 'TheMealDB', recipes: [valid, invalid] });
+    const res = await importRecipes('Breakfast', 6, 42);
+    expect(res.attribution).toBe('TheMealDB');
+    expect(res.recipes).toHaveLength(1);
+    expect(res.recipes[0].source).toBe('themealdb');
+    expect(res.recipes[0].id).toContain('themealdb-52959');
   });
 });
 

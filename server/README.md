@@ -9,6 +9,7 @@ Das Frontend spricht ausschließlich mit diesem Backend; Keys verlassen den Serv
 | ------- | ---------------- | --------- | ------------ |
 | GET     | `/health`        | live      | `{ status, uptime, timestamp }`; kein Rate-Limit |
 | POST    | `/generate-plan` | Mock      | LLM-Proxy. Body = UserPreferences. Antwort `{ source: "mock", recipes: [] }` |
+| POST    | `/import-recipes`| live      | Import aus TheMealDB + Gemini-Normalisierung ins Deutsche. Body `{ category?, count? }` -> `{ source: "themealdb", attribution, recipes: Recipe[] }` |
 | POST    | `/nutrition`     | live (M10)| Body `{ ingredients: [{ name, amount, unit }], servings? }` -> `{ perServing: {kcal,protein,carbs,fat} \| null, matchedCount, unmatchedCount, unknownIngredients: string[] }` |
 | POST    | `/prices`        | live (M11)| Body `{ items: [{ key, query?, region? }] }` -> `{ items: [{ key, pricePerPackage, packageSize, packageUnit, currency, source, updatedAt }] }` |
 
@@ -31,6 +32,32 @@ Mock, Retry/Timeout und Caching.
 - Primärquelle ist der lokale Nährwert-Seed (`src/nutrition/nutritionSeed.ts`), damit
   der Endpunkt vollständig offline funktioniert. Online-Lookups sind opt-in
   (`NUTRITION_ONLINE=1`) und werden mit TTL gecacht.
+
+### `/import-recipes` im Detail
+
+- Request: `POST /import-recipes` mit `{ category?: string, count?: number }`.
+  `count` Default 6, max 10. `category` z. B. `Breakfast`, `Vegetarian`, `Vegan`,
+  `Seafood`, `Pasta`, `Chicken`, `Beef`, `Dessert`; leer -> zufällige Rezepte.
+- Response: `{ source: "themealdb", attribution: "Rezepte via TheMealDB (themealdb.com)",
+  recipes: Recipe[] }`. Jedes `Recipe` hat exakt das `/generate-plan`-Feldformat
+  (title, mealStyles, mealTypes, dietTags, requiredAppliances, prepMinutes, cookMinutes,
+  baseServings, ingredients, steps, `nutritionPerServing: null`) und zusätzlich
+  optional `sourceUrl` (Link-Back auf das Originalrezept). Deutsch, unsere Einheiten.
+- **Ablauf:** Kategorie -> `filter.php` (idMeal-Liste) + `lookup.php` (Volldaten);
+  ODER `count`× `random.php`. Je Roh-Rezept: Gemini übersetzt/normalisiert ins
+  Rezeptschema -> Schema-Parse -> harte Checks (`checkRecipe`). `baseServings` wird
+  auf 2 gesetzt (Mengen grob skaliert).
+- **Sauberes Degradieren:** Fehler pro Rezept (Gemini 429/Quota, Parse-Fehler,
+  TheMealDB-Lookup) werden EINZELN abgefangen -> dieses Rezept wird übersprungen, nie
+  die ganze Anfrage. Ohne echtes Gemini (Mock/kein `LLM_API_KEY`) wird NUR strukturell
+  gemappt (Maße umgerechnet, ohne Übersetzung) statt zu blockieren.
+- **Robustheit:** TheMealDB liefert HTTP 200 mit `{"meals": null}` bei keinem Treffer
+  -> Body/erwartete Felder werden immer geprüft, nie nur der Statuscode. Timeout je
+  Aufruf. Ergebnisse werden je Kategorie mit TTL gecacht (gegen wiederholte
+  Gemini-/TheMealDB-Last).
+- **Lizenz:** freier Test-Key `1`; Link-Back-Pflicht (via `sourceUrl`). Es werden KEINE
+  Bilder importiert (nur Text/Struktur). Kommerzieller Einsatz erwartet einen
+  Patreon-Produktionskey; der geteilte Test-Key kann ohne Vorwarnung brechen.
 
 ### `/prices` im Detail (M11)
 
@@ -103,6 +130,7 @@ Quellen. Attributionen gehören zusätzlich in die App (Über/Impressum).
 | **USDA FoodData Central** | opt-in Online-Lookup (`NUTRITION_ONLINE=1`) | Public Domain | keine; frei, auch kommerziell |
 | **Open Food Facts** | opt-in Online-Lookup (Fallback nach USDA) | ODbL | **Attribution + Share-Alike** der Datenbank; Daten nur live abfragen + cachen, NICHT fest ins Repo kopieren |
 | **Open Food Facts — Open Prices** | opt-in Online-Preise (`PRICES_ONLINE=1`) für `/prices` | ODbL | **Attribution + Share-Alike** der Datenbank; Daten nur live abfragen + cachen (TTL), NICHT fest ins Repo kopieren |
+| **TheMealDB** | Rezept-Import (`/import-recipes`), live abgefragt + via Gemini normalisiert | freier Test-Key `1` | **Link-Back-Pflicht** (via `sourceUrl`); KEINE Bilder importieren (nur Text/Struktur); kommerziell -> Patreon-Produktionskey; Test-Key kann brechen |
 
 Weitere Hinweise:
 
@@ -111,8 +139,12 @@ Weitere Hinweise:
   zur Laufzeit abgefragt und im TTL-Cache gehalten, nie als ausgelieferter Content
   ins Repo übernommen.
 - **USDA** ist Public Domain und ohne Auflagen nutzbar.
-- **TheMealDB** dient allenfalls dem Prototyping/als Strukturvorlage (geteilter
-  Test-Key, unklare Weiterverteilung) — nicht als ausgelieferter Content.
+- **TheMealDB** ist die Rezept-Quelle für `/import-recipes` (freier Test-Key `1`).
+  Pflicht ist ein Link-Back auf das Originalrezept (`sourceUrl`); Bilder werden NICHT
+  importiert (nur Text/Struktur, danach via Gemini ins Deutsche normalisiert). Der
+  geteilte Test-Key kann ohne Vorwarnung brechen und die Weiterverteilungsrechte sind
+  unklar — kommerzieller Einsatz erwartet einen Patreon-Produktionskey. Die Attribution
+  ("Rezepte via TheMealDB") gehört zusätzlich in die App (Über/Impressum).
 - **Wikibooks Cookbook** wäre CC BY-SA (Attribution + Share-Alike), falls genutzt.
 
 Robustheit: HTTP 200 bedeutet nicht Erfolg (OFF liefert 200 auch ohne Produkt) —

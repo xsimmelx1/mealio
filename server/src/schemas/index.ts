@@ -85,4 +85,15 @@ export const pricesSchema = z.object({
 
 export type PricesInput = z.infer<typeof pricesSchema>;
 
+/**
+ * Request-Vertrag für POST /import-recipes (TheMealDB-Import).
+ * `category` optional (leer -> zufällige Rezepte); `count` Default 6, max 10.
+ */
+export const importRecipesSchema = z.object({
+  category: z.string().trim().min(1).max(60).optional(),
+  count: z.number().int().positive().max(10).optional().default(6),
+});
+
+export type ImportRecipesInput = z.infer<typeof importRecipesSchema>;
+
 // Hinweis: Der validierte Rezept-Typ lebt in llm/recipeSchema.ts (recipe-engine, M9).

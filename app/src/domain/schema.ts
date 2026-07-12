@@ -58,7 +58,9 @@ export const RecipeSchema = z.object({
   nutritionPerServing: NutritionSchema.nullable().default(null),
   /** Schätzwert, wird von der Preis-Engine berechnet. null = unbekannt. */
   estimatedCostPerServing: z.number().nonnegative().nullable().default(null),
-  source: z.enum(['seed', 'llm']),
+  source: z.enum(['seed', 'llm', 'themealdb']),
+  /** Optionaler Quell-Link (Attribution, z. B. TheMealDB). */
+  sourceUrl: z.string().optional(),
   isFavorite: z.boolean().default(false),
   createdAt: z.number().int().nonnegative(),
 });
