@@ -86,12 +86,33 @@ describe('POST /generate-plan', () => {
 });
 
 describe('POST /nutrition', () => {
-  it('gültiger Body -> 200 mit Stub-Shape', async () => {
+  it('gültiger Body -> 200 mit Vertrags-Shape', async () => {
     const res = await request(app)
       .post('/nutrition')
-      .send({ ingredients: [{ name: 'Tomate', amount: 100, unit: 'g' }] });
+      .send({ ingredients: [{ name: 'Tomaten', amount: 100, unit: 'g' }], servings: 1 });
     expect(res.status).toBe(200);
-    expect(res.body.items).toEqual([{ name: 'Tomate', status: 'unknown' }]);
+    // Vertrag: perServing-Objekt oder null, Zähler + Liste.
+    expect(res.body).toHaveProperty('perServing');
+    expect(res.body).toHaveProperty('matchedCount');
+    expect(res.body).toHaveProperty('unmatchedCount');
+    expect(Array.isArray(res.body.unknownIngredients)).toBe(true);
+    expect(res.body.matchedCount).toBe(1);
+    expect(res.body.perServing).toMatchObject({
+      kcal: expect.any(Number),
+      protein: expect.any(Number),
+      carbs: expect.any(Number),
+      fat: expect.any(Number),
+    });
+  });
+
+  it('unbekannte Zutat -> perServing null, in unknownIngredients', async () => {
+    const res = await request(app)
+      .post('/nutrition')
+      .send({ ingredients: [{ name: 'Einhornstaub', amount: 100, unit: 'g' }] });
+    expect(res.status).toBe(200);
+    expect(res.body.perServing).toBeNull();
+    expect(res.body.matchedCount).toBe(0);
+    expect(res.body.unknownIngredients).toContain('Einhornstaub');
   });
 
   it('ungültiger Body (leere ingredients) -> 400', async () => {
@@ -104,6 +125,13 @@ describe('POST /nutrition', () => {
     const res = await request(app)
       .post('/nutrition')
       .send({ ingredients: [{ name: 'X', amount: 0, unit: 'g' }] });
+    expect(res.status).toBe(400);
+  });
+
+  it('ungültiger Body (unbekannte unit) -> 400', async () => {
+    const res = await request(app)
+      .post('/nutrition')
+      .send({ ingredients: [{ name: 'X', amount: 1, unit: 'dl' }] });
     expect(res.status).toBe(400);
   });
 });

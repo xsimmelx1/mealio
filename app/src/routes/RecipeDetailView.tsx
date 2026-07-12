@@ -1,11 +1,13 @@
 import { useLiveQuery } from 'dexie-react-hooks';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { fetchNutrition } from '../api/client';
 import EstimateBadge from '../components/EstimateBadge';
 import NumberStepper from '../components/forms/NumberStepper';
 import { AISLE_LABELS, MEAL_STYLE_LABELS } from '../domain/enums';
 import { db } from '../db/db';
 import { toggleFavorite } from '../db/recipeActions';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { formatAmount, scaleAmount } from '../lib/format';
 import { whySuitable } from '../plan/filterRecipes';
 import { formatPrice } from '../pricing';
@@ -17,8 +19,38 @@ export default function RecipeDetailView() {
   const prefs = usePrefsStore((s) => s.prefs);
   const engine = usePriceEngine();
 
+  const online = useOnlineStatus();
   const recipe = useLiveQuery(() => (recipeId ? db.recipes.get(recipeId) : undefined), [recipeId]);
   const [servings, setServings] = useState<number | null>(null);
+  const [nutrition, setNutrition] = useState<{ loading: boolean; note: string | null }>({
+    loading: false,
+    note: null,
+  });
+  const fetchedRef = useRef<string | null>(null);
+
+  // Fehlende Nährwerte (z. B. KI-Rezepte) online berechnen + in Dexie cachen.
+  useEffect(() => {
+    if (!recipe || recipe.nutritionPerServing !== null || !online) return;
+    if (fetchedRef.current === recipe.id) return;
+    fetchedRef.current = recipe.id;
+    setNutrition({ loading: true, note: null });
+    fetchNutrition(recipe.ingredients, recipe.baseServings)
+      .then(async (res) => {
+        if (res.perServing) {
+          await db.recipes.update(recipe.id, { nutritionPerServing: res.perServing });
+          setNutrition({
+            loading: false,
+            note:
+              res.unmatchedCount > 0
+                ? `${res.unmatchedCount} Zutat(en) ohne Nährwert — Angabe ist eine Untergrenze.`
+                : null,
+          });
+        } else {
+          setNutrition({ loading: false, note: 'Nährwerte nicht verfügbar.' });
+        }
+      })
+      .catch(() => setNutrition({ loading: false, note: null }));
+  }, [recipe?.id, recipe?.nutritionPerServing, online]);
 
   if (recipe === undefined) {
     return <p className="p-4 text-slate-400">Lädt …</p>;
@@ -120,14 +152,21 @@ export default function RecipeDetailView() {
       <div className="card mb-4 p-4">
         <h2 className="mb-2 text-sm font-semibold text-slate-700">Nährwerte pro Portion</h2>
         {macros ? (
-          <div className="grid grid-cols-4 gap-2 text-center">
-            <Macro label="kcal" value={Math.round(macros.kcal)} />
-            <Macro label="Eiweiß" value={`${Math.round(macros.protein)} g`} />
-            <Macro label="KH" value={`${Math.round(macros.carbs)} g`} />
-            <Macro label="Fett" value={`${Math.round(macros.fat)} g`} />
-          </div>
+          <>
+            <div className="grid grid-cols-4 gap-2 text-center">
+              <Macro label="kcal" value={Math.round(macros.kcal)} />
+              <Macro label="Eiweiß" value={`${Math.round(macros.protein)} g`} />
+              <Macro label="KH" value={`${Math.round(macros.carbs)} g`} />
+              <Macro label="Fett" value={`${Math.round(macros.fat)} g`} />
+            </div>
+            {nutrition.note && <p className="mt-2 text-xs text-slate-400">{nutrition.note}</p>}
+          </>
+        ) : nutrition.loading ? (
+          <p className="text-sm text-slate-400">Nährwerte werden berechnet …</p>
         ) : (
-          <p className="text-sm text-slate-400">Nährwerte unbekannt</p>
+          <p className="text-sm text-slate-400">
+            Nährwerte unbekannt{!online ? ' (offline)' : ''}
+          </p>
         )}
       </div>
 

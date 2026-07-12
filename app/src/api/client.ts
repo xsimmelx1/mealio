@@ -1,5 +1,11 @@
 import { z } from 'zod';
-import { RecipeSchema, type Recipe, type UserPreferences } from '../domain/schema';
+import {
+  NutritionSchema,
+  RecipeSchema,
+  type Ingredient,
+  type Recipe,
+  type UserPreferences,
+} from '../domain/schema';
 import { normalizeName } from '../pricing/productMatch';
 
 /**
@@ -87,6 +93,33 @@ export async function generatePlan(
   return { source: parsed.source ?? 'llm', recipes };
 }
 
+const NutritionResponse = z.object({
+  perServing: NutritionSchema.nullable(),
+  matchedCount: z.number(),
+  unmatchedCount: z.number(),
+  unknownIngredients: z.array(z.string()),
+});
+export type NutritionResult = z.infer<typeof NutritionResponse>;
+
+/**
+ * Berechnet Makros pro Portion aus einer Zutatliste (Backend: USDA/OFF + Seed).
+ * perServing ist null, wenn keine Zutat gematcht wurde (nie 0 als Nährwert).
+ */
+export async function fetchNutrition(
+  ingredients: Pick<Ingredient, 'name' | 'amount' | 'unit'>[],
+  servings: number,
+): Promise<NutritionResult> {
+  const raw = await fetchJson('/nutrition', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ingredients: ingredients.map((i) => ({ name: i.name, amount: i.amount, unit: i.unit })),
+      servings,
+    }),
+  });
+  return NutritionResponse.parse(raw);
+}
+
 /** Health-Check des Backends (für Feature-Gating / Statusanzeige). */
 export async function health(timeoutMs = 3000): Promise<boolean> {
   try {
@@ -97,4 +130,4 @@ export async function health(timeoutMs = 3000): Promise<boolean> {
   }
 }
 
-export const apiClient = { generatePlan, health, baseUrl: BASE_URL };
+export const apiClient = { generatePlan, fetchNutrition, health, baseUrl: BASE_URL };

@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import RecipeDetailView from './RecipeDetailView';
 import { db } from '../db/db';
 import type { Recipe } from '../domain/schema';
@@ -70,5 +70,42 @@ describe('RecipeDetailView', () => {
     expect(await screen.findByRole('button', { name: /aus favoriten entfernen/i })).toBeInTheDocument();
     const saved = await db.recipes.get('r-test');
     expect(saved?.isFavorite).toBe(true);
+  });
+});
+
+describe('RecipeDetailView — Nährwerte nachladen (M10)', () => {
+  afterEach(() => vi.unstubAllGlobals());
+  beforeEach(async () => {
+    await usePrefsStore.getState().load();
+    // Rezept OHNE Nährwerte (wie KI-Rezept).
+    await db.recipes.put({ ...testRecipe, id: 'r-nonutri', nutritionPerServing: null });
+  });
+
+  it('lädt fehlende Nährwerte vom Backend und cached sie in Dexie', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          perServing: { kcal: 420, protein: 30, carbs: 25, fat: 12 },
+          matchedCount: 1,
+          unmatchedCount: 0,
+          unknownIngredients: [],
+        }),
+      }),
+    );
+    render(
+      <MemoryRouter initialEntries={['/recipe/r-nonutri']}>
+        <Routes>
+          <Route path="/recipe/:recipeId" element={<RecipeDetailView />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    expect(await screen.findByText('420')).toBeInTheDocument();
+    await waitFor(async () => {
+      const saved = await db.recipes.get('r-nonutri');
+      expect(saved?.nutritionPerServing?.kcal).toBe(420);
+    });
   });
 });

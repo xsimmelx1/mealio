@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { generatePlan } from './client';
+import { fetchNutrition, generatePlan } from './client';
 import { UserPreferencesSchema } from '../domain/schema';
 
 const prefs = UserPreferencesSchema.parse({ numberOfPeople: 2 });
@@ -50,5 +50,31 @@ describe('apiClient.generatePlan', () => {
   it('wirft bei HTTP-Fehler', async () => {
     mockFetchOnce({}, false, 500);
     await expect(generatePlan(prefs)).rejects.toThrow();
+  });
+});
+
+describe('apiClient.fetchNutrition', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('parst die Nährwert-Antwort gegen den Vertrag', async () => {
+    mockFetchOnce({
+      perServing: { kcal: 500, protein: 40, carbs: 30, fat: 15 },
+      matchedCount: 2,
+      unmatchedCount: 1,
+      unknownIngredients: ['salz'],
+    });
+    const res = await fetchNutrition(
+      [{ name: 'Reis', amount: 150, unit: 'g' }],
+      2,
+    );
+    expect(res.perServing?.kcal).toBe(500);
+    expect(res.unmatchedCount).toBe(1);
+    expect(res.unknownIngredients).toContain('salz');
+  });
+
+  it('akzeptiert perServing null (unbekannt)', async () => {
+    mockFetchOnce({ perServing: null, matchedCount: 0, unmatchedCount: 3, unknownIngredients: [] });
+    const res = await fetchNutrition([{ name: 'X', amount: 1, unit: 'g' }], 1);
+    expect(res.perServing).toBeNull();
   });
 });

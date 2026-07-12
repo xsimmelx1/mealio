@@ -31,15 +31,30 @@ export const generatePlanSchema = z.object({
 
 export type GeneratePlanInput = z.infer<typeof generatePlanSchema>;
 
+/** Unterstützte Einheiten (Masse, Volumen, Stück, Prise). */
+export const nutritionUnitSchema = z.enum([
+  'g',
+  'kg',
+  'ml',
+  'l',
+  'tsp',
+  'tbsp',
+  'stück',
+  'prise',
+]);
+
+export type NutritionUnit = z.infer<typeof nutritionUnitSchema>;
+
 /** Einzelne Zutat für /nutrition. */
 export const nutritionIngredientSchema = z.object({
   name: shortString,
   amount: z.number().positive(),
-  unit: z.string().trim().min(1).max(30),
+  unit: nutritionUnitSchema,
 });
 
 export const nutritionSchema = z.object({
   ingredients: z.array(nutritionIngredientSchema).min(1).max(200),
+  servings: z.number().int().positive().max(100).default(1),
 });
 
 export type NutritionInput = z.infer<typeof nutritionSchema>;
