@@ -124,7 +124,6 @@ export const UserPreferencesSchema = z.object({
   budget: z.number().nonnegative().default(60),
   currency: z.enum(CURRENCIES).default('EUR'),
   supermarket: z.string().default(''),
-  region: z.string().default(''),
   diet: z.enum(DIETS).default('omnivor'),
   allergies: z.array(z.enum(ALLERGIES)).default([]),
   preferredStyles: z.array(z.enum(MEAL_STYLES)).default([]),

@@ -43,7 +43,6 @@ export default function OnboardingView() {
   const [budget, setBudget] = useState(prefs.budget);
   const [currency, setCurrency] = useState<Currency>(prefs.currency);
   const [supermarket, setSupermarket] = useState(prefs.supermarket);
-  const [region, setRegion] = useState(prefs.region);
   const [diet, setDiet] = useState<Diet>(prefs.diet);
   const [allergies, setAllergies] = useState<Allergy[]>(prefs.allergies);
   const [avoided, setAvoided] = useState<string[]>(prefs.avoidedIngredients);
@@ -66,7 +65,6 @@ export default function OnboardingView() {
           budget,
           currency,
           supermarket,
-          region,
           diet,
           allergies,
           avoidedIngredients: avoided,
@@ -162,14 +160,6 @@ export default function OnboardingView() {
                 value={supermarket}
                 onChange={setSupermarket}
                 ariaLabel="Supermarkt"
-              />
-            </Field>
-            <Field label="Region / PLZ">
-              <TextField
-                value={region}
-                onChange={setRegion}
-                placeholder="z. B. 10115 oder Berlin"
-                ariaLabel="Region oder Postleitzahl"
               />
             </Field>
           </StepShell>
@@ -338,28 +328,5 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       <span className="text-sm font-semibold text-slate-700">{label}</span>
       {children}
     </div>
-  );
-}
-
-function TextField({
-  value,
-  onChange,
-  placeholder,
-  ariaLabel,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-  ariaLabel?: string;
-}) {
-  return (
-    <input
-      type="text"
-      value={value}
-      aria-label={ariaLabel}
-      placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
-    />
   );
 }
