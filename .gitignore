@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+build/
+*.local
+
+# Environment / secrets — NEVER commit
+.env
+.env.*
+!.env.example
+
+# SQLite / caches
+*.sqlite
+*.sqlite3
+*.db
+.cache/
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test / coverage
+coverage/
+
+# PWA generated
+app/dev-dist/
+
+# Capacitor (later)
+app/android/
+app/ios/

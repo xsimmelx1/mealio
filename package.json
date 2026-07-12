@@ -1,0 +1,26 @@
+{
+  "name": "mealio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mealio — mobile-first Meal-Planning & Rezepte PWA",
+  "workspaces": [
+    "app",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -n app,server -c cyan,magenta \"npm:dev:app\" \"npm:dev:server\"",
+    "dev:app": "npm run dev -w app",
+    "dev:server": "npm run dev -w server",
+    "build": "npm run build -w app && npm run build -w server",
+    "test": "npm run test -w app && npm run test -w server",
+    "test:app": "npm run test -w app",
+    "test:server": "npm run test -w server",
+    "lint": "npm run lint -w app --if-present && npm run lint -w server --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

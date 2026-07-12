@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-cream text-slate-800 antialiased;
+    /* Safe-area padding for notched devices / installed PWA */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-card bg-white shadow-sm ring-1 ring-slate-100;
+  }
+
+  /* Touch-friendly nav item */
+  .nav-item {
+    @apply flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs font-medium;
+  }
+}
