@@ -32,17 +32,17 @@ export async function fetchAiPricesCached(
   const map: Record<string, OnlinePrice> = {};
   if (items.length === 0) return map;
 
-  // 1. Cache lesen.
-  const keys = items.map((i) => i.key);
-  const cached = await db.aiPrices.where('key').anyOf(keys).toArray();
-  const fresh = new Map(cached.filter((c) => now - c.cachedAt < TTL_MS).map((c) => [c.key, c]));
-  for (const [key, c] of fresh) map[key] = toOnlinePrice(c);
-
-  // 2. Nur unbekannte Keys ans Backend.
-  const missing = items.filter((i) => !fresh.has(i.key));
-  if (missing.length === 0) return map;
-
   try {
+    // 1. Cache lesen.
+    const keys = items.map((i) => i.key);
+    const cached = await db.aiPrices.where('key').anyOf(keys).toArray();
+    const fresh = new Map(cached.filter((c) => now - c.cachedAt < TTL_MS).map((c) => [c.key, c]));
+    for (const [key, c] of fresh) map[key] = toOnlinePrice(c);
+
+    // 2. Nur unbekannte Keys ans Backend.
+    const missing = items.filter((i) => !fresh.has(i.key));
+    if (missing.length === 0) return map;
+
     const estimates = await estimatePrices(missing);
     const toStore = estimates.filter(
       (e) => e.source === 'ai' && e.pricePerPackage != null && e.packageSize != null && e.packageUnit,
@@ -60,7 +60,7 @@ export async function fetchAiPricesCached(
     }
     for (const e of estimates) if (e.source === 'ai') map[e.key] = e;
   } catch {
-    /* KI-Schätzung optional; Fehler ignorieren (Positionen bleiben ohne Preis). */
+    /* KI-Schätzung optional; jeder Fehler (Netz/DB/Teardown) wird geschluckt. */
   }
   return map;
 }

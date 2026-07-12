@@ -44,7 +44,8 @@ export default function ShoppingListView() {
     .map((i) => `${i.productKey ?? i.id}${i.name}`)
     .join(',');
   useEffect(() => {
-    if (!prefs.onlinePricesEnabled || !online) {
+    // Ohne Netz nichts nachladen (offline bleibt "unbekannt").
+    if (!online) {
       setOnlineMap({});
       return;
     }
@@ -56,16 +57,18 @@ export default function ShoppingListView() {
     let cancelled = false;
     void (async () => {
       const map: Record<string, OnlinePrice> = {};
-      // 1) Echte Online-Preise (Open Prices).
-      try {
-        const results = await fetchPrices(
-          unpriced.map((i) => ({ key: i.productKey ?? i.id, query: i.name })),
-        );
-        for (const r of results) if (r.source === 'open-prices') map[r.key] = r;
-      } catch {
-        /* optional */
+      // 1) Echte Online-Preise (Open Prices) — nur wenn opt-in aktiviert.
+      if (prefs.onlinePricesEnabled) {
+        try {
+          const results = await fetchPrices(
+            unpriced.map((i) => ({ key: i.productKey ?? i.id, query: i.name })),
+          );
+          for (const r of results) if (r.source === 'open-prices') map[r.key] = r;
+        } catch {
+          /* optional */
+        }
       }
-      // 2) KI-Schätzung als letzte Instanz — nur für weiterhin preislose Positionen.
+      // 2) KI-Schätzung als Standard-Fallback für alle weiterhin preislosen Positionen.
       const still = unpriced.filter((i) => {
         const p = map[i.productKey ?? i.id];
         return !(p && onlineItemCost(i, p) != null);
