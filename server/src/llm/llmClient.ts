@@ -93,20 +93,64 @@ export class HttpLlmClient implements LlmClient {
   }
 
   async generateStructured<T>(args: GenerateStructuredArgs): Promise<StructuredResult<T>> {
-    // Transport-Gerüst mit Timeout/Retry. Der eigentliche Call ist noch nicht
-    // implementiert (M9) — bis dahin wird bewusst ein klarer Fehler geworfen,
-    // damit die Route sauber auf Mock/Degradation zurückfallen kann.
-    return withRetry<StructuredResult<T>>(async (_signal) => {
-      // Der Key wird NIE geloggt. Nur Modellname zu Diagnosezwecken.
-      logger.debug('HttpLlmClient.generateStructured invoked', {
-        model: this.model,
-        hasApiKey: this.apiKey.length > 0, // niemals den Key selbst loggen
-        hasSchema: Boolean(args.schema),
+    // Google Gemini (Generative Language API), Structured-Output via JSON-MIME.
+    // Der Key wird NIE geloggt und nur als Query-Parameter an Google gesendet.
+    logger.debug('HttpLlmClient.generateStructured invoked', {
+      model: this.model,
+      hasApiKey: this.apiKey.length > 0, // niemals den Key selbst loggen
+      hasSchema: Boolean(args.schema),
+    });
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
+      this.model,
+    )}:generateContent?key=${encodeURIComponent(this.apiKey)}`;
+
+    const body: Record<string, unknown> = {
+      contents: [{ role: 'user', parts: [{ text: args.prompt }] }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.8,
+      },
+    };
+    if (args.system) {
+      body.systemInstruction = { parts: [{ text: args.system }] };
+    }
+
+    return withRetry<StructuredResult<T>>(async (signal) => {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        signal,
       });
-      throw new Error(
-        'HttpLlmClient ist noch nicht implementiert (kommt in M9 via recipe-engine).',
-      );
+      if (!res.ok) {
+        // Fehlertext ohne Key ausgeben (Key steht nur in der URL, nicht im Body).
+        const detail = await res.text().catch(() => '');
+        throw new Error(`Gemini HTTP ${res.status}: ${detail.slice(0, 300)}`);
+      }
+      const json = (await res.json()) as {
+        candidates?: { content?: { parts?: { text?: string }[] } }[];
+      };
+      const text = (json.candidates?.[0]?.content?.parts ?? [])
+        .map((p) => p.text ?? '')
+        .join('')
+        .trim();
+      if (!text) throw new Error('Gemini: leere Antwort');
+
+      const data = extractJson<T>(text);
+      return { source: 'llm', data };
     }, args.retry ?? this.defaultRetry);
+  }
+}
+
+/** Parst JSON aus der Modellantwort; toleriert umschließende Code-Fences/Prosa. */
+function extractJson<T>(text: string): T {
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    const match = text.match(/[[{][\s\S]*[\]}]/);
+    if (!match) throw new Error('Gemini: keine JSON-Struktur in der Antwort');
+    return JSON.parse(match[0]) as T;
   }
 }
 
@@ -117,7 +161,7 @@ export class HttpLlmClient implements LlmClient {
 export function createLlmClient(env: NodeJS.ProcessEnv = process.env): LlmClient {
   const provider = (env.LLM_PROVIDER ?? '').trim().toLowerCase();
   const apiKey = (env.LLM_API_KEY ?? '').trim();
-  const model = (env.LLM_MODEL ?? 'gemini-1.5-flash').trim();
+  const model = (env.LLM_MODEL ?? 'gemini-flash-latest').trim();
 
   if (provider === 'mock' || apiKey.length === 0) {
     logger.info('LLM client: using MockLlmClient (kein API-Key gesetzt oder LLM_PROVIDER=mock)');
