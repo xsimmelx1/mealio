@@ -1,0 +1,100 @@
+import { z } from 'zod';
+import { RecipeSchema, type Recipe, type UserPreferences } from '../domain/schema';
+import { normalizeName } from '../pricing/productMatch';
+
+/**
+ * Zentraler API-Client. EINZIGER Ort für Backend-Aufrufe (nie Keys im Frontend).
+ * Basis-URL aus Vite-Env (VITE_API_URL), Default lokaler Dev-Server.
+ */
+const BASE_URL: string =
+  (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ??
+  'http://localhost:8787';
+
+const DEFAULT_TIMEOUT_MS = 20_000;
+
+/** LLM-Rezept aus dem Backend (ohne id/source/createdAt/isFavorite — die vergibt das Frontend). */
+const LlmRecipeSchema = RecipeSchema.omit({
+  id: true,
+  source: true,
+  createdAt: true,
+  isFavorite: true,
+});
+
+const GeneratePlanResponse = z.object({
+  source: z.string().optional(),
+  recipes: z.array(z.unknown()),
+});
+
+async function fetchJson(path: string, init: RequestInit, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<unknown> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${BASE_URL}${path}`, { ...init, signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export interface GeneratePlanResult {
+  source: string;
+  recipes: Recipe[];
+}
+
+/**
+ * Fordert einen (LLM-)Plan vom Backend an. Validiert jedes Rezept gegen das
+ * Domänenschema; ungültige werden verworfen (nie ungeprüft übernehmen).
+ */
+export async function generatePlan(
+  prefs: UserPreferences,
+  days = 7,
+  now = Date.now(),
+): Promise<GeneratePlanResult> {
+  const body = {
+    numberOfPeople: prefs.numberOfPeople,
+    diet: prefs.diet,
+    allergies: prefs.allergies,
+    avoidedIngredients: prefs.avoidedIngredients,
+    appliances: prefs.appliances,
+    preferredStyles: prefs.preferredStyles,
+    budget: prefs.budget,
+    days,
+  };
+  const raw = await fetchJson('/generate-plan', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const parsed = GeneratePlanResponse.parse(raw);
+
+  const recipes: Recipe[] = [];
+  parsed.recipes.forEach((entry, i) => {
+    const r = LlmRecipeSchema.safeParse(entry);
+    if (!r.success) {
+      console.warn('[api] LLM-Rezept verworfen (Schema):', r.error.issues[0]?.message);
+      return;
+    }
+    recipes.push({
+      ...r.data,
+      id: `llm-${normalizeName(r.data.title) || 'rezept'}-${now}-${i}`,
+      source: 'llm',
+      isFavorite: false,
+      createdAt: now,
+    });
+  });
+
+  return { source: parsed.source ?? 'llm', recipes };
+}
+
+/** Health-Check des Backends (für Feature-Gating / Statusanzeige). */
+export async function health(timeoutMs = 3000): Promise<boolean> {
+  try {
+    await fetchJson('/health', { method: 'GET' }, timeoutMs);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export const apiClient = { generatePlan, health, baseUrl: BASE_URL };

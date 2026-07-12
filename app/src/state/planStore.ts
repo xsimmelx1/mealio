@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { db } from '../db/db';
 import type { MealPlan, Recipe, UserPreferences } from '../domain/schema';
 import { DAYS_PER_WEEK, pickReplacement, pickWeek } from '../plan/generatePlan';
-import { SeedRecipeSource, type RecipeSource } from '../plan/recipeSource';
+import { LLMRecipeSource, SeedRecipeSource } from '../plan/recipeSource';
 import { isoWeekStart } from '../plan/week';
 
 type PlanStatus = 'idle' | 'loading' | 'generating' | 'ready' | 'empty' | 'error';
@@ -12,11 +12,19 @@ interface PlanState {
   catalog: Recipe[];
   status: PlanStatus;
   error: string | null;
-  source: RecipeSource;
+  /** Welche Quelle den zuletzt generierten Plan erzeugt hat. */
+  planSource: 'seed' | 'llm';
+  /** Grund, warum auf Seed zurückgefallen wurde (falls KI angefordert war). */
+  fallbackNote: string | null;
   load: () => Promise<void>;
   generate: (prefs: UserPreferences, seed?: number) => Promise<void>;
   reshuffleDay: (dayOfWeek: number, prefs: UserPreferences, seed?: number) => Promise<void>;
   recipeById: (id: string) => Recipe | undefined;
+}
+
+/** Ist ein Netz-Zugang vorhanden? (In Tests via navigator.onLine mockbar.) */
+function isOnline(): boolean {
+  return typeof navigator === 'undefined' || navigator.onLine !== false;
 }
 
 function planId(weekStart: string): string {
@@ -32,7 +40,8 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   catalog: [],
   status: 'idle',
   error: null,
-  source: new SeedRecipeSource(),
+  planSource: 'seed',
+  fallbackNote: null,
 
   load: async () => {
     set({ status: 'loading', error: null });
@@ -49,12 +58,28 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   generate: async (prefs, seed = Date.now()) => {
-    set({ status: 'generating', error: null });
+    set({ status: 'generating', error: null, fallbackNote: null });
     try {
-      const candidates = await get().source.getCandidates(prefs);
+      // Quelle wählen: KI nur wenn opt-in UND online; sonst Seed. Bei KI-Fehler -> Seed.
+      let candidates: Recipe[];
+      let planSource: 'seed' | 'llm' = 'seed';
+      let fallbackNote: string | null = null;
+
+      if (prefs.aiRecipesEnabled && isOnline()) {
+        try {
+          candidates = await new LLMRecipeSource().getCandidates(prefs);
+          planSource = 'llm';
+        } catch {
+          fallbackNote = 'KI nicht erreichbar — Katalog verwendet.';
+          candidates = await new SeedRecipeSource().getCandidates(prefs);
+        }
+      } else {
+        candidates = await new SeedRecipeSource().getCandidates(prefs);
+      }
+
       const ids = pickWeek(candidates, prefs, seed);
       if (ids.length === 0) {
-        set({ catalog: candidates, plan: null, status: 'empty' });
+        set({ catalog: candidates, plan: null, status: 'empty', planSource, fallbackNote });
         return;
       }
       const weekStart = isoWeekStart();
@@ -64,7 +89,7 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         entries: entriesFromIds(ids),
       };
       await db.mealPlans.put(plan);
-      set({ plan, catalog: candidates, status: 'ready' });
+      set({ plan, catalog: candidates, status: 'ready', planSource, fallbackNote });
     } catch (err) {
       set({ status: 'error', error: err instanceof Error ? err.message : String(err) });
     }

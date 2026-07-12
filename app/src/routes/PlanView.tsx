@@ -12,7 +12,8 @@ import { usePrefsStore } from '../state/prefsStore';
 
 export default function PlanView() {
   const prefs = usePrefsStore((s) => s.prefs);
-  const { plan, status, error, load, generate, reshuffleDay, recipeById } = usePlanStore();
+  const { plan, status, error, planSource, fallbackNote, load, generate, reshuffleDay, recipeById } =
+    usePlanStore();
   const engine = usePriceEngine();
 
   useEffect(() => {
@@ -73,6 +74,19 @@ export default function PlanView() {
         <p className="mb-4 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-800">
           Keine Rezepte passen zu deinen Präferenzen. Lockere Filter in den Einstellungen.
         </p>
+      )}
+
+      {plan && (
+        <div className="mb-3 flex items-center gap-2 text-xs">
+          <span
+            className={`rounded-full px-2 py-0.5 font-medium ${
+              planSource === 'llm' ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-500'
+            }`}
+          >
+            {planSource === 'llm' ? '✨ KI-generiert' : '📖 Aus Katalog'}
+          </span>
+          {fallbackNote && <span className="text-amber-600">{fallbackNote}</span>}
+        </div>
       )}
 
       {/* Budget-Übersicht */}

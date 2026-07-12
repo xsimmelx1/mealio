@@ -126,6 +126,8 @@ export const UserPreferencesSchema = z.object({
   numberOfPeople: z.number().int().positive().default(2),
   /** Online-Preise (experimentell) opt-in. */
   onlinePricesEnabled: z.boolean().default(false),
+  /** KI-Rezeptgenerierung (experimentell) opt-in; sonst Seed-Katalog. */
+  aiRecipesEnabled: z.boolean().default(false),
   /** Onboarding abgeschlossen/übersprungen? */
   onboardingComplete: z.boolean().default(false),
 });

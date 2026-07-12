@@ -1,3 +1,4 @@
+import { generatePlan } from '../api/client';
 import { db } from '../db/db';
 import type { Recipe, UserPreferences } from '../domain/schema';
 
@@ -20,5 +21,21 @@ export class SeedRecipeSource implements RecipeSource {
 
   async getCandidates(_prefs: UserPreferences): Promise<Recipe[]> {
     return this.loadCatalog();
+  }
+}
+
+/**
+ * Holt LLM-generierte, serverseitig validierte Rezepte über das Backend und
+ * persistiert sie in Dexie (source='llm'), damit Detail-/Einkaufsansicht offline
+ * darauf zugreifen können. Wirft bei Netz-/Backend-Fehlern (Aufrufer fällt zurück).
+ */
+export class LLMRecipeSource implements RecipeSource {
+  readonly kind = 'llm' as const;
+
+  async getCandidates(prefs: UserPreferences): Promise<Recipe[]> {
+    const { recipes } = await generatePlan(prefs);
+    if (recipes.length === 0) throw new Error('Backend lieferte keine gültigen Rezepte');
+    await db.recipes.bulkPut(recipes);
+    return recipes;
   }
 }

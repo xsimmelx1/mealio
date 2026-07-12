@@ -12,9 +12,10 @@
 
 import { logger } from '../lib/logger.js';
 import { withRetry, type RetryOptions } from './withRetry.js';
+import { defaultMockResponder } from './mockResponder.js';
 
 export interface GenerateStructuredArgs {
-  /** Aufgaben-/Kontext-Prompt (kommt später von der recipe-engine). */
+  /** Aufgaben-/Kontext-Prompt (kommt von der recipe-engine). */
   prompt: string;
   /** Optionales JSON-Schema, das das Modell erzwingen soll (Structured Output). */
   schema?: Record<string, unknown>;
@@ -22,6 +23,12 @@ export interface GenerateStructuredArgs {
   system?: string;
   /** Transport-Optionen (Timeout/Retry) — überschreibt Defaults. */
   retry?: RetryOptions;
+  /**
+   * Opaker Kontext, den NUR der MockLlmClient auswerten darf (z. B. UserPrefs),
+   * um deterministisch prefs-konforme Rezepte zu erzeugen. Echte HTTP-Clients
+   * ignorieren dieses Feld — es verlässt niemals den Prozess.
+   */
+  context?: unknown;
 }
 
 /** Ergebnis eines strukturierten Aufrufs inkl. Quelle für sauberes Degradieren. */
@@ -40,17 +47,29 @@ export interface LlmClient {
   generateStructured<T>(args: GenerateStructuredArgs): Promise<StructuredResult<T>>;
 }
 
+/** Eine Mock-Antwort-Funktion: bildet die Aufruf-Args auf eine rohe Nutzlast ab. */
+export type MockResponder = (args: GenerateStructuredArgs) => unknown;
+
 /**
  * MockLlmClient — deterministisch, ohne Netzwerk. Default, wenn kein Key gesetzt ist.
- * Gibt ein leeres Objekt zurück; die konkreten Mock-Daten für /generate-plan liefert
- * die Route selbst (Fixtures), damit der Client generisch bleibt.
+ *
+ * Ohne injizierten Responder gibt er standardmäßig ein leeres Objekt zurück
+ * (rückwärtskompatibel). Die recipe-engine übergibt einen Responder, der aus dem
+ * Kontext (UserPrefs) schema-konforme, prefs-respektierende Rezepte baut, damit die
+ * Pipeline auch ohne echten Key End-to-End funktioniert. In Tests wird der Responder
+ * genutzt, um gezielt auch KAPUTTE Ausgaben zu simulieren.
  */
 export class MockLlmClient implements LlmClient {
   readonly kind = 'mock' as const;
+  private readonly responder?: MockResponder;
 
-  async generateStructured<T>(_args: GenerateStructuredArgs): Promise<StructuredResult<T>> {
-    // Deterministisch, kein I/O. Nutzlast bleibt leer — der Content stammt aus Fixtures.
-    return { source: 'mock', data: {} as T };
+  constructor(responder?: MockResponder) {
+    this.responder = responder;
+  }
+
+  async generateStructured<T>(args: GenerateStructuredArgs): Promise<StructuredResult<T>> {
+    const data = (this.responder ? this.responder(args) : {}) as T;
+    return { source: 'mock', data };
   }
 }
 
@@ -102,7 +121,8 @@ export function createLlmClient(env: NodeJS.ProcessEnv = process.env): LlmClient
 
   if (provider === 'mock' || apiKey.length === 0) {
     logger.info('LLM client: using MockLlmClient (kein API-Key gesetzt oder LLM_PROVIDER=mock)');
-    return new MockLlmClient();
+    // Standard-Responder: baut aus den Prefs schema-konforme Rezepte (E2E ohne Key).
+    return new MockLlmClient(defaultMockResponder);
   }
 
   logger.info('LLM client: using HttpLlmClient', { model });

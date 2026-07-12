@@ -3,13 +3,15 @@ import request from 'supertest';
 import type { Express } from 'express';
 import { createApp } from '../app.js';
 import { MockLlmClient } from '../llm/llmClient.js';
+import { defaultMockResponder } from '../llm/mockResponder.js';
 
 let app: Express;
 
 beforeAll(() => {
   // Hohes Rate-Limit, damit die Test-Suite nicht selbst gedrosselt wird.
+  // Der Standard-Responder liefert schema-valide, prefs-konforme Rezepte (E2E).
   app = createApp({
-    llmClient: new MockLlmClient(),
+    llmClient: new MockLlmClient(defaultMockResponder),
     allowedOrigins: ['http://localhost:5173'],
     rateLimitMax: 10_000,
   });
@@ -26,23 +28,36 @@ describe('GET /health', () => {
 });
 
 describe('POST /generate-plan', () => {
-  it('gültiger Body -> 200, source=mock, recipes>0', async () => {
+  it('gültiger Body -> 200, source=llm, schema-konforme Rezepte', async () => {
     const res = await request(app)
       .post('/generate-plan')
       .send({
         numberOfPeople: 2,
-        diet: 'vegetarian',
+        diet: 'vegetarisch',
         allergies: [],
         avoidedIngredients: [],
         appliances: [],
         preferredStyles: [],
+        days: 7,
       });
     expect(res.status).toBe(200);
-    expect(res.body.source).toBe('mock');
+    // MockLlmClient liefert schema-valide Rezepte -> gilt als "llm".
+    expect(res.body.source).toBe('llm');
     expect(Array.isArray(res.body.recipes)).toBe(true);
-    expect(res.body.recipes.length).toBeGreaterThan(0);
-    // Skalierung nach numberOfPeople.
-    expect(res.body.recipes[0].servings).toBe(2);
+    expect(res.body.recipes.length).toBe(7);
+    const r = res.body.recipes[0];
+    // Vertragskonformität: Pflichtfelder + nutrition null, keine Preise.
+    expect(typeof r.title).toBe('string');
+    expect(Array.isArray(r.mealStyles)).toBe(true);
+    expect(Array.isArray(r.dietTags)).toBe(true);
+    expect(Array.isArray(r.requiredAppliances)).toBe(true);
+    expect(r.baseServings).toBe(2);
+    expect(r.steps.length).toBeGreaterThanOrEqual(3);
+    expect(r.ingredients.every((i: { amount: number }) => i.amount > 0)).toBe(true);
+    expect(r.nutritionPerServing).toBeNull();
+    expect(r).not.toHaveProperty('estimatedCostPerServing');
+    expect(r).not.toHaveProperty('id');
+    expect(r).not.toHaveProperty('source');
   });
 
   it('ungültiger Body (numberOfPeople=0) -> 400 mit issues', async () => {
@@ -52,6 +67,21 @@ describe('POST /generate-plan', () => {
     expect(res.status).toBe(400);
     expect(res.body.error).toBe('ValidationError');
     expect(Array.isArray(res.body.issues)).toBe(true);
+  });
+
+  it('LLM liefert dauerhaft Müll -> sauberer Seed-Fallback (source=seed-fallback)', async () => {
+    const brokenApp = createApp({
+      llmClient: new MockLlmClient(() => ({ totaler: 'müll' })),
+      allowedOrigins: ['http://localhost:5173'],
+      rateLimitMax: 10_000,
+    });
+    const res = await request(brokenApp)
+      .post('/generate-plan')
+      .send({ numberOfPeople: 2, days: 7 });
+    expect(res.status).toBe(200);
+    expect(res.body.source).toBe('seed-fallback');
+    expect(res.body.recipes.length).toBe(7);
+    expect(res.body.recipes[0].nutritionPerServing).toBeNull();
   });
 });
 

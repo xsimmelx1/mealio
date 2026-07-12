@@ -17,42 +17,8 @@ import {
   type Diet,
   type MealStyle,
 } from '../domain/enums';
+import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
 import { usePrefsStore } from '../state/prefsStore';
-
-const DIET_LABELS: Record<Diet, string> = {
-  omnivor: 'Omnivor',
-  vegetarisch: 'Vegetarisch',
-  vegan: 'Vegan',
-  pescetarisch: 'Pescetarisch',
-};
-
-const ALLERGY_LABELS: Record<Allergy, string> = {
-  gluten: 'Gluten',
-  laktose: 'Laktose',
-  nüsse: 'Nüsse',
-  erdnüsse: 'Erdnüsse',
-  ei: 'Ei',
-  soja: 'Soja',
-  fisch: 'Fisch',
-  schalentiere: 'Schalentiere',
-  sellerie: 'Sellerie',
-  senf: 'Senf',
-  sesam: 'Sesam',
-};
-
-const APPLIANCE_LABELS: Record<Appliance, string> = {
-  herd: 'Herd',
-  backofen: 'Backofen',
-  mikrowelle: 'Mikrowelle',
-  airfryer: 'Airfryer',
-  mixer: 'Mixer',
-  pürierstab: 'Pürierstab',
-  toaster: 'Toaster',
-  wasserkocher: 'Wasserkocher',
-};
-
-const toOptions = <T extends string>(values: readonly T[], labels: Record<T, string>) =>
-  values.map((v) => ({ value: v, label: labels[v] }));
 
 const STEP_COUNT = 7;
 

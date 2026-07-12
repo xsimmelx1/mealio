@@ -57,17 +57,4 @@ export const pricesSchema = z.object({
 
 export type PricesInput = z.infer<typeof pricesSchema>;
 
-/**
- * Domänen-Typ für ein (Mock-)Rezept. Vereinfachte Form; die echte,
- * validierte Rezept-Struktur folgt aus der recipe-engine (M9).
- */
-export interface Recipe {
-  id: string;
-  title: string;
-  diet: string;
-  servings: number;
-  styles: string[];
-  ingredients: { name: string; amount: number; unit: string }[];
-  steps: string[];
-  estimatedCostPerServing: number | null;
-}
+// Hinweis: Der validierte Rezept-Typ lebt in llm/recipeSchema.ts (recipe-engine, M9).
