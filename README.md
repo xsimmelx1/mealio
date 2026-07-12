@@ -93,10 +93,13 @@ Frontend und Backend werden getrennt deployt. Das Frontend ist eine statische PW
 funktioniert bereits allein (offline auf Seed-Daten); das Backend aktiviert nur die
 Opt-in-Extras.
 
-**Frontend → Vercel** (Root-Domain, ideal für PWA). Konfiguration liegt in `vercel.json`
-(`npm run build -w app` → `app/dist`, SPA-Rewrites). Repo in Vercel importieren, Env
-`VITE_API_URL` = Backend-URL setzen, deployen. Alternativen: Netlify (`_redirects`:
-`/* /index.html 200`, Publish `app/dist`) oder Cloudflare Pages.
+**Frontend → Vercel** (Root-Domain, ideal für PWA). Wichtig: **Root Directory = `app`**
+setzen (das Frontend baut eigenständig; `app/package.json` enthält alle Abhängigkeiten).
+Framework „Vite", Build/Install auf Default lassen (`npm install`, `npm run build`, Output
+`dist`) — **keinen** `-w app`-Build eintragen (das schlägt fehl, wenn Root Directory `app`
+ist). SPA-Rewrites kommen aus `app/vercel.json`. Env `VITE_API_URL` = Backend-URL setzen,
+deployen. Alternativen: Netlify (Base directory `app`, Build `npm run build`, Publish `dist`,
+`_redirects`: `/* /index.html 200`) oder Cloudflare Pages (Root/Build directory `app`).
 
 **Backend → Render (free)**. Blueprint liegt in `render.yaml`. Render „New → Blueprint" auf
 das Repo, deployen. Render setzt `PORT` selbst; `NUTRITION_ONLINE`/`PRICES_ONLINE`/`FDC_API_KEY`
