@@ -163,12 +163,16 @@ function DayRecipe({
   engine: import('../pricing').PriceEngine;
 }) {
   const est = engine.recipeCost(recipe);
+  const priceLabel =
+    est.matchedCount === 0
+      ? 'Preis unbekannt'
+      : `≈ ${formatPrice(est.perServing, currency)}/Portion`;
   return (
     <Link to={`/recipe/${recipe.id}`} className="block active:opacity-70">
       <h3 className="text-lg font-semibold text-slate-900">{recipe.title}</h3>
       <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
         <span>⏱️ {recipe.prepMinutes + recipe.cookMinutes} Min</span>
-        <span>· {formatPrice(est.perServing, currency)}/Portion</span>
+        <span>· {priceLabel}</span>
         {recipe.mealStyles.slice(0, 2).map((s) => (
           <span key={s} className="rounded-full bg-slate-100 px-2 py-0.5 text-xs">
             {MEAL_STYLE_LABELS[s]}
