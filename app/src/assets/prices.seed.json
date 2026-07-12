@@ -1,0 +1,762 @@
+[
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.29
+  },
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 5.49
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.49
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.49
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.49
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 5.99
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.19
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.19
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.79
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.99
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 3.79
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.09
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.39
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.19
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.49
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.99
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.69
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.49
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.69
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.59
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.49
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 3.99
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 5.49
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.49
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.99
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.79
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.39
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.59
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39
+  }
+]
