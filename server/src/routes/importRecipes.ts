@@ -28,7 +28,7 @@ import type { LlmRecipe, Recipe } from '../llm/recipeSchema.js';
 import { checkRecipe } from '../llm/validateRecipe.js';
 import { TtlCache } from '../cache/ttlCache.js';
 import { logger } from '../lib/logger.js';
-import { normalizeRecipe } from '../recipes/normalizeRecipe.js';
+import { normalizeRecipesBatch } from '../recipes/normalizeRecipe.js';
 import {
   createTheMealDbProvider,
   mealSourceUrl,
@@ -127,28 +127,22 @@ export function createImportRecipesRouter(
 
     (async (): Promise<ImportedRecipe[]> => {
       const rawMeals = await fetchRawMeals(category, count);
+      // EIN LLM-Aufruf für alle Rezepte (spart Quota/Rate-Limit); bei LLM-Fehler
+      // liefert normalizeRecipesBatch strukturelle Fallbacks (nie leer).
+      const normalizedList: LlmRecipe[] = await normalizeRecipesBatch(rawMeals, llm);
       const recipes: ImportedRecipe[] = [];
 
-      for (const raw of rawMeals) {
-        try {
-          const normalized: LlmRecipe = await normalizeRecipe(raw, llm);
-          const checked = checkRecipe(normalized, IMPORT_CHECK_PREFS);
-          if (!checked.ok) {
-            logger.warn('import-recipes: Rezept verworfen', {
-              title: normalized.title,
-              reason: checked.reason,
-            });
-            continue;
-          }
-          recipes.push({ ...checked.recipe, sourceUrl: mealSourceUrl(raw.idMeal) });
-        } catch (err) {
-          // Gemini 429/Quota/Netz oder Parse-Fehler: nur dieses Rezept überspringen.
-          logger.warn('import-recipes: Normalisierung fehlgeschlagen, überspringe Rezept', {
-            title: raw.title,
-            message: err instanceof Error ? err.message : String(err),
+      normalizedList.forEach((normalized, i) => {
+        const checked = checkRecipe(normalized, IMPORT_CHECK_PREFS);
+        if (!checked.ok) {
+          logger.warn('import-recipes: Rezept verworfen', {
+            title: normalized.title,
+            reason: checked.reason,
           });
+          return;
         }
-      }
+        recipes.push({ ...checked.recipe, sourceUrl: mealSourceUrl(rawMeals[i].idMeal) });
+      });
       return recipes;
     })()
       .then((recipes) => {

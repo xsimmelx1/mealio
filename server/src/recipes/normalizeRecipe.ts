@@ -11,6 +11,7 @@
  *  - Nachvalidierung (checkRecipe) macht die aufrufende Pipeline.
  */
 
+import { logger } from '../lib/logger.js';
 import type { LlmClient } from '../llm/llmClient.js';
 import type { DietTag, LlmRecipe, MealType } from '../llm/recipeSchema.js';
 import {
@@ -180,4 +181,66 @@ export async function normalizeRecipe(raw: RawMeal, llm: LlmClient): Promise<Llm
   }
   // Kein echtes Gemini / kein parsebarer Output -> strukturell mappen (ohne Übersetzung).
   return structuralMap(raw);
+}
+
+/** System-Prompt für die Batch-Normalisierung mehrerer Rezepte in EINEM Aufruf. */
+function buildBatchSystemPrompt(n: number): string {
+  return buildNormalizeSystemPrompt()
+    .replace('EIN englisches Rezept', `${n} englische Rezepte`)
+    .replace(
+      'Antworte AUSSCHLIESSLICH mit einem einzigen JSON-Objekt der Form {"recipes": [<ein Rezept>]}.',
+      `Antworte AUSSCHLIESSLICH mit {"recipes": [<${n} Rezepte, GLEICHE Reihenfolge wie unten>]}.`,
+    );
+}
+
+/** User-Prompt: alle Rohrezepte nummeriert einbetten. */
+function buildBatchUserPrompt(raws: RawMeal[]): string {
+  return [
+    `Normalisiere und übersetze diese ${raws.length} Rezepte aus TheMealDB ins Deutsche.`,
+    'Behalte die Reihenfolge exakt bei (Rezept 1 zuerst usw.).',
+    '',
+    ...raws.map((raw, i) => {
+      const ings = raw.ingredients
+        .map((ri) => `  - ${ri.name}${ri.measure ? ` — ${ri.measure}` : ''}`)
+        .join('\n');
+      return [
+        `### Rezept ${i + 1}`,
+        `Titel: ${raw.title}`,
+        `Kategorie: ${raw.category || '(unbekannt)'}`,
+        'Zutaten:',
+        ings || '  (keine)',
+        'Zubereitung:',
+        raw.instructions || '(keine)',
+        '',
+      ].join('\n');
+    }),
+    `Antworte nur mit {"recipes": [<${raws.length} normalisierte deutsche Rezepte>]} als reines JSON.`,
+  ].join('\n');
+}
+
+/**
+ * Normalisiert MEHRERE Roh-Rezepte in EINEM LLM-Aufruf (spart Quota/Rate-Limit) mit
+ * großzügigem Timeout. Bei LLM-Fehler (Timeout/429) ODER unbrauchbarem Output ->
+ * strukturelles Mapping für alle (Englisch, aber nie leer). Ergebnis ist index-aligned.
+ */
+export async function normalizeRecipesBatch(raws: RawMeal[], llm: LlmClient): Promise<LlmRecipe[]> {
+  if (raws.length === 0) return [];
+  try {
+    const res = await llm.generateStructured<unknown>({
+      system: buildBatchSystemPrompt(raws.length),
+      prompt: buildBatchUserPrompt(raws),
+      schema: llmPlanJsonSchema,
+      retry: { timeoutMs: 60_000, maxRetries: 0 },
+    });
+    const parsed = parsePlan(res.data);
+    if (parsed.ok && parsed.recipes.length > 0) {
+      // Index-aligned; fehlende Positionen strukturell auffüllen.
+      return raws.map((raw, i) => parsed.recipes[i] ?? structuralMap(raw));
+    }
+  } catch (err) {
+    logger.warn('normalizeRecipesBatch: LLM fehlgeschlagen, struktureller Fallback', {
+      message: err instanceof Error ? err.message : String(err),
+    });
+  }
+  return raws.map((raw) => structuralMap(raw));
 }

@@ -292,16 +292,28 @@ describe('POST /import-recipes (Pipeline)', () => {
     expect(r).not.toHaveProperty('createdAt');
   });
 
-  it('ein Rezept scheitert (Gemini wirft) -> übersprungen, Rest kommt durch', async () => {
-    const llm = new MockLlmClient((args) => {
-      if (args.prompt.includes('Shakshuka')) throw new Error('Gemini 429 quota');
-      return { recipes: [germanRecipe('Englisches Frühstück')] };
+  it('LLM-Fehler (z. B. Gemini 429/Timeout) -> struktureller Fallback für alle, nie leer', async () => {
+    // Batch: EIN Aufruf für alle. Wirft er, mappt die Pipeline strukturell (nicht leer).
+    const llm = new MockLlmClient(() => {
+      throw new Error('Gemini 429 quota');
     });
     const app = makeApp(llm, fakeProvider());
 
     const res = await request(app).post('/import-recipes').send({ category: 'Breakfast', count: 2 });
     expect(res.status).toBe(200);
-    expect(res.body.recipes.length).toBe(1);
+    expect(res.body.recipes.length).toBe(2); // beide strukturell gemappt, keiner übersprungen
+    const titles = res.body.recipes.map((r: { title: string }) => r.title);
+    expect(titles).toContain('Full English Breakfast'); // unübersetzt erhalten
+  });
+
+  it('gültiger Gemini-Batch -> übersetzte Rezepte in Reihenfolge', async () => {
+    const llm = new MockLlmClient(() => ({
+      recipes: [germanRecipe('Englisches Frühstück'), germanRecipe('Shakshuka DE')],
+    }));
+    const app = makeApp(llm, fakeProvider());
+    const res = await request(app).post('/import-recipes').send({ category: 'Breakfast', count: 2 });
+    expect(res.status).toBe(200);
+    expect(res.body.recipes.length).toBe(2);
     expect(res.body.recipes[0].title).toBe('Englisches Frühstück');
   });
 
