@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { UserPreferencesSchema, type Recipe, type UserPreferences } from '../domain/schema';
-import { isEligible, preferenceScore } from './filterRecipes';
+import { isEligible, preferenceScore, whySuitable } from './filterRecipes';
 import { DAYS_PER_WEEK, pickReplacement, pickWeek } from './generatePlan';
 
 function recipe(partial: Partial<Recipe> & { id: string }): Recipe {
@@ -77,6 +77,21 @@ describe('preferenceScore', () => {
   it('Favoriten und bevorzugte Styles erhöhen den Score', () => {
     const r = recipe({ id: 'r', isFavorite: true, mealStyles: ['schnell', 'budget'] });
     expect(preferenceScore(r, prefs({ preferredStyles: ['schnell'] }))).toBe(4); // 3 + 1
+  });
+});
+
+describe('whySuitable', () => {
+  it('nennt erfüllte Präferenzen (Style + schnell)', () => {
+    const r = recipe({ id: 'r', mealStyles: ['schnell'], prepMinutes: 5, cookMinutes: 10 });
+    const reasons = whySuitable(r, prefs({ diet: 'omnivor', preferredStyles: ['schnell'] }));
+    expect(reasons).toContain('Schnell');
+    expect(reasons).toContain('schnell gemacht');
+  });
+
+  it('nennt "ohne <Allergen>" für vermiedene Allergene', () => {
+    const r = recipe({ id: 'r', dietTags: ['omnivor', 'glutenfrei'] });
+    const reasons = whySuitable(r, prefs({ allergies: ['gluten'] }));
+    expect(reasons.some((x) => x.includes('gluten'))).toBe(true);
   });
 });
 

@@ -86,3 +86,34 @@ export function preferenceScore(recipe: Recipe, prefs: UserPreferences): number 
 export function eligibleRecipes(recipes: Recipe[], prefs: UserPreferences): Recipe[] {
   return recipes.filter((r) => isEligible(r, prefs));
 }
+
+/**
+ * Erklärt, warum ein Rezept zu den Präferenzen passt ("Warum geeignet").
+ * Liefert kurze, positive Begründungen (erfüllte Präferenzen).
+ */
+export function whySuitable(recipe: Recipe, prefs: UserPreferences): string[] {
+  const reasons: string[] = [];
+
+  if (DIET_ACCEPTS[prefs.diet](recipe.dietTags)) {
+    reasons.push(prefs.diet === 'omnivor' ? 'Passt zu deiner Ernährung' : `${cap(prefs.diet)}`);
+  }
+  for (const allergy of prefs.allergies) {
+    if (isEligible(recipe, { ...prefs, allergies: [allergy] })) {
+      reasons.push(`ohne ${allergy}`);
+    }
+  }
+  const matchedStyles = prefs.preferredStyles.filter((s) => recipe.mealStyles.includes(s));
+  for (const s of matchedStyles) reasons.push(cap(s));
+
+  if (prefs.appliances.length && recipe.requiredAppliances.every((a) => prefs.appliances.includes(a))) {
+    reasons.push('nur vorhandene Geräte');
+  }
+  if (recipe.prepMinutes + recipe.cookMinutes <= 20) {
+    reasons.push('schnell gemacht');
+  }
+  return reasons;
+}
+
+function cap(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
