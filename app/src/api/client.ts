@@ -120,6 +120,34 @@ export async function fetchNutrition(
   return NutritionResponse.parse(raw);
 }
 
+const OnlinePriceSchema = z.object({
+  key: z.string(),
+  pricePerPackage: z.number().nullable(),
+  packageSize: z.number().nullable(),
+  packageUnit: z.enum(['g', 'ml', 'stück']).nullable(),
+  currency: z.string(),
+  source: z.enum(['open-prices', 'unknown']),
+  updatedAt: z.string().nullable(),
+});
+export type OnlinePrice = z.infer<typeof OnlinePriceSchema>;
+
+const PricesResponse = z.object({ items: z.array(OnlinePriceSchema) });
+
+/**
+ * Fragt Online-Preise (Open Prices) für mehrere Produkte an. Niedrigste Priorität
+ * (füllt Lücken); nur sinnvoll wenn online + opt-in. Fehler werfen -> Aufrufer ignoriert.
+ */
+export async function fetchPrices(
+  items: { key: string; query?: string; region?: string }[],
+): Promise<OnlinePrice[]> {
+  const raw = await fetchJson('/prices', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items }),
+  });
+  return PricesResponse.parse(raw).items;
+}
+
 /** Health-Check des Backends (für Feature-Gating / Statusanzeige). */
 export async function health(timeoutMs = 3000): Promise<boolean> {
   try {
@@ -130,4 +158,4 @@ export async function health(timeoutMs = 3000): Promise<boolean> {
   }
 }
 
-export const apiClient = { generatePlan, fetchNutrition, health, baseUrl: BASE_URL };
+export const apiClient = { generatePlan, fetchNutrition, fetchPrices, health, baseUrl: BASE_URL };

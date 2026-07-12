@@ -137,17 +137,34 @@ describe('POST /nutrition', () => {
 });
 
 describe('POST /prices', () => {
-  it('gültiger Body -> 200 mit Stub-Shape', async () => {
+  it('gültiger Body -> 200 mit Vertrags-Shape (ohne Flag: unknown)', async () => {
+    // Testumgebung ohne PRICES_ONLINE -> jedes Item sofort "unknown".
     const res = await request(app)
       .post('/prices')
-      .send({ items: [{ productKey: 'milk-1l' }] });
+      .send({ items: [{ key: 'milk-1l', query: 'Milch 1l' }] });
     expect(res.status).toBe(200);
     expect(res.body.items).toEqual([
-      { productKey: 'milk-1l', price: null, source: 'unknown' },
+      {
+        key: 'milk-1l',
+        pricePerPackage: null,
+        packageSize: null,
+        packageUnit: null,
+        currency: 'EUR',
+        source: 'unknown',
+        updatedAt: null,
+      },
     ]);
   });
 
-  it('ungültiger Body (fehlender productKey) -> 400', async () => {
+  it('Reihenfolge/Anzahl der Ergebnisse = Request', async () => {
+    const res = await request(app)
+      .post('/prices')
+      .send({ items: [{ key: 'a' }, { key: 'b' }, { key: 'c' }] });
+    expect(res.status).toBe(200);
+    expect(res.body.items.map((i: { key: string }) => i.key)).toEqual(['a', 'b', 'c']);
+  });
+
+  it('ungültiger Body (fehlender key) -> 400', async () => {
     const res = await request(app).post('/prices').send({ items: [{}] });
     expect(res.status).toBe(400);
     expect(res.body.error).toBe('ValidationError');

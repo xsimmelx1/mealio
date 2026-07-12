@@ -22,6 +22,7 @@ import { healthRouter } from './routes/health.js';
 import { createGeneratePlanRouter } from './routes/generatePlan.js';
 import { createNutritionRouter } from './routes/nutrition.js';
 import { createPricesRouter } from './routes/prices.js';
+import type { PriceProvider } from './prices/providers/types.js';
 
 export interface AppOptions {
   /** Erlaubte CORS-Origins. Default aus APP_ORIGIN/CORS_ORIGIN, sonst localhost:5173. */
@@ -32,6 +33,10 @@ export interface AppOptions {
   rateLimitWindowMs?: number;
   /** Max. Requests pro Fenster/IP (Default 60). */
   rateLimitMax?: number;
+  /** Online-Preise aktiv (Default: process.env.PRICES_ONLINE === '1'). Für Tests injizierbar. */
+  pricesOnline?: boolean;
+  /** Preis-Provider in Prioritätsreihenfolge (Default: [Open Prices], wenn online). */
+  priceProviders?: readonly PriceProvider[];
 }
 
 /** Liest erlaubte Origins aus der Umgebung (kommagetrennt). */
@@ -84,7 +89,9 @@ export function createApp(options: AppOptions = {}): Express {
 
   app.use(createGeneratePlanRouter(llm));
   app.use(createNutritionRouter());
-  app.use(createPricesRouter());
+  app.use(
+    createPricesRouter({ online: options.pricesOnline, providers: options.priceProviders }),
+  );
 
   app.use(notFoundHandler);
   app.use(errorHandler);

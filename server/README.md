@@ -10,12 +10,12 @@ Das Frontend spricht ausschließlich mit diesem Backend; Keys verlassen den Serv
 | GET     | `/health`        | live      | `{ status, uptime, timestamp }`; kein Rate-Limit |
 | POST    | `/generate-plan` | Mock      | LLM-Proxy. Body = UserPreferences. Antwort `{ source: "mock", recipes: [] }` |
 | POST    | `/nutrition`     | live (M10)| Body `{ ingredients: [{ name, amount, unit }], servings? }` -> `{ perServing: {kcal,protein,carbs,fat} \| null, matchedCount, unmatchedCount, unknownIngredients: string[] }` |
-| POST    | `/prices`        | Stub      | Body `{ items: [{ productKey, storeId?, region? }] }` -> `{ items: [{ productKey, price: null, source: "unknown" }] }` |
+| POST    | `/prices`        | live (M11)| Body `{ items: [{ key, query?, region? }] }` -> `{ items: [{ key, pricePerPackage, packageSize, packageUnit, currency, source, updatedAt }] }` |
 
 Alle Bodies werden mit zod validiert. Fehler -> `400 { error: "ValidationError", issues }`.
 
-Echte LLM-Anbindung folgt in M9 (recipe-engine); Preise in M5/M11. Dieses Grundgerüst
-liefert Transport, Mock, Retry/Timeout und Caching.
+Echte LLM-Anbindung folgt in M9 (recipe-engine). Dieses Grundgerüst liefert Transport,
+Mock, Retry/Timeout und Caching.
 
 ### `/nutrition` im Detail (M10)
 
@@ -31,6 +31,31 @@ liefert Transport, Mock, Retry/Timeout und Caching.
 - Primärquelle ist der lokale Nährwert-Seed (`src/nutrition/nutritionSeed.ts`), damit
   der Endpunkt vollständig offline funktioniert. Online-Lookups sind opt-in
   (`NUTRITION_ONLINE=1`) und werden mit TTL gecacht.
+
+### `/prices` im Detail (M11)
+
+- Request: `POST /prices` mit `{ items: [{ key, query?, region? }] }`. `key` ist der
+  stabile productKey (z. B. Barcode), `query` ein optionaler Anzeigename/Suchbegriff.
+- Response: genau ein Ergebnis pro Request-Item (gleiche Reihenfolge/keys) mit
+  `{ key, pricePerPackage: number|null, packageSize: number|null,
+  packageUnit: "g"|"ml"|"stück"|null, currency, source: "open-prices"|"unknown", updatedAt }`.
+- **Priorität/Rolle:** Online-Preise sind die NIEDRIGSTE Quelle
+  (Manual > LocalSeed > Online) und bepreisen vor allem Zutaten, die NICHT im lokalen
+  Seed liegen. Die Priorität entscheidet das Frontend; der Server liefert nur den
+  Online-Adapter.
+- **Opt-in:** Ohne `PRICES_ONLINE=1` liefert jedes Item sofort
+  `{ pricePerPackage: null, …, source: "unknown", updatedAt: null }` — kein Netz-Aufruf,
+  App-Flow wird nie blockiert. Es wird nie geraten.
+- **Quelle:** Open Food Facts **Open Prices** (`prices.openfoodfacts.org`, ODbL). Der
+  Adapter ist barcode-zentriert (`product_code`); ohne Barcode-artigen `key`/`query`
+  gibt es keinen Lookup (null). Aus den jüngsten Preisen wird der Median als plausibler
+  Packungspreis genommen, Packungsgröße/-einheit aus dem Produkt (falls vorhanden).
+- **Robustheit:** HTTP 200 heißt nicht Treffer (leere `items` möglich) -> Body prüfen;
+  Zahlen defensiv casten (Open Prices liefert Preise teils als Strings); Timeout je
+  Provider; Fehler werden still geschluckt -> Fallback auf `unknown`. Treffer und
+  Negativ-Treffer werden mit TTL gecacht (Negativ-Cache gegen wiederholte Abfragen).
+- **Erweiterbar:** weitere Quellen als zusätzliche `PriceProvider` ergänzbar und im
+  Service in Prioritätsreihenfolge einhängbar.
 
 ## Lokal starten
 
@@ -65,6 +90,7 @@ Smoke-Test: `curl http://localhost:8787/health`
 | `LLM_MODEL`    | `gemini-1.5-flash`      | Modellname für den HTTP-Client |
 | `NUTRITION_ONLINE` | `0`                 | `1` aktiviert opt-in Online-Nährwert-Lookups (USDA -> OFF) |
 | `FDC_API_KEY`  | `DEMO_KEY`              | USDA FoodData Central API-Key (Public Domain); Default ist rate-limitiert |
+| `PRICES_ONLINE` | `0`                    | `1` aktiviert opt-in Online-Preise (Open Food Facts "Open Prices", ODbL). Ohne Flag liefert `/prices` sofort `source:"unknown"` |
 
 ## Datenquellen & Lizenzen
 
@@ -76,6 +102,7 @@ Quellen. Attributionen gehören zusätzlich in die App (Über/Impressum).
 | **Lokaler Nährwert-Seed** (`src/nutrition/nutritionSeed.ts`) | Primärquelle, offline | eigene Schätzwerte | keine (keine fremden Daten kopiert) |
 | **USDA FoodData Central** | opt-in Online-Lookup (`NUTRITION_ONLINE=1`) | Public Domain | keine; frei, auch kommerziell |
 | **Open Food Facts** | opt-in Online-Lookup (Fallback nach USDA) | ODbL | **Attribution + Share-Alike** der Datenbank; Daten nur live abfragen + cachen, NICHT fest ins Repo kopieren |
+| **Open Food Facts — Open Prices** | opt-in Online-Preise (`PRICES_ONLINE=1`) für `/prices` | ODbL | **Attribution + Share-Alike** der Datenbank; Daten nur live abfragen + cachen (TTL), NICHT fest ins Repo kopieren |
 
 Weitere Hinweise:
 

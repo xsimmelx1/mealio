@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchPrices, type OnlinePrice } from '../api/client';
 import EstimateBadge from '../components/EstimateBadge';
 import ScreenHeader from '../components/ScreenHeader';
 import { AISLES, AISLE_LABELS } from '../domain/enums';
 import type { ShoppingItem } from '../domain/schema';
 import { setPackagePriceOverride } from '../db/priceActions';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { formatPrice } from '../pricing';
 import type { PriceEngine } from '../pricing/priceEngine';
 import { usePriceEngine } from '../pricing/usePriceEngine';
+import { onlineItemCost } from '../shopping/onlinePrice';
 import { usePlanStore } from '../state/planStore';
 import { usePrefsStore } from '../state/prefsStore';
 import { useShoppingStore } from '../state/shoppingStore';
@@ -15,9 +18,11 @@ import { useShoppingStore } from '../state/shoppingStore';
 export default function ShoppingListView() {
   const prefs = usePrefsStore((s) => s.prefs);
   const engine = usePriceEngine();
+  const online = useOnlineStatus();
   const { plan, catalog, status, load } = usePlanStore();
   const { items, showPantry, rebuild, toggleCheck, togglePantry, setShowPantry } =
     useShoppingStore();
+  const [onlineMap, setOnlineMap] = useState<Record<string, OnlinePrice>>({});
 
   useEffect(() => {
     if (status === 'idle') void load();
@@ -29,6 +34,38 @@ export default function ShoppingListView() {
     if (plan && catalog.length) void rebuild(plan, catalog, engine);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan?.id, catalog.length, engine]);
+
+  // Online-Preise (opt-in, niedrigste Priorität): nur Positionen OHNE lokalen Preis.
+  const unpricedKeys = items
+    .filter((i) => i.estimatedPrice == null)
+    .map((i) => `${i.productKey ?? i.id}${i.name}`)
+    .join(',');
+  useEffect(() => {
+    if (!prefs.onlinePricesEnabled || !online) {
+      setOnlineMap({});
+      return;
+    }
+    const unpriced = items.filter((i) => i.estimatedPrice == null);
+    if (unpriced.length === 0) return;
+    let cancelled = false;
+    fetchPrices(unpriced.map((i) => ({ key: i.productKey ?? i.id, query: i.name })))
+      .then((results) => {
+        if (cancelled) return;
+        const map: Record<string, OnlinePrice> = {};
+        for (const r of results) if (r.source === 'open-prices') map[r.key] = r;
+        setOnlineMap(map);
+      })
+      .catch(() => {
+        /* Online-Preise sind optional; Fehler ignorieren (App-Flow nie blockieren). */
+      });
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unpricedKeys, prefs.onlinePricesEnabled, online]);
+
+  const onlineFor = (item: ShoppingItem): OnlinePrice | undefined =>
+    onlineMap[item.productKey ?? item.id];
 
   const visible = showPantry ? items : items.filter((i) => !i.isPantry);
   const byAisle = useMemo(() => {
@@ -44,13 +81,24 @@ export default function ShoppingListView() {
   const summary = useMemo(() => {
     let total = 0;
     let unknown = 0;
+    let onlineFilled = 0;
     for (const it of items) {
       if (it.isPantry) continue;
-      if (it.estimatedPrice == null) unknown++;
-      else total += it.estimatedPrice;
+      if (it.estimatedPrice != null) {
+        total += it.estimatedPrice;
+        continue;
+      }
+      const online = onlineMap[it.productKey ?? it.id];
+      const onlineCost = online ? onlineItemCost(it, online) : null;
+      if (onlineCost != null) {
+        total += onlineCost;
+        onlineFilled++;
+      } else {
+        unknown++;
+      }
     }
-    return { total, unknown };
-  }, [items]);
+    return { total, unknown, onlineFilled };
+  }, [items, onlineMap]);
 
   const overBudget = prefs.budget > 0 && summary.total > prefs.budget;
 
@@ -106,6 +154,11 @@ export default function ShoppingListView() {
             {summary.unknown} Position(en) ohne Preis — Summe ist eine Untergrenze.
           </p>
         )}
+        {summary.onlineFilled > 0 && (
+          <p className="mt-1 text-xs text-slate-400">
+            {summary.onlineFilled} Position(en) via Open Prices geschätzt (online).
+          </p>
+        )}
       </div>
 
       {/* Gruppen nach Gang */}
@@ -122,6 +175,7 @@ export default function ShoppingListView() {
                   item={item}
                   engine={engine}
                   currency={prefs.currency}
+                  online={onlineFor(item)}
                   onToggleCheck={() => void toggleCheck(item.id)}
                   onTogglePantry={() => void togglePantry(item.id)}
                 />
@@ -138,16 +192,19 @@ function ShoppingRow({
   item,
   engine,
   currency,
+  online,
   onToggleCheck,
   onTogglePantry,
 }: {
   item: ShoppingItem;
   engine: PriceEngine;
   currency: import('../domain/enums').Currency;
+  online?: OnlinePrice;
   onToggleCheck: () => void;
   onTogglePantry: () => void;
 }) {
   const resolved = item.productKey ? engine.resolve(item.productKey) : null;
+  const onlineCost = item.estimatedPrice == null && online ? onlineItemCost(item, online) : null;
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
 
@@ -213,7 +270,16 @@ function ShoppingRow({
       </div>
       <div className="shrink-0 text-right">
         <div className="text-sm font-semibold text-slate-900">
-          {item.estimatedPrice == null ? '—' : `≈ ${formatPrice(item.estimatedPrice, currency)}`}
+          {item.estimatedPrice != null ? (
+            `≈ ${formatPrice(item.estimatedPrice, currency)}`
+          ) : onlineCost != null ? (
+            <span title="Online-Schätzung (Open Prices)">
+              ≈ {formatPrice(onlineCost, currency)}
+              <span className="ml-1 text-[10px] font-normal text-sky-500">online</span>
+            </span>
+          ) : (
+            '—'
+          )}
         </div>
         <button
           type="button"

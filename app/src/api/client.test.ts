@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fetchNutrition, generatePlan } from './client';
+import { fetchNutrition, fetchPrices, generatePlan } from './client';
 import { UserPreferencesSchema } from '../domain/schema';
 
 const prefs = UserPreferencesSchema.parse({ numberOfPeople: 2 });
@@ -76,5 +76,29 @@ describe('apiClient.fetchNutrition', () => {
     mockFetchOnce({ perServing: null, matchedCount: 0, unmatchedCount: 3, unknownIngredients: [] });
     const res = await fetchNutrition([{ name: 'X', amount: 1, unit: 'g' }], 1);
     expect(res.perServing).toBeNull();
+  });
+});
+
+describe('apiClient.fetchPrices', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('parst Online-Preise gegen den Vertrag', async () => {
+    mockFetchOnce({
+      items: [
+        {
+          key: 'safran',
+          pricePerPackage: 3.5,
+          packageSize: 2,
+          packageUnit: 'g',
+          currency: 'EUR',
+          source: 'open-prices',
+          updatedAt: '2026-07-01',
+        },
+      ],
+    });
+    const res = await fetchPrices([{ key: 'safran', query: 'Safran' }]);
+    expect(res).toHaveLength(1);
+    expect(res[0].source).toBe('open-prices');
+    expect(res[0].pricePerPackage).toBe(3.5);
   });
 });

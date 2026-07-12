@@ -59,10 +59,13 @@ export const nutritionSchema = z.object({
 
 export type NutritionInput = z.infer<typeof nutritionSchema>;
 
-/** Einzelnes Preis-Item für /prices. */
+/**
+ * Einzelnes Preis-Item für /prices (M11-Vertrag).
+ * `key` = stabiler productKey (z. B. Barcode); `query` = optionaler Anzeigename/Suchbegriff.
+ */
 export const priceItemSchema = z.object({
-  productKey: shortString,
-  storeId: z.string().trim().max(60).optional(),
+  key: shortString,
+  query: z.string().trim().min(1).max(120).optional(),
   region: z.string().trim().max(60).optional(),
 });
 

@@ -33,11 +33,17 @@ export default function RecipeDetailView() {
     if (!recipe || recipe.nutritionPerServing !== null || !online) return;
     if (fetchedRef.current === recipe.id) return;
     fetchedRef.current = recipe.id;
+    const recipeId = recipe.id;
+    const ingredients = recipe.ingredients;
+    const baseServings = recipe.baseServings;
+    let cancelled = false;
     setNutrition({ loading: true, note: null });
-    fetchNutrition(recipe.ingredients, recipe.baseServings)
+    fetchNutrition(ingredients, baseServings)
       .then(async (res) => {
+        if (cancelled) return;
         if (res.perServing) {
-          await db.recipes.update(recipe.id, { nutritionPerServing: res.perServing });
+          await db.recipes.update(recipeId, { nutritionPerServing: res.perServing });
+          if (cancelled) return;
           setNutrition({
             loading: false,
             note:
@@ -49,7 +55,12 @@ export default function RecipeDetailView() {
           setNutrition({ loading: false, note: 'Nährwerte nicht verfügbar.' });
         }
       })
-      .catch(() => setNutrition({ loading: false, note: null }));
+      .catch(() => {
+        if (!cancelled) setNutrition({ loading: false, note: null });
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [recipe?.id, recipe?.nutritionPerServing, online]);
 
   if (recipe === undefined) {
