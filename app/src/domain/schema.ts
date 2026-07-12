@@ -80,6 +80,8 @@ export type MealPlan = z.infer<typeof MealPlanSchema>;
 export const ShoppingItemSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
+  /** Gematchter Produktschlüssel (für Preis-Override); null wenn kein Match. */
+  productKey: z.string().nullable().default(null),
   totalAmount: z.number().nonnegative(),
   unit: unitEnum,
   aisle: aisleEnum,
