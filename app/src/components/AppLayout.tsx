@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { usePrefsStore } from '../state/prefsStore';
 import BottomNav from './BottomNav';
+import InstallPrompt from './InstallPrompt';
 import OfflineBanner from './OfflineBanner';
 
 /**
@@ -21,6 +22,7 @@ export default function AppLayout() {
       <main className="flex-1 overflow-y-auto px-4 pb-24 pt-4">
         <Outlet />
       </main>
+      <InstallPrompt />
       <BottomNav />
     </div>
   );

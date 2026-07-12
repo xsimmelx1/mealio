@@ -139,15 +139,56 @@ export default function SettingsView() {
       {/* Über / Disclaimer */}
       <Section title="Über Mealio">
         <p className="text-xs leading-relaxed text-slate-500">
-          Rezepte sind teils KI-generiert. Zutaten, Allergene, Nährwerte, Preise und
-          Garanweisungen bitte vor dem Kochen/Einkauf selbst prüfen. Keine medizinische oder
-          ernährungsberatende Zusage. Preise sind Schätzwerte (Stand Mitte 2026). Quellen &
-          Lizenzen folgen im Impressum.
+          <strong className="text-slate-600">Hinweis:</strong> Rezepte sind teils KI-generiert.
+          Zutaten, Allergene, Nährwerte, Preise und Garanweisungen bitte vor dem Kochen/Einkauf
+          selbst prüfen. Keine medizinische oder ernährungsberatende Zusage. Preise sind
+          Schätzwerte (Stand Mitte 2026) und können regional/zeitlich abweichen.
         </p>
+
+        <div>
+          <h3 className="mb-1 text-xs font-semibold text-slate-600">Datenquellen & Lizenzen</h3>
+          <ul className="flex flex-col gap-1 text-xs text-slate-500">
+            {ATTRIBUTIONS.map((a) => (
+              <li key={a.name}>
+                <span className="font-medium text-slate-600">{a.name}</span> — {a.license}
+                <br />
+                <span className="text-slate-400">{a.note}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-[11px] text-slate-400">
+            Nährwert-, Rezept- und Preis-Seed-Daten sind eigene, geprüfte Schätzwerte. Online
+            abgerufene Open-Food-Facts-/Open-Prices-Daten unterliegen der ODbL (Namensnennung &
+            Share-Alike). Eigener Arbeitsname „Mealio" — keine fremden Marken.
+          </p>
+        </div>
       </Section>
     </div>
   );
 }
+
+const ATTRIBUTIONS: { name: string; license: string; note: string }[] = [
+  {
+    name: 'USDA FoodData Central',
+    license: 'Public Domain',
+    note: 'Nährwertdaten (online, opt-in).',
+  },
+  {
+    name: 'Open Food Facts',
+    license: 'ODbL',
+    note: 'Nährwerte ergänzend (online, opt-in).',
+  },
+  {
+    name: 'Open Food Facts — Open Prices',
+    license: 'ODbL',
+    note: 'Online-Preisschätzungen (opt-in).',
+  },
+  {
+    name: 'Wikibooks Cookbook',
+    license: 'CC BY-SA',
+    note: 'Als Struktur-/Ideenvorlage; ausgelieferte Rezepte sind eigen/geprüft.',
+  },
+];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

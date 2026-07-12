@@ -31,7 +31,9 @@ export default function ShoppingListView() {
 
   // Neu aggregieren, wenn Plan, Katalog oder Preise (Engine) sich ändern.
   useEffect(() => {
-    if (plan && catalog.length) void rebuild(plan, catalog, engine);
+    // .catch: schluckt u. a. DatabaseClosedError, falls die DB beim Unmount/Teardown
+    // schließt, während der Read noch läuft (blockiert den Flow nie).
+    if (plan && catalog.length) void rebuild(plan, catalog, engine).catch(() => undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan?.id, catalog.length, engine]);
 
