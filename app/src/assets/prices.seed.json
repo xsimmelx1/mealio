@@ -7,7 +7,41 @@
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 4.29
+    "pricePerPackage": 4.29,
+    "brand": "Meine Metzgerei"
+  },
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.29,
+    "brand": "Dulano"
+  },
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.39,
+    "brand": "Mühlenhof"
+  },
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.39,
+    "brand": "Netto"
   },
   {
     "productKey": "haehnchenbrust",
@@ -17,7 +51,30 @@
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 5.49
+    "pricePerPackage": 5.49,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 5.59,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "haehnchenbrust",
+    "label": "Hähnchenbrustfilet",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.59,
+    "brand": "K-Classic"
   },
   {
     "productKey": "hackfleisch",
@@ -27,7 +84,41 @@
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 3.49
+    "pricePerPackage": 3.49,
+    "brand": "Meine Metzgerei"
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.49,
+    "brand": "Dulano"
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.59,
+    "brand": "Mühlenhof"
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.59,
+    "brand": "Netto"
   },
   {
     "productKey": "hackfleisch",
@@ -37,7 +128,30 @@
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 4.49
+    "pricePerPackage": 4.49,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 4.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.79,
+    "brand": "K-Classic"
   },
   {
     "productKey": "lachsfilet",
@@ -47,7 +161,41 @@
     "aisle": "fleisch-fisch",
     "packageSize": 250,
     "packageUnit": "g",
-    "pricePerPackage": 4.49
+    "pricePerPackage": 4.49,
+    "brand": "Almare Seafood"
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.49,
+    "brand": "Ocean Sea"
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.59,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.59,
+    "brand": "Netto"
   },
   {
     "productKey": "lachsfilet",
@@ -57,7 +205,30 @@
     "aisle": "fleisch-fisch",
     "packageSize": 250,
     "packageUnit": "g",
-    "pricePerPackage": 5.99
+    "pricePerPackage": 5.99,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 6.09,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "thunfisch",
@@ -67,7 +238,41 @@
     "aisle": "konserven",
     "packageSize": 185,
     "packageUnit": "g",
-    "pricePerPackage": 1.19
+    "pricePerPackage": 1.19,
+    "brand": "Almare Seafood"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.19,
+    "brand": "Ocean Sea"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.19,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.19,
+    "brand": "Netto"
   },
   {
     "productKey": "thunfisch",
@@ -77,7 +282,30 @@
     "aisle": "konserven",
     "packageSize": 185,
     "packageUnit": "g",
-    "pricePerPackage": 1.59
+    "pricePerPackage": 1.59,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch in eigenem Saft (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "K-Classic"
   },
   {
     "productKey": "tofu",
@@ -87,7 +315,41 @@
     "aisle": "kühlregal",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 1.79
+    "pricePerPackage": 1.79,
+    "brand": "MyVay"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79,
+    "brand": "Vemondo"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79,
+    "brand": "Food for Future"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 1.89,
+    "brand": "BioBio"
   },
   {
     "productKey": "tofu",
@@ -97,7 +359,30 @@
     "aisle": "kühlregal",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 2.29
+    "pricePerPackage": 2.29,
+    "brand": "REWE Bio"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29,
+    "brand": "EDEKA Bio"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 1.89,
+    "brand": "K-take it veggie"
   },
   {
     "productKey": "eier",
@@ -107,7 +392,41 @@
     "aisle": "kühlregal",
     "packageSize": 10,
     "packageUnit": "stück",
-    "pricePerPackage": 2.19
+    "pricePerPackage": 2.19,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.19,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.19,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.29,
+    "brand": "Netto"
   },
   {
     "productKey": "eier",
@@ -117,7 +436,30 @@
     "aisle": "kühlregal",
     "packageSize": 10,
     "packageUnit": "stück",
-    "pricePerPackage": 2.79
+    "pricePerPackage": 2.79,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.79,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier Größe M",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "gouda",
@@ -127,7 +469,41 @@
     "aisle": "kühlregal",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 2.99
+    "pricePerPackage": 2.99,
+    "brand": "Milsani"
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.99,
+    "brand": "Milbona"
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 3.09,
+    "brand": "Mibell"
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 3.09,
+    "brand": "Netto"
   },
   {
     "productKey": "gouda",
@@ -137,7 +513,30 @@
     "aisle": "kühlregal",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 3.79
+    "pricePerPackage": 3.79,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 3.79,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "gouda",
+    "label": "Gouda am Stück",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 3.19,
+    "brand": "K-Classic"
   },
   {
     "productKey": "joghurt",
@@ -147,7 +546,41 @@
     "aisle": "kühlregal",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.69
+    "pricePerPackage": 0.69,
+    "brand": "Milsani"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Milbona"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Mibell"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Netto"
   },
   {
     "productKey": "joghurt",
@@ -157,7 +590,30 @@
     "aisle": "kühlregal",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "K-Classic"
   },
   {
     "productKey": "milch",
@@ -167,7 +623,41 @@
     "aisle": "kühlregal",
     "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.09
+    "pricePerPackage": 1.09,
+    "brand": "Milsani"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.09,
+    "brand": "Milbona"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.09,
+    "brand": "Mibell"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.09,
+    "brand": "Netto"
   },
   {
     "productKey": "milch",
@@ -177,7 +667,30 @@
     "aisle": "kühlregal",
     "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.19,
+    "brand": "K-Classic"
   },
   {
     "productKey": "butter",
@@ -187,7 +700,41 @@
     "aisle": "kühlregal",
     "packageSize": 250,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "Milsani"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "Milbona"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "Mibell"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.09,
+    "brand": "Netto"
   },
   {
     "productKey": "butter",
@@ -197,7 +744,30 @@
     "aisle": "kühlregal",
     "packageSize": 250,
     "packageUnit": "g",
-    "pricePerPackage": 2.39
+    "pricePerPackage": 2.39,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.39,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.19,
+    "brand": "K-Classic"
   },
   {
     "productKey": "reis",
@@ -207,7 +777,41 @@
     "aisle": "trockenwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 1.79
+    "pricePerPackage": 1.79,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.89,
+    "brand": "Bon Ri"
   },
   {
     "productKey": "reis",
@@ -217,7 +821,30 @@
     "aisle": "trockenwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 2.29
+    "pricePerPackage": 2.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "nudeln",
@@ -227,7 +854,41 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Combino"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Netto"
   },
   {
     "productKey": "nudeln",
@@ -237,7 +898,30 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.19
+    "pricePerPackage": 1.19,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.19,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "haferflocken",
@@ -247,7 +931,41 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.69
+    "pricePerPackage": 0.69,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Crownfield"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Netto"
   },
   {
     "productKey": "haferflocken",
@@ -257,7 +975,30 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken kernig",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "K-Classic"
   },
   {
     "productKey": "rote-linsen",
@@ -267,7 +1008,41 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Bon Ri"
   },
   {
     "productKey": "rote-linsen",
@@ -277,7 +1052,30 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "rote-linsen",
+    "label": "Rote Linsen",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59,
+    "brand": "K-Classic"
   },
   {
     "productKey": "mehl",
@@ -287,7 +1085,41 @@
     "aisle": "backwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "GoldÄhren"
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Belbake"
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Mühlengold"
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Netto"
   },
   {
     "productKey": "mehl",
@@ -297,7 +1129,30 @@
     "aisle": "backwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 1.09
+    "pricePerPackage": 1.09,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "zucker",
@@ -307,7 +1162,41 @@
     "aisle": "backwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Belbake"
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "zucker",
@@ -317,7 +1206,30 @@
     "aisle": "backwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "brot",
@@ -327,7 +1239,41 @@
     "aisle": "backwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "GoldÄhren"
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Netto"
   },
   {
     "productKey": "brot",
@@ -337,7 +1283,30 @@
     "aisle": "backwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "brot",
+    "label": "Mischbrot geschnitten",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "kartoffeln",
@@ -347,7 +1316,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 2500,
     "packageUnit": "g",
-    "pricePerPackage": 2.49
+    "pricePerPackage": 2.49,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.49,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.59,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.59,
+    "brand": "Netto"
   },
   {
     "productKey": "kartoffeln",
@@ -357,7 +1360,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 2500,
     "packageUnit": "g",
-    "pricePerPackage": 2.99
+    "pricePerPackage": 2.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.69,
+    "brand": "K-Classic"
   },
   {
     "productKey": "zwiebeln",
@@ -367,7 +1393,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Netto"
   },
   {
     "productKey": "zwiebeln",
@@ -377,7 +1437,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 1.69
+    "pricePerPackage": 1.69,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.69,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "knoblauch",
@@ -387,7 +1470,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "knoblauch",
@@ -397,7 +1514,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "knoblauch",
+    "label": "Knoblauch",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "paprika",
@@ -407,7 +1547,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.09,
+    "brand": "Netto"
   },
   {
     "productKey": "paprika",
@@ -417,7 +1591,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 2.49
+    "pricePerPackage": 2.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "paprika",
+    "label": "Paprika rot",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.19,
+    "brand": "K-Classic"
   },
   {
     "productKey": "tomaten",
@@ -427,7 +1624,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Netto"
   },
   {
     "productKey": "tomaten",
@@ -437,7 +1668,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59,
+    "brand": "K-Classic"
   },
   {
     "productKey": "karotten",
@@ -447,7 +1701,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 0.89
+    "pricePerPackage": 0.89,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Netto"
   },
   {
     "productKey": "karotten",
@@ -457,7 +1745,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "K-Classic"
   },
   {
     "productKey": "zucchini",
@@ -467,7 +1778,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "Netto"
   },
   {
     "productKey": "zucchini",
@@ -477,7 +1822,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.69
+    "pricePerPackage": 1.69,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.69,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "zucchini",
+    "label": "Zucchini",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "brokkoli",
@@ -487,7 +1855,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Netto"
   },
   {
     "productKey": "brokkoli",
@@ -497,7 +1899,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "brokkoli",
+    "label": "Brokkoli",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59,
+    "brand": "K-Classic"
   },
   {
     "productKey": "spinat-tk",
@@ -507,7 +1932,41 @@
     "aisle": "tiefkühl",
     "packageSize": 450,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Freshona"
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "spinat-tk",
@@ -517,7 +1976,30 @@
     "aisle": "tiefkühl",
     "packageSize": 450,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "spinat-tk",
+    "label": "Blattspinat tiefgekühlt",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "tiefkühl",
+    "packageSize": 450,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "dosentomaten",
@@ -527,7 +2009,41 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 0.69
+    "pricePerPackage": 0.69,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Freshona"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "dosentomaten",
@@ -537,7 +2053,30 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "K-Classic"
   },
   {
     "productKey": "tomatenmark",
@@ -547,7 +2086,41 @@
     "aisle": "konserven",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 0.59
+    "pricePerPackage": 0.59,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.59,
+    "brand": "Freshona"
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.59,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.59,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "tomatenmark",
@@ -557,7 +2130,30 @@
     "aisle": "konserven",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 0.89
+    "pricePerPackage": 0.89,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "tomatenmark",
+    "label": "Tomatenmark",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "K-Classic"
   },
   {
     "productKey": "kichererbsen",
@@ -567,7 +2163,41 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Freshona"
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "kichererbsen",
@@ -577,7 +2207,30 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "kichererbsen",
+    "label": "Kichererbsen (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "kidneybohnen",
@@ -587,7 +2240,41 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Freshona"
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "kidneybohnen",
@@ -597,7 +2284,30 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "kidneybohnen",
+    "label": "Kidneybohnen (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "kokosmilch",
@@ -607,7 +2317,41 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "ml",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Bamboo Garden"
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "brand": "Vitasia"
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "kokosmilch",
@@ -617,7 +2361,30 @@
     "aisle": "konserven",
     "packageSize": 400,
     "packageUnit": "ml",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "kokosmilch",
+    "label": "Kokosmilch (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "olivenoel",
@@ -627,7 +2394,41 @@
     "aisle": "sonstiges",
     "packageSize": 500,
     "packageUnit": "ml",
-    "pricePerPackage": 3.99
+    "pricePerPackage": 3.99,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 3.99,
+    "brand": "Primadonna"
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 4.09,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 4.09,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "olivenoel",
@@ -637,7 +2438,30 @@
     "aisle": "sonstiges",
     "packageSize": 500,
     "packageUnit": "ml",
-    "pricePerPackage": 5.49
+    "pricePerPackage": 5.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 5.59,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 4.29,
+    "brand": "K-Classic"
   },
   {
     "productKey": "rapsoel",
@@ -647,7 +2471,41 @@
     "aisle": "sonstiges",
     "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 2.49
+    "pricePerPackage": 2.49,
+    "brand": "Bellasan"
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.49,
+    "brand": "Vita D'or"
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.59,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.59,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "rapsoel",
@@ -657,7 +2515,30 @@
     "aisle": "sonstiges",
     "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 2.99
+    "pricePerPackage": 2.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.69,
+    "brand": "K-Classic"
   },
   {
     "productKey": "sojasauce",
@@ -667,7 +2548,41 @@
     "aisle": "gewürze",
     "packageSize": 150,
     "packageUnit": "ml",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "Bamboo Garden"
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.29,
+    "brand": "Vitasia"
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.29,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.29,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "sojasauce",
@@ -677,7 +2592,30 @@
     "aisle": "gewürze",
     "packageSize": 150,
     "packageUnit": "ml",
-    "pricePerPackage": 1.79
+    "pricePerPackage": 1.79,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.79,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "sojasauce",
+    "label": "Sojasauce",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 150,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "currypulver",
@@ -687,7 +2625,41 @@
     "aisle": "gewürze",
     "packageSize": 50,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Kania"
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "currypulver",
@@ -697,7 +2669,30 @@
     "aisle": "gewürze",
     "packageSize": 50,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "currypulver",
+    "label": "Currypulver",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "paprikapulver",
@@ -707,7 +2702,41 @@
     "aisle": "gewürze",
     "packageSize": 50,
     "packageUnit": "g",
-    "pricePerPackage": 0.89
+    "pricePerPackage": 0.89,
+    "brand": "Kania"
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Netto"
   },
   {
     "productKey": "paprikapulver",
@@ -717,7 +2746,30 @@
     "aisle": "gewürze",
     "packageSize": 50,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "paprikapulver",
+    "label": "Paprikapulver edelsüß",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "K-Classic"
   },
   {
     "productKey": "salz",
@@ -727,7 +2779,41 @@
     "aisle": "gewürze",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.39
+    "pricePerPackage": 0.39,
+    "brand": "Kania"
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.39,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.39,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.39,
+    "brand": "Netto"
   },
   {
     "productKey": "salz",
@@ -737,7 +2823,30 @@
     "aisle": "gewürze",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.59
+    "pricePerPackage": 0.59,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.59,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "salz",
+    "label": "Speisesalz",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "pfeffer",
@@ -747,7 +2856,41 @@
     "aisle": "gewürze",
     "packageSize": 50,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Kania"
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "pfeffer",
@@ -757,7 +2900,30 @@
     "aisle": "gewürze",
     "packageSize": 50,
     "packageUnit": "g",
-    "pricePerPackage": 1.39
+    "pricePerPackage": 1.39,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "pfeffer",
+    "label": "Pfeffer schwarz gemahlen",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 50,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "bruehe",
@@ -767,7 +2933,41 @@
     "aisle": "gewürze",
     "packageSize": 8000,
     "packageUnit": "ml",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "Quixo"
+  },
+  {
+    "productKey": "bruehe",
+    "label": "Gemüsebrühe (ergibt Brühe)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 8000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.79,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "bruehe",
+    "label": "Gemüsebrühe (ergibt Brühe)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 8000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.79,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "bruehe",
+    "label": "Gemüsebrühe (ergibt Brühe)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 8000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.79,
+    "brand": "Netto"
   },
   {
     "productKey": "bruehe",
@@ -777,7 +2977,30 @@
     "aisle": "gewürze",
     "packageSize": 8000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.19
+    "pricePerPackage": 1.19,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "bruehe",
+    "label": "Gemüsebrühe (ergibt Brühe)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 8000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.19,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "bruehe",
+    "label": "Gemüsebrühe (ergibt Brühe)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 8000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "basilikum",
@@ -787,7 +3010,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "basilikum",
+    "label": "Basilikum (Topf)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.99,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "basilikum",
+    "label": "Basilikum (Topf)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "basilikum",
+    "label": "Basilikum (Topf)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "basilikum",
@@ -797,7 +3054,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "basilikum",
+    "label": "Basilikum (Topf)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 1.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "basilikum",
+    "label": "Basilikum (Topf)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "oregano",
@@ -807,7 +3087,41 @@
     "aisle": "gewürze",
     "packageSize": 18,
     "packageUnit": "g",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "Kania"
+  },
+  {
+    "productKey": "oregano",
+    "label": "Oregano getrocknet",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 18,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "oregano",
+    "label": "Oregano getrocknet",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 18,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "oregano",
+    "label": "Oregano getrocknet",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 18,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "Netto"
   },
   {
     "productKey": "oregano",
@@ -817,7 +3131,30 @@
     "aisle": "gewürze",
     "packageSize": 18,
     "packageUnit": "g",
-    "pricePerPackage": 1.09
+    "pricePerPackage": 1.09,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "oregano",
+    "label": "Oregano getrocknet",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 18,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "oregano",
+    "label": "Oregano getrocknet",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 18,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "petersilie",
@@ -827,7 +3164,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "petersilie",
+    "label": "Petersilie (Bund)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.79,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "petersilie",
+    "label": "Petersilie (Bund)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.79,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "petersilie",
+    "label": "Petersilie (Bund)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.79,
+    "brand": "Netto"
   },
   {
     "productKey": "petersilie",
@@ -837,7 +3208,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "petersilie",
+    "label": "Petersilie (Bund)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "petersilie",
+    "label": "Petersilie (Bund)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.89,
+    "brand": "K-Classic"
   },
   {
     "productKey": "chili",
@@ -847,7 +3241,41 @@
     "aisle": "gewürze",
     "packageSize": 40,
     "packageUnit": "g",
-    "pricePerPackage": 0.89
+    "pricePerPackage": 0.89,
+    "brand": "Kania"
+  },
+  {
+    "productKey": "chili",
+    "label": "Chili (Flocken/Pulver)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 40,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "chili",
+    "label": "Chili (Flocken/Pulver)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 40,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "chili",
+    "label": "Chili (Flocken/Pulver)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "gewürze",
+    "packageSize": 40,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "brand": "Netto"
   },
   {
     "productKey": "chili",
@@ -857,7 +3285,30 @@
     "aisle": "gewürze",
     "packageSize": 40,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "chili",
+    "label": "Chili (Flocken/Pulver)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 40,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "chili",
+    "label": "Chili (Flocken/Pulver)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "gewürze",
+    "packageSize": 40,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "K-Classic"
   },
   {
     "productKey": "mozzarella",
@@ -867,7 +3318,41 @@
     "aisle": "kühlregal",
     "packageSize": 125,
     "packageUnit": "g",
-    "pricePerPackage": 0.69
+    "pricePerPackage": 0.69,
+    "brand": "Milsani"
+  },
+  {
+    "productKey": "mozzarella",
+    "label": "Mozzarella",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 125,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Milbona"
+  },
+  {
+    "productKey": "mozzarella",
+    "label": "Mozzarella",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 125,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Mibell"
+  },
+  {
+    "productKey": "mozzarella",
+    "label": "Mozzarella",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 125,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Netto"
   },
   {
     "productKey": "mozzarella",
@@ -877,7 +3362,30 @@
     "aisle": "kühlregal",
     "packageSize": 125,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "mozzarella",
+    "label": "Mozzarella",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 125,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "mozzarella",
+    "label": "Mozzarella",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 125,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "K-Classic"
   },
   {
     "productKey": "feta",
@@ -887,7 +3395,41 @@
     "aisle": "kühlregal",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "Milsani"
+  },
+  {
+    "productKey": "feta",
+    "label": "Feta / Hirtenkäse",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Milbona"
+  },
+  {
+    "productKey": "feta",
+    "label": "Feta / Hirtenkäse",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Mibell"
+  },
+  {
+    "productKey": "feta",
+    "label": "Feta / Hirtenkäse",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Netto"
   },
   {
     "productKey": "feta",
@@ -897,7 +3439,30 @@
     "aisle": "kühlregal",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "feta",
+    "label": "Feta / Hirtenkäse",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "feta",
+    "label": "Feta / Hirtenkäse",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59,
+    "brand": "K-Classic"
   },
   {
     "productKey": "zitrone",
@@ -907,7 +3472,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.35
+    "pricePerPackage": 0.35,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "zitrone",
+    "label": "Zitrone",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "zitrone",
+    "label": "Zitrone",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "zitrone",
+    "label": "Zitrone",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "Netto"
   },
   {
     "productKey": "zitrone",
@@ -917,7 +3516,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.49
+    "pricePerPackage": 0.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "zitrone",
+    "label": "Zitrone",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "zitrone",
+    "label": "Zitrone",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "mais",
@@ -927,7 +3549,41 @@
     "aisle": "konserven",
     "packageSize": 285,
     "packageUnit": "g",
-    "pricePerPackage": 0.69
+    "pricePerPackage": 0.69,
+    "brand": "Cucina"
+  },
+  {
+    "productKey": "mais",
+    "label": "Mais (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 285,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Freshona"
+  },
+  {
+    "productKey": "mais",
+    "label": "Mais (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 285,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "San Fabio"
+  },
+  {
+    "productKey": "mais",
+    "label": "Mais (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 285,
+    "packageUnit": "g",
+    "pricePerPackage": 0.69,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "mais",
@@ -937,7 +3593,30 @@
     "aisle": "konserven",
     "packageSize": 285,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "mais",
+    "label": "Mais (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 285,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "mais",
+    "label": "Mais (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 285,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "brand": "K-Classic"
   },
   {
     "productKey": "gurke",
@@ -947,7 +3626,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.59
+    "pricePerPackage": 0.59,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "gurke",
+    "label": "Salatgurke",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.59,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "gurke",
+    "label": "Salatgurke",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.59,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "gurke",
+    "label": "Salatgurke",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.59,
+    "brand": "Netto"
   },
   {
     "productKey": "gurke",
@@ -957,7 +3670,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.79
+    "pricePerPackage": 0.79,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "gurke",
+    "label": "Salatgurke",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.79,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "gurke",
+    "label": "Salatgurke",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.69,
+    "brand": "K-Classic"
   },
   {
     "productKey": "banane",
@@ -967,7 +3703,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.29
+    "pricePerPackage": 0.29,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.29,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.29,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.29,
+    "brand": "Netto"
   },
   {
     "productKey": "banane",
@@ -977,7 +3747,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.39
+    "pricePerPackage": 0.39,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.29,
+    "brand": "K-Classic"
   },
   {
     "productKey": "apfel",
@@ -987,7 +3780,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.39
+    "pricePerPackage": 0.39,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "Netto"
   },
   {
     "productKey": "apfel",
@@ -997,7 +3824,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 1,
     "packageUnit": "stück",
-    "pricePerPackage": 0.55
+    "pricePerPackage": 0.55,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.59,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.39,
+    "brand": "K-Classic"
   },
   {
     "productKey": "haferdrink",
@@ -1007,7 +3857,41 @@
     "aisle": "kühlregal",
     "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "MyVay"
+  },
+  {
+    "productKey": "haferdrink",
+    "label": "Haferdrink",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "brand": "Vemondo"
+  },
+  {
+    "productKey": "haferdrink",
+    "label": "Haferdrink",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "brand": "Food for Future"
+  },
+  {
+    "productKey": "haferdrink",
+    "label": "Haferdrink",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "brand": "BioBio"
   },
   {
     "productKey": "haferdrink",
@@ -1017,7 +3901,30 @@
     "aisle": "kühlregal",
     "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "REWE Bio"
+  },
+  {
+    "productKey": "haferdrink",
+    "label": "Haferdrink",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.49,
+    "brand": "EDEKA Bio"
+  },
+  {
+    "productKey": "haferdrink",
+    "label": "Haferdrink",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.09,
+    "brand": "K-take it veggie"
   },
   {
     "productKey": "sesamoel",
@@ -1027,7 +3934,41 @@
     "aisle": "sonstiges",
     "packageSize": 250,
     "packageUnit": "ml",
-    "pricePerPackage": 2.49
+    "pricePerPackage": 2.49,
+    "brand": "Bamboo Garden"
+  },
+  {
+    "productKey": "sesamoel",
+    "label": "Sesamöl",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 250,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.49,
+    "brand": "Vitasia"
+  },
+  {
+    "productKey": "sesamoel",
+    "label": "Sesamöl",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 250,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.59,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "sesamoel",
+    "label": "Sesamöl",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "sonstiges",
+    "packageSize": 250,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.59,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "sesamoel",
@@ -1037,7 +3978,30 @@
     "aisle": "sonstiges",
     "packageSize": 250,
     "packageUnit": "ml",
-    "pricePerPackage": 3.49
+    "pricePerPackage": 3.49,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "sesamoel",
+    "label": "Sesamöl",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 250,
+    "packageUnit": "ml",
+    "pricePerPackage": 3.49,
+    "brand": "EDEKA"
+  },
+  {
+    "productKey": "sesamoel",
+    "label": "Sesamöl",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 250,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.69,
+    "brand": "K-Classic"
   },
   {
     "productKey": "sojasprossen",
@@ -1047,7 +4011,41 @@
     "aisle": "konserven",
     "packageSize": 330,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Bamboo Garden"
+  },
+  {
+    "productKey": "sojasprossen",
+    "label": "Sojasprossen (Dose)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 330,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Vitasia"
+  },
+  {
+    "productKey": "sojasprossen",
+    "label": "Sojasprossen (Dose)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 330,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "sojasprossen",
+    "label": "Sojasprossen (Dose)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 330,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Golden Sun"
   },
   {
     "productKey": "sojasprossen",
@@ -1057,7 +4055,30 @@
     "aisle": "konserven",
     "packageSize": 330,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "sojasprossen",
+    "label": "Sojasprossen (Dose)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 330,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "sojasprossen",
+    "label": "Sojasprossen (Dose)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 330,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "sojagranulat",
@@ -1067,7 +4088,41 @@
     "aisle": "trockenwaren",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 1.49
+    "pricePerPackage": 1.49,
+    "brand": "MyVay"
+  },
+  {
+    "productKey": "sojagranulat",
+    "label": "Sojagranulat (TVP)",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Vemondo"
+  },
+  {
+    "productKey": "sojagranulat",
+    "label": "Sojagranulat (TVP)",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "Food for Future"
+  },
+  {
+    "productKey": "sojagranulat",
+    "label": "Sojagranulat (TVP)",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "brand": "BioBio"
   },
   {
     "productKey": "sojagranulat",
@@ -1077,7 +4132,30 @@
     "aisle": "trockenwaren",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 1.99
+    "pricePerPackage": 1.99,
+    "brand": "REWE Bio"
+  },
+  {
+    "productKey": "sojagranulat",
+    "label": "Sojagranulat (TVP)",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "brand": "EDEKA Bio"
+  },
+  {
+    "productKey": "sojagranulat",
+    "label": "Sojagranulat (TVP)",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.59,
+    "brand": "K-take it veggie"
   },
   {
     "productKey": "salatmix",
@@ -1087,7 +4165,41 @@
     "aisle": "obst-gemüse",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 0.99
+    "pricePerPackage": 0.99,
+    "brand": "Aldi"
+  },
+  {
+    "productKey": "salatmix",
+    "label": "Blattsalat-Mix",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Lidl"
+  },
+  {
+    "productKey": "salatmix",
+    "label": "Blattsalat-Mix",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Penny"
+  },
+  {
+    "productKey": "salatmix",
+    "label": "Blattsalat-Mix",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "brand": "Netto"
   },
   {
     "productKey": "salatmix",
@@ -1097,7 +4209,30 @@
     "aisle": "obst-gemüse",
     "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 1.29
+    "pricePerPackage": 1.29,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "salatmix",
+    "label": "Blattsalat-Mix",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.29,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "salatmix",
+    "label": "Blattsalat-Mix",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 1.09,
+    "brand": "K-Classic"
   },
   {
     "productKey": "backpulver",
@@ -1107,7 +4242,41 @@
     "aisle": "backwaren",
     "packageSize": 51,
     "packageUnit": "g",
-    "pricePerPackage": 0.29
+    "pricePerPackage": 0.29,
+    "brand": "GoldÄhren"
+  },
+  {
+    "productKey": "backpulver",
+    "label": "Backpulver",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 51,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "Belbake"
+  },
+  {
+    "productKey": "backpulver",
+    "label": "Backpulver",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 51,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "Mühlengold"
+  },
+  {
+    "productKey": "backpulver",
+    "label": "Backpulver",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 51,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "Netto"
   },
   {
     "productKey": "backpulver",
@@ -1117,7 +4286,30 @@
     "aisle": "backwaren",
     "packageSize": 51,
     "packageUnit": "g",
-    "pricePerPackage": 0.49
+    "pricePerPackage": 0.49,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "backpulver",
+    "label": "Backpulver",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 51,
+    "packageUnit": "g",
+    "pricePerPackage": 0.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "backpulver",
+    "label": "Backpulver",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 51,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "K-Classic"
   },
   {
     "productKey": "trockenhefe",
@@ -1127,7 +4319,41 @@
     "aisle": "backwaren",
     "packageSize": 21,
     "packageUnit": "g",
-    "pricePerPackage": 0.29
+    "pricePerPackage": 0.29,
+    "brand": "GoldÄhren"
+  },
+  {
+    "productKey": "trockenhefe",
+    "label": "Trockenhefe",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 21,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "Belbake"
+  },
+  {
+    "productKey": "trockenhefe",
+    "label": "Trockenhefe",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 21,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "Mühlengold"
+  },
+  {
+    "productKey": "trockenhefe",
+    "label": "Trockenhefe",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 21,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "Netto"
   },
   {
     "productKey": "trockenhefe",
@@ -1137,7 +4363,30 @@
     "aisle": "backwaren",
     "packageSize": 21,
     "packageUnit": "g",
-    "pricePerPackage": 0.45
+    "pricePerPackage": 0.45,
+    "brand": "ja!"
+  },
+  {
+    "productKey": "trockenhefe",
+    "label": "Trockenhefe",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 21,
+    "packageUnit": "g",
+    "pricePerPackage": 0.49,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "trockenhefe",
+    "label": "Trockenhefe",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 21,
+    "packageUnit": "g",
+    "pricePerPackage": 0.29,
+    "brand": "K-Classic"
   },
   {
     "productKey": "haehnchenfluegel",
@@ -1147,7 +4396,41 @@
     "aisle": "fleisch-fisch",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 2.99
+    "pricePerPackage": 2.99,
+    "brand": "Meine Metzgerei"
+  },
+  {
+    "productKey": "haehnchenfluegel",
+    "label": "Hähnchenflügel",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 2.99,
+    "brand": "Dulano"
+  },
+  {
+    "productKey": "haehnchenfluegel",
+    "label": "Hähnchenflügel",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.09,
+    "brand": "Mühlenhof"
+  },
+  {
+    "productKey": "haehnchenfluegel",
+    "label": "Hähnchenflügel",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.09,
+    "brand": "Netto"
   },
   {
     "productKey": "haehnchenfluegel",
@@ -1157,6 +4440,29 @@
     "aisle": "fleisch-fisch",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 3.99
+    "pricePerPackage": 3.99,
+    "brand": "REWE Beste Wahl"
+  },
+  {
+    "productKey": "haehnchenfluegel",
+    "label": "Hähnchenflügel",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.99,
+    "brand": "GUT&GÜNSTIG"
+  },
+  {
+    "productKey": "haehnchenfluegel",
+    "label": "Hähnchenflügel",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.19,
+    "brand": "K-Classic"
   }
 ]

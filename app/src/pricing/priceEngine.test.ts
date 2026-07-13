@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { STORE_DEFAULT_BRAND, STORE_PRICE_INDEX } from '../domain/enums';
 import type { PriceOverride, SeedPrice } from '../domain/schema';
 import { PriceEngine } from './priceEngine';
 
@@ -182,5 +183,41 @@ describe('PriceEngine.wholePackageCost', () => {
 
   it('unbekannter Key -> cost null', () => {
     expect(eng.wholePackageCost('nix', 100, 'mass').cost).toBeNull();
+  });
+});
+
+describe('PriceEngine.wholePackageCostForStore', () => {
+  const storeSeed: SeedPrice[] = [
+    { productKey: 'haehnchenbrust', label: 'Hähnchenbrust', brand: 'Meine Metzgerei', storeId: 'aldi', storeType: 'discounter', aisle: 'fleisch-fisch', packageSize: 500, packageUnit: 'g', pricePerPackage: 4.0 },
+    { productKey: 'haehnchenbrust', label: 'Hähnchenbrust', brand: 'REWE Beste Wahl', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'fleisch-fisch', packageSize: 500, packageUnit: 'g', pricePerPackage: 6.0 },
+  ];
+  const eng = new PriceEngine(storeSeed, []);
+
+  it('nutzt den exakten Markt-Preis + Marke aus dem Katalog', () => {
+    const aldi = eng.wholePackageCostForStore('haehnchenbrust', 'Hähnchenbrust', 300, 'mass', 'aldi');
+    expect(aldi.source).toBe('seed');
+    expect(aldi.cost).toBeCloseTo(4.0); // ceil(300/500)=1 Packung
+    expect(aldi.brand).toBe('Meine Metzgerei');
+    const rewe = eng.wholePackageCostForStore('haehnchenbrust', 'Hähnchenbrust', 300, 'mass', 'rewe');
+    expect(rewe.cost).toBeCloseTo(6.0);
+    expect(rewe.brand).toBe('REWE Beste Wahl');
+  });
+
+  it('Markt ohne Katalog-Zeile -> KI-Basispreis × Markt-Index', () => {
+    const aiEng = new PriceEngine([], [], {
+      aiPrices: new Map([['trueffeloel', { pricePerPackage: 4, packageSize: 100, packageUnit: 'ml' }]]),
+    });
+    const edeka = aiEng.wholePackageCostForStore(null, 'Trüffelöl', 100, 'volume', 'edeka');
+    expect(edeka.source).toBe('ai');
+    // ceil(100/100)=1 Packung × (4 × Index edeka)
+    expect(edeka.cost).toBeCloseTo(4 * STORE_PRICE_INDEX.edeka);
+    expect(edeka.brand).toBe(STORE_DEFAULT_BRAND.edeka);
+    // günstiger Discounter-Index < teurer Vollsortimenter-Index
+    const aldi = aiEng.wholePackageCostForStore(null, 'Trüffelöl', 100, 'volume', 'aldi');
+    expect(aldi.cost!).toBeLessThan(edeka.cost!);
+  });
+
+  it('nicht bepreisbar -> cost null', () => {
+    expect(eng.wholePackageCostForStore(null, 'Sternenstaub', 10, 'mass', 'aldi').cost).toBeNull();
   });
 });

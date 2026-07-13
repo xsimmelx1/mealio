@@ -19,6 +19,7 @@ export function buildAiEngineMap(
         pricePerPackage: e.pricePerPackage,
         packageSize: e.packageSize,
         packageUnit: e.packageUnit,
+        brand: e.brand,
       });
     }
   }
@@ -38,6 +39,7 @@ export function buildAiOnlineMap(
       pricePerPackage: e.pricePerPackage,
       packageSize: e.packageSize,
       packageUnit: e.packageUnit,
+      brand: e.brand,
       currency: 'EUR',
       source: 'ai',
       updatedAt: null,
@@ -82,6 +84,7 @@ export async function ensureAiEstimates(
           pricePerPackage: e.pricePerPackage as number,
           packageSize: e.packageSize as number,
           packageUnit: e.packageUnit as 'g' | 'ml' | 'stück',
+          brand: e.brand,
           cachedAt: now,
         })),
       );

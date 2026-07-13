@@ -1,11 +1,8 @@
-import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import EstimateBadge from '../components/EstimateBadge';
 import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
-import { db } from '../db/db';
-import { loadSeedPrices } from '../db/seed';
 import { MEAL_TYPES, MEAL_TYPE_LABELS } from '../domain/enums';
 import type { MealPlanEntry, Recipe } from '../domain/schema';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
@@ -13,7 +10,7 @@ import { isBudgetTight, suggestedBudget } from '../plan/budget';
 import { WEEKDAY_LABELS_LONG } from '../plan/week';
 import { formatPrice } from '../pricing';
 import { ensureAiEstimates } from '../pricing/aiPrices';
-import { totalForStoreType } from '../pricing/storeTotals';
+import { compareAllStores } from '../pricing/storeTotals';
 import { aggregateShoppingItems } from '../shopping/aggregate';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { usePlanStore } from '../state/planStore';
@@ -37,7 +34,6 @@ export default function PlanView() {
   } = usePlanStore();
   const engine = usePriceEngine();
   const online = useOnlineStatus();
-  const overrides = useLiveQuery(() => db.priceOverrides.toArray(), [], []);
   const costOf = (r: Recipe): number => engine.recipeCost(r).total;
 
   useEffect(() => {
@@ -121,15 +117,13 @@ export default function PlanView() {
     return map;
   }, [days, engine, recipeById]);
 
-  // Supermarkt-Vergleich für den gesamten Plan (Discounter vs. Vollsortimenter).
+  // Supermarkt-Vergleich für den gesamten Plan (günstigster Markt; Details unter /compare).
   const storeCompare = useMemo(() => {
     if (!plan || !catalog.length) return null;
     const items = aggregateShoppingItems(plan, catalog, engine);
-    const seed = loadSeedPrices();
-    const d = totalForStoreType(items, seed, overrides ?? [], 'discounter');
-    const v = totalForStoreType(items, seed, overrides ?? [], 'vollsortimenter');
-    return d.pricedCount > 0 ? { discounter: d.total, vollsortimenter: v.total } : null;
-  }, [plan, catalog, engine, overrides]);
+    const cmp = compareAllStores(items, engine);
+    return cmp.cheapest ? cmp : null;
+  }, [plan, catalog, engine]);
 
   const generating = status === 'generating';
   const overBudget = prefs.budget > 0 && weekCost.total > prefs.budget;
@@ -226,27 +220,25 @@ export default function PlanView() {
               Tipp: „💸 günstiger" an teuren Tagen tauscht gegen preiswertere Rezepte.
             </p>
           )}
-          {storeCompare && (
-            <div className="mt-3 border-t border-slate-100 pt-2">
-              <div className="mb-1 text-xs font-medium text-slate-500">Supermarkt-Vergleich</div>
-              <div className="flex items-center justify-between text-sm">
-                <span>
-                  <span className="font-semibold text-emerald-700">
-                    {formatPrice(storeCompare.discounter, prefs.currency)}
-                  </span>{' '}
-                  <span className="text-xs text-slate-400">Aldi</span>
+          {storeCompare?.cheapest && (
+            <Link
+              to="/compare"
+              className="mt-3 flex items-center justify-between gap-2 border-t border-slate-100 pt-3 active:opacity-70"
+            >
+              <div className="text-sm">
+                <span className="text-xs font-medium text-slate-500">Günstigster Markt:</span>{' '}
+                <span className="font-semibold text-emerald-700">{storeCompare.cheapest.label}</span>{' '}
+                <span className="font-semibold text-slate-800">
+                  {formatPrice(storeCompare.cheapest.total, prefs.currency)}
                 </span>
-                <span className="text-xs text-slate-400">
-                  −{formatPrice(Math.max(0, storeCompare.vollsortimenter - storeCompare.discounter), prefs.currency)}
-                </span>
-                <span>
-                  <span className="font-semibold text-slate-700">
-                    {formatPrice(storeCompare.vollsortimenter, prefs.currency)}
-                  </span>{' '}
-                  <span className="text-xs text-slate-400">Rewe</span>
-                </span>
+                {storeCompare.savings > 0 && (
+                  <span className="ml-1 text-xs text-slate-400">
+                    (−{formatPrice(storeCompare.savings, prefs.currency)} ggü. teuerstem)
+                  </span>
+                )}
               </div>
-            </div>
+              <span className="shrink-0 text-sm font-semibold text-brand-600">Alle 7 Märkte →</span>
+            </Link>
           )}
         </div>
       )}

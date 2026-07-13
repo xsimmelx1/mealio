@@ -9,11 +9,10 @@ import type { ShoppingItem } from '../domain/schema';
 import { db } from '../db/db';
 import { setPackagePriceOverride } from '../db/priceActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
-import { loadSeedPrices } from '../db/seed';
 import { formatPrice } from '../pricing';
 import { buildAiOnlineMap, ensureAiEstimates } from '../pricing/aiPrices';
 import { normalizeName } from '../pricing/productMatch';
-import { totalForStoreType } from '../pricing/storeTotals';
+import { compareAllStores } from '../pricing/storeTotals';
 import type { PriceEngine } from '../pricing/priceEngine';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { onlineItemCost } from '../shopping/onlinePrice';
@@ -91,15 +90,8 @@ export default function ShoppingListView() {
   const onlineFor = (item: ShoppingItem): OnlinePrice | undefined =>
     onlineMap[item.productKey ?? item.id] ?? aiMap[normalizeName(item.name)];
 
-  // Supermarkt-Vergleich: Gesamtkosten je Preisniveau (Discounter vs. Vollsortimenter).
-  const overrides = useLiveQuery(() => db.priceOverrides.toArray(), [], []);
-  const storeCompare = useMemo(() => {
-    const seed = loadSeedPrices();
-    return {
-      discounter: totalForStoreType(items, seed, overrides ?? [], 'discounter'),
-      vollsortimenter: totalForStoreType(items, seed, overrides ?? [], 'vollsortimenter'),
-    };
-  }, [items, overrides]);
+  // Supermarkt-Vergleich: günstigster Markt für diese Liste; Details unter /compare.
+  const storeCompare = useMemo(() => compareAllStores(items, engine), [items, engine]);
 
   const visible = showPantry ? items : items.filter((i) => !i.isPantry);
   const byAisle = useMemo(() => {
@@ -196,30 +188,28 @@ export default function ShoppingListView() {
       </div>
 
       {/* Supermarkt-Vergleich */}
-      {storeCompare.discounter.pricedCount > 0 && (
-        <div className="card mb-4 p-4">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-600">Supermarkt-Vergleich</span>
-            <EstimateBadge />
-          </div>
-          <div className="grid grid-cols-2 gap-2 text-center">
-            <div className="rounded-xl bg-emerald-50 py-2">
-              <div className="text-lg font-bold text-emerald-700">
-                {formatPrice(storeCompare.discounter.total, prefs.currency)}
-              </div>
-              <div className="text-xs text-slate-500">Discounter (z. B. Aldi)</div>
+      {storeCompare.cheapest && (
+        <Link to="/compare" className="card mb-4 flex items-center justify-between gap-2 p-4 active:opacity-70">
+          <div>
+            <div className="mb-0.5 flex items-center gap-2">
+              <span className="text-sm font-medium text-slate-600">Supermarkt-Vergleich</span>
+              <EstimateBadge />
             </div>
-            <div className="rounded-xl bg-slate-50 py-2">
-              <div className="text-lg font-bold text-slate-700">
-                {formatPrice(storeCompare.vollsortimenter.total, prefs.currency)}
-              </div>
-              <div className="text-xs text-slate-500">Vollsortimenter (z. B. Rewe)</div>
+            <div className="text-sm">
+              <span className="text-xs text-slate-500">Günstigster:</span>{' '}
+              <span className="font-semibold text-emerald-700">{storeCompare.cheapest.label}</span>{' '}
+              <span className="font-semibold text-slate-800">
+                {formatPrice(storeCompare.cheapest.total, prefs.currency)}
+              </span>
+              {storeCompare.savings > 0 && (
+                <span className="ml-1 text-xs text-slate-400">
+                  −{formatPrice(storeCompare.savings, prefs.currency)}
+                </span>
+              )}
             </div>
           </div>
-          <p className="mt-2 text-xs text-slate-400">
-            Nur bepreisbare Positionen; ohne KI-/Online-Schätzungen.
-          </p>
-        </div>
+          <span className="shrink-0 text-sm font-semibold text-brand-600">Alle 7 Märkte →</span>
+        </Link>
       )}
 
       {/* Gruppen nach Gang */}

@@ -21,6 +21,8 @@ export interface EstimatedPrice {
   pricePerPackage: number | null;
   packageSize: number | null;
   packageUnit: PackageUnit | null;
+  /** Typische Handelsmarke (marktneutral); optional. */
+  brand?: string;
   currency: string;
   source: 'ai' | 'unknown';
   updatedAt: string | null;
@@ -40,9 +42,10 @@ function buildSystemPrompt(): string {
   return [
     'Du schätzt typische Endkunden-Preise in DEUTSCHEN Supermärkten (Mitte 2026, EUR).',
     'Antworte AUSSCHLIESSLICH mit reinem JSON, keine Prosa/Markdown.',
-    'Format: {"estimates":[{"key":string,"pricePerPackage":number,"packageSize":number,"packageUnit":"g"|"ml"|"stück"}]}',
+    'Format: {"estimates":[{"key":string,"pricePerPackage":number,"packageSize":number,"packageUnit":"g"|"ml"|"stück","brand":string}]}',
     '- pricePerPackage: realistischer Preis für eine ÜBLICHE Handelspackung (EUR, > 0).',
     '- packageSize + packageUnit: übliche Packungsgröße (z. B. 500 g, 1000 ml, 6 stück).',
+    '- brand: typische Handels-/Eigenmarke für dieses Produkt in DE (z. B. "Barilla", "Milbona"). Wenn unklar: weglassen.',
     '- Gib für JEDEN key genau einen Eintrag zurück, gleiche keys wie in der Anfrage.',
     '- Keine Erklärungen, nur das JSON.',
   ].join('\n');
@@ -63,11 +66,13 @@ function coercePrice(raw: unknown, key: string): EstimatedPrice {
   if (!Number.isFinite(price) || price <= 0 || !Number.isFinite(size) || size <= 0 || !validUnit) {
     return UNKNOWN(key);
   }
+  const brand = typeof o.brand === 'string' ? o.brand.trim().slice(0, 60) : '';
   return {
     key,
     pricePerPackage: Math.round(price * 100) / 100,
     packageSize: size,
     packageUnit: unit,
+    ...(brand ? { brand } : {}),
     currency: 'EUR',
     source: 'ai',
     updatedAt: null,

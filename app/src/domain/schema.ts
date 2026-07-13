@@ -167,6 +167,8 @@ export const SeedPriceSchema = z.object({
   productKey: z.string().min(1),
   /** Anzeigename. */
   label: z.string().min(1),
+  /** Marke / Eigenmarke des Produkts in diesem Markt (z. B. "ja!", "K-Classic"). */
+  brand: z.string().optional(),
   storeId: z.string().min(1),
   storeType: z.enum(['discounter', 'vollsortimenter']),
   aisle: aisleEnum,

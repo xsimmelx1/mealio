@@ -13,6 +13,8 @@ export interface AiPriceCacheEntry {
   pricePerPackage: number;
   packageSize: number;
   packageUnit: 'g' | 'ml' | 'stück';
+  /** Optionale KI-geschätzte Marke (nicht indiziert; kein Schema-Versionssprung nötig). */
+  brand?: string;
   cachedAt: number;
 }
 

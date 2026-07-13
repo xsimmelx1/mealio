@@ -1,4 +1,9 @@
 import type { PriceOverride, SeedPrice } from '../domain/schema';
+import {
+  STORE_DEFAULT_BRAND,
+  STORE_PRICE_INDEX,
+  type StoreId,
+} from '../domain/enums';
 import { matchProductKey, normalizeName } from './productMatch';
 import { packageDimension, reconcileFactor, toBase, type Dimension } from './units';
 import type { Ingredient, Recipe } from '../domain/schema';
@@ -8,6 +13,8 @@ export interface AiPriceEntry {
   pricePerPackage: number;
   packageSize: number;
   packageUnit: 'g' | 'ml' | 'stück';
+  /** Optionale KI-geschätzte Marke (marktneutral). */
+  brand?: string;
 }
 
 /**
@@ -43,6 +50,17 @@ export interface RecipeCostEstimate {
   perServing: number;
   matchedCount: number;
   unmatchedCount: number;
+}
+
+/** Einkaufskosten einer Position bei EINEM konkreten Markt (für den Supermarkt-Vergleich). */
+export interface StoreLineCost {
+  /** Kosten (ganze Packungen) oder null, wenn für diesen Markt nicht bepreisbar. */
+  cost: number | null;
+  /** Marke/Eigenmarke in diesem Markt (Katalog) bzw. Fallback-Eigenmarke (KI). */
+  brand: string | null;
+  packages: number;
+  /** 'seed' = kuratierter Katalogpreis, 'ai' = geschätzt (×Marktindex). */
+  source: 'seed' | 'ai' | null;
 }
 
 export interface PriceEngineOptions {
@@ -229,6 +247,57 @@ export class PriceEngine {
     const needed = totalBaseQty * factor;
     const packages = Math.max(1, Math.ceil(needed / product.packageSize));
     return { cost: round2(packages * product.pricePerPackage), source: product.source, packages };
+  }
+
+  /**
+   * Einkaufskosten (ganze Packungen) einer Position bei EINEM konkreten Markt (storeId) —
+   * Kern des Supermarkt-Vergleichs. Kette:
+   *  1. Kuratierte Katalog-Zeile mit exakt dieser storeId (echter Preis + Marke).
+   *  2. KI-Basispreis (nach normalisiertem Namen) × Markt-Index (Fallback-Marke je Markt).
+   *  3. sonst null (für diesen Markt nicht bepreisbar).
+   * `name` wird nur für den KI-Fallback gebraucht (Katalog-Positionen matchen über productKey).
+   */
+  wholePackageCostForStore(
+    productKey: string | null,
+    name: string,
+    totalBaseQty: number,
+    dim: Dimension,
+    storeId: StoreId,
+  ): StoreLineCost {
+    // 1. Kuratierter Katalogpreis für genau diesen Markt.
+    if (productKey) {
+      const list = this.seedByKey.get(productKey);
+      const row = list?.find((p) => p.storeId.toLowerCase() === storeId);
+      if (row) {
+        const factor = reconcileFactor(dim, packageDimension(row.packageUnit));
+        if (factor === null) return { cost: null, brand: null, packages: 0, source: null };
+        const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / row.packageSize));
+        return {
+          cost: round2(packages * row.pricePerPackage),
+          brand: row.brand ?? STORE_DEFAULT_BRAND[storeId],
+          packages,
+          source: 'seed',
+        };
+      }
+    }
+
+    // 2. KI-Fallback: marktneutraler Basispreis × Markt-Index.
+    const ai = this.aiPrices.get(normalizeName(name));
+    if (ai && ai.packageSize > 0) {
+      const factor = reconcileFactor(dim, packageDimension(ai.packageUnit));
+      if (factor !== null) {
+        const perPackage = ai.pricePerPackage * STORE_PRICE_INDEX[storeId];
+        const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / ai.packageSize));
+        return {
+          cost: round2(packages * perPackage),
+          brand: ai.brand ?? STORE_DEFAULT_BRAND[storeId],
+          packages,
+          source: 'ai',
+        };
+      }
+    }
+
+    return { cost: null, brand: null, packages: 0, source: null };
   }
 }
 

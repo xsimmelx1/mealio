@@ -128,6 +128,8 @@ const OnlinePriceSchema = z.object({
   pricePerPackage: z.number().nullable(),
   packageSize: z.number().nullable(),
   packageUnit: z.enum(['g', 'ml', 'stück']).nullable(),
+  /** Typische Handelsmarke (nur KI-Schätzung); optional. */
+  brand: z.string().optional(),
   currency: z.string(),
   source: z.enum(['open-prices', 'ai', 'unknown']),
   updatedAt: z.string().nullable(),
