@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import EstimateBadge from '../components/EstimateBadge';
 import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
-import { MEAL_TYPES, MEAL_TYPE_LABELS } from '../domain/enums';
+import { MEAL_TYPES, MEAL_TYPE_LABELS, SUPERMARKETS } from '../domain/enums';
 import type { MealPlanEntry, Recipe } from '../domain/schema';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { isBudgetTight, suggestedBudget } from '../plan/budget';
@@ -18,6 +18,7 @@ import { usePrefsStore } from '../state/prefsStore';
 
 export default function PlanView() {
   const prefs = usePrefsStore((s) => s.prefs);
+  const updatePrefs = usePrefsStore((s) => s.update);
   const {
     plan,
     catalog,
@@ -146,6 +147,29 @@ export default function PlanView() {
         }
       />
 
+      {/* Supermarkt-Umschalter: rechnet Kosten/Vergleich live um */}
+      <div className="mb-4">
+        <div className="mb-1 text-xs font-medium text-slate-500">Preise für Supermarkt</div>
+        <div className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1">
+          {SUPERMARKETS.map((s) => {
+            const active = prefs.supermarket === s.value;
+            return (
+              <button
+                key={s.value || 'egal'}
+                type="button"
+                onClick={() => void updatePrefs({ supermarket: s.value })}
+                aria-pressed={active}
+                className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  active ? 'bg-brand-500 text-white shadow-sm' : 'bg-white text-slate-600 ring-1 ring-slate-200'
+                }`}
+              >
+                {s.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Klar abgesetzter Einzelgericht-Einstieg (kein Teil des Wochenplans) */}
       <div className="mb-4 flex items-center justify-between gap-3 rounded-card border border-dashed border-brand-200 bg-brand-50/50 p-3">
         <div className="min-w-0">
@@ -255,7 +279,7 @@ export default function PlanView() {
         </div>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {days.map(({ day, entries }) => (
           <div key={day} className="card p-4">
             <div className="flex items-baseline justify-between">

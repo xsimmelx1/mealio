@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
@@ -24,15 +24,14 @@ describe('App shell', () => {
       await completeOnboarding();
     });
 
-    it('rendert die Bottom-Nav mit allen vier Tabs', async () => {
+    it('rendert die Bottom-Nav mit allen Tabs', async () => {
       renderAt('/plan');
-      expect(
-        await screen.findByRole('navigation', { name: /hauptnavigation/i }),
-      ).toBeInTheDocument();
-      expect(screen.getByText('Plan')).toBeInTheDocument();
-      expect(screen.getByText('Liste')).toBeInTheDocument();
-      expect(screen.getByText('Favoriten')).toBeInTheDocument();
-      expect(screen.getByText('Einstellungen')).toBeInTheDocument();
+      const nav = await screen.findByRole('navigation', { name: /hauptnavigation/i });
+      expect(within(nav).getByText('Plan')).toBeInTheDocument();
+      expect(within(nav).getByText('Vergleich')).toBeInTheDocument();
+      expect(within(nav).getByText('Liste')).toBeInTheDocument();
+      expect(within(nav).getByText('Favoriten')).toBeInTheDocument();
+      expect(within(nav).getByText('Einstellungen')).toBeInTheDocument();
     });
 
     it('leitet die Wurzel auf den Wochenplan um', async () => {

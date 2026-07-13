@@ -616,6 +616,21 @@
   {
     "productKey": "butter",
     "label": "Butter",
+    "brand": "Meggle",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "dataSource": "real",
+    "productName": "MEGGLE Feine Butter 250 g",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -640,6 +655,21 @@
   {
     "productKey": "butter",
     "label": "Butter",
+    "brand": "Meggle",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "dataSource": "real",
+    "productName": "MEGGLE Feine Butter 250 g",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
     "brand": "Netto",
     "storeId": "netto",
     "storeType": "discounter",
@@ -648,6 +678,21 @@
     "packageUnit": "g",
     "pricePerPackage": 3,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "brand": "Meggle",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 1.11,
+    "dataSource": "real",
+    "productName": "MEGGLE Feine Butter 250 g",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "butter",
@@ -708,6 +753,21 @@
     "packageUnit": "g",
     "pricePerPackage": 3.21,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "brand": "discounto.de",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 125,
+    "packageUnit": "g",
+    "pricePerPackage": 0.99,
+    "dataSource": "real",
+    "productName": "K-FREE LAKTOSEFREI Butter, 125-g-Packg.",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "chili",
@@ -1426,6 +1486,21 @@
     "packageUnit": "g",
     "pricePerPackage": 4.5,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "hackfleisch",
+    "label": "Hackfleisch gemischt",
+    "brand": "K-Purland",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 6.99,
+    "dataSource": "real",
+    "productName": "K-PURLAND Hackfleisch gemischt XXL, 1-kg-Großpackg.",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "haehnchenbrust",
@@ -2468,6 +2543,21 @@
     "dataSource": "estimate"
   },
   {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
+    "brand": "discounto.de",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 7.99,
+    "dataSource": "real",
+    "productName": "K-BLUE BAY Norweg. Lachsfilet-Portionen, 500-g-Packg.",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
+  },
+  {
     "productKey": "mais",
     "label": "Mais (Dose)",
     "brand": "Eigenmarke",
@@ -2735,6 +2825,21 @@
     "dataSource": "estimate"
   },
   {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "brand": "Baerenmarke",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 0.99,
+    "dataSource": "real",
+    "productName": "BÄRENMARKE Frische Vollmilch, 3,8 % Fett, 1-l-Packg.",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
+  },
+  {
     "productKey": "mozzarella",
     "label": "Mozzarella",
     "brand": "Eigenmarke",
@@ -2994,6 +3099,21 @@
     "packageUnit": "ml",
     "pricePerPackage": 7.81,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "olivenoel",
+    "label": "Olivenöl",
+    "brand": "discounto.de",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 500,
+    "packageUnit": "ml",
+    "pricePerPackage": 4.99,
+    "dataSource": "real",
+    "productName": "FILIPPO BERIO Natives Olivenöl extra, 500-ml-Fl.",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "oregano",
@@ -3504,6 +3624,24 @@
     "packageUnit": "ml",
     "pricePerPackage": 1.61,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "rapsoel",
+    "label": "Rapsöl",
+    "brand": "discounto.de",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "sonstiges",
+    "packageSize": 750,
+    "packageUnit": "ml",
+    "pricePerPackage": 2.49,
+    "dataSource": "real",
+    "productName": "BRÄNDLE Vita-Rapsöl oder BIOVIT Bio-Sonnenblumenöl, 500 - 750-ml-Fl.",
+    "flags": [
+      "bio"
+    ],
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "reis",
@@ -4371,6 +4509,21 @@
     "packageUnit": "g",
     "pricePerPackage": 2.29,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch (Dose)",
+    "brand": "Saupiquet",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 185,
+    "packageUnit": "g",
+    "pricePerPackage": 1.99,
+    "dataSource": "real",
+    "productName": "SAUPIQUET Thunfisch, 185-g-Dose",
+    "isOffer": true,
+    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "tofu",

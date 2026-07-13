@@ -10,14 +10,15 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
-import { STORE_IDS, type StoreId } from '../app/src/domain/enums';
+import { STORE_IDS, storeTypeOf, type StoreId } from '../app/src/domain/enums';
 import { SeedPriceSchema, type SeedPrice } from '../app/src/domain/schema';
 import { deriveRow, type Anchor } from './lib/derive';
 import { mergeFlags } from './lib/flags';
 import { matchProduct } from './lib/match';
 import { createReweSource } from './sources/rewe';
 import { enrichByEan } from './sources/off';
-import type { IngredientSpec } from './lib/types';
+import { createDiscountoOffers } from './sources/offers/discounto';
+import type { IngredientSpec, OfferSource } from './lib/types';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SEED_PATH = resolve(__dirname, '../app/src/assets/prices.seed.json');
@@ -75,6 +76,8 @@ async function main() {
   const raw: SeedPrice[] = [];
   let realKeys = 0;
   let offerRows = 0;
+  // Anker-Grundpreis je Zutat (REWE-Referenz) — Angebote nur akzeptieren, wenn günstiger.
+  const anchorBaseByKey = new Map<string, number>();
 
   for (const key of allKeys) {
     const spec = specByKey.get(key);
@@ -94,6 +97,7 @@ async function main() {
       packageUnit: (match?.product.unit ?? old?.packageUnit ?? 'stück') as SeedPrice['packageUnit'],
       pricePerPackage: match?.product.price ?? old?.pricePerPackage ?? 1,
     };
+    if (anchor.packageSize > 0) anchorBaseByKey.set(key, anchor.pricePerPackage / anchor.packageSize);
     if (match) realKeys++;
 
     for (const id of STORE_IDS) {
@@ -138,6 +142,48 @@ async function main() {
         }
       } else {
         raw.push(deriveRow(anchor, id as StoreId));
+      }
+    }
+  }
+
+  // Discounter-/Markt-Angebote aus Angebotsquellen (Prospekt-Aggregator) einspeisen: eigene
+  // isOffer-Zeilen je Markt. Die Engine nutzt sie als effektiven Bestpreis gegen den (geschätzten)
+  // Normalpreis. Fehler/leer → keine zusätzlichen Zeilen (nie Abbruch).
+  const offerSources: OfferSource[] = [createDiscountoOffers()];
+  for (const src of offerSources) {
+    let groups;
+    try {
+      groups = await src.fetchOffers();
+    } catch {
+      groups = [];
+    }
+    for (const { storeId, products } of groups) {
+      if (!(STORE_IDS as readonly string[]).includes(storeId)) continue;
+      for (const spec of catalog) {
+        const m = matchProduct(spec, products, { offers: true });
+        if (!m) continue;
+        // Nur echte Deals: Angebot muss pro Grundeinheit günstiger als der Anker sein
+        // (filtert „Angebote" die teurer sind + grobe Fehlzuordnungen wie Fertiggerichte).
+        const anchorBase = anchorBaseByKey.get(spec.productKey);
+        if (anchorBase != null && m.product.price / m.product.size >= anchorBase) continue;
+        offerRows++;
+        raw.push({
+          productKey: spec.productKey,
+          label: spec.label,
+          brand: m.product.brand ?? src.sourceName,
+          storeId,
+          storeType: storeTypeOf(storeId as StoreId),
+          aisle: spec.aisle as SeedPrice['aisle'],
+          packageSize: m.product.size,
+          packageUnit: m.product.unit,
+          pricePerPackage: round2(m.product.price),
+          dataSource: 'real',
+          productName: m.product.name,
+          flags: m.product.flags,
+          isOffer: true,
+          ...(src.validUntil ? { offerValidUntil: src.validUntil } : {}),
+          ...(m.product.ean ? { ean: m.product.ean } : {}),
+        });
       }
     }
   }

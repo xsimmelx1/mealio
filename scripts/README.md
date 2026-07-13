@@ -29,9 +29,14 @@ Jede Zeile trägt `dataSource` (`real`/`estimate`), bei `real` zusätzlich `pric
 
 ### Angebote, Labels & Scores
 - **Angebote**: REWE-Angebotsartikel (Datensatz-`sale`) werden als eigene, günstigere Zeilen mit
-  `isOffer: true` erzeugt. Die Engine nutzt den effektiven Bestpreis (Angebot, falls günstiger) und
-  zeigt den Normalpreis durchgestrichen. Discounter-Angebote (Lidl/Kaufland/Aldi) sind der nächste
-  Adapter-Schritt (`sources/offers/`), Aldi ist Akamai-geblockt.
+  `isOffer: true` erzeugt. Zusätzlich liefert der Angebots-Adapter `sources/offers/discounto.ts`
+  aktuelle **Discounter-/Markt-Angebote** (Aldi/Lidl/Penny/Netto/Kaufland/…) vom Aggregator
+  discounto.de (Kategorieseiten). Angebote werden nur übernommen, wenn sie pro Grundeinheit
+  **günstiger als der Anker** sind (echte Deals, keine Fehlzuordnungen). Die Engine nutzt den
+  effektiven Bestpreis und zeigt den Normalpreis durchgestrichen.
+  **Attribution/Recht:** discounto.de ist ein kommerzieller Aggregator (keine offene Lizenz) — vor
+  produktiver Auslieferung ToS/robots prüfen und „Angebotsdaten via discounto.de" im Impressum
+  ausweisen. Aldi-*Normalpreise* bleiben unverfügbar (nur Angebote).
 - **Labels** (`flags`: bio/fairtrade/vegan/regional): aus Name/Marke (`lib/flags.ts`) + Open Food Facts.
 - **Open Food Facts** (`sources/off.ts`, ODbL): reichert echte Zeilen per EAN um Fairtrade/Bio/Vegan
   sowie Nutri-/Eco-Score an; Ergebnis in `scripts/cache/off.json` gecacht.

@@ -31,6 +31,23 @@ export interface PriceSource {
   fetchProducts(): Promise<RawProduct[]>;
 }
 
+/** Angebote je Markt aus einer Angebotsquelle (Prospekt/Aggregator). */
+export interface StoreOffers {
+  /** storeId (muss zu STORE_IDS passen). */
+  storeId: string;
+  /** Angebotsprodukte (als RawProduct mit sale=true). */
+  products: RawProduct[];
+}
+
+/** Eine Angebotsquelle (ein Adapter je Prospekt-/Angebotsnetzwerk). */
+export interface OfferSource {
+  sourceName: string;
+  /** Gültigkeitsangabe (frei), z. B. "KW 29/2026". */
+  validUntil?: string;
+  /** Lädt aktuelle Angebote gruppiert nach Markt. Bei Fehler: [] (nie werfen). */
+  fetchOffers(): Promise<StoreOffers[]>;
+}
+
 /** Kuratierte Zutat->Produkt-Spezifikation (scripts/ingredients.catalog.json). */
 export interface IngredientSpec {
   productKey: string;
