@@ -220,4 +220,19 @@ describe('PriceEngine.wholePackageCostForStore', () => {
   it('nicht bepreisbar -> cost null', () => {
     expect(eng.wholePackageCostForStore(null, 'Sternenstaub', 10, 'mass', 'aldi').cost).toBeNull();
   });
+
+  it('reicht echt/geschätzt + Stand + Produktname aus der Katalog-Zeile durch', () => {
+    const seedWithMeta: SeedPrice[] = [
+      { productKey: 'mehl', label: 'Mehl', brand: 'ja!', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'backwaren', packageSize: 1000, packageUnit: 'g', pricePerPackage: 0.59, dataSource: 'real', priceDate: '2025-09', productName: 'ja! Weizenmehl Type 405 1kg', ean: '4337256679244' },
+      { productKey: 'mehl', label: 'Mehl', brand: 'Eigenmarke', storeId: 'aldi', storeType: 'discounter', aisle: 'backwaren', packageSize: 1000, packageUnit: 'g', pricePerPackage: 0.48, dataSource: 'estimate' },
+    ];
+    const e = new PriceEngine(seedWithMeta, []);
+    const real = e.wholePackageCostForStore('mehl', 'Mehl', 1000, 'mass', 'rewe');
+    expect(real.dataSource).toBe('real');
+    expect(real.priceDate).toBe('2025-09');
+    expect(real.productName).toBe('ja! Weizenmehl Type 405 1kg');
+    const est = e.wholePackageCostForStore('mehl', 'Mehl', 1000, 'mass', 'aldi');
+    expect(est.dataSource).toBe('estimate');
+    expect(est.priceDate).toBeUndefined();
+  });
 });

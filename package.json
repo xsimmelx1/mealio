@@ -15,10 +15,13 @@
     "test": "npm run test -w app && npm run test -w server",
     "test:app": "npm run test -w app",
     "test:server": "npm run test -w server",
-    "lint": "npm run lint -w app --if-present && npm run lint -w server --if-present"
+    "lint": "npm run lint -w app --if-present && npm run lint -w server --if-present",
+    "gen:prices": "tsx scripts/genPrices.ts"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "csv-parse": "^5.5.6",
+    "tsx": "^4.19.2"
   },
   "engines": {
     "node": ">=20"

@@ -1,0 +1,37 @@
+name: Update prices
+
+# Monatliche Aktualisierung des Preis-Katalogs aus echten Quellen (REWE-Datensatz).
+# Erzeugt app/src/assets/prices.seed.json neu und öffnet bei Änderungen einen PR
+# (menschliche Prüfung vor Deploy). Manuell via "Run workflow" auslösbar.
+on:
+  schedule:
+    - cron: '0 4 1 * *' # am 1. jeden Monats, 04:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Preis-Katalog neu generieren
+        run: npm run gen:prices
+      - name: PR bei Änderungen öffnen
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore(prices): monatliche Aktualisierung des Preis-Katalogs'
+          title: 'chore(prices): monatliche Preis-Aktualisierung'
+          body: |
+            Automatisch generiert aus echten Quellen (REWE-Datensatz).
+            Bitte Stichprobe prüfen (Preise/Marken/Packungsgrößen) vor dem Merge.
+          branch: auto/update-prices
+          add-paths: app/src/assets/prices.seed.json
+          delete-branch: true

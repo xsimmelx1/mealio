@@ -13,6 +13,12 @@ import { aggregateShoppingItems } from '../shopping/aggregate';
 import { usePlanStore } from '../state/planStore';
 import { usePrefsStore } from '../state/prefsStore';
 
+/** "2025-09" -> "09/2025" für die Stand-Kennzeichnung. */
+function fmtMonth(ym: string): string {
+  const [y, m] = ym.split('-');
+  return m && y ? `${m}/${y}` : ym;
+}
+
 /**
  * Supermarkt-Vergleich für den gesamten Wochenplan: Was kostet der Warenkorb bei jedem
  * der 7 Märkte, welcher passt ins Budget und wie weit reicht das Budget je Markt?
@@ -152,7 +158,19 @@ export default function StoreCompareView() {
                           ? '✓ ganzer Plan im Budget'
                           : `Budget reicht für ≈ ${reach.coveredDays} von ${plannedDays} Tagen`}
                     </span>
-                    {s.aiCount > 0 && <EstimateBadge source={`${s.aiCount}× geschätzt`} />}
+                    <span className="flex items-center gap-1">
+                      {s.realCount > 0 && (
+                        <span
+                          className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-medium text-emerald-800"
+                          title="Echte Quelle (REWE-Datensatz)"
+                        >
+                          ✓ {s.realCount}× echt{s.priceDate ? ` · ${fmtMonth(s.priceDate)}` : ''}
+                        </span>
+                      )}
+                      {s.pricedCount - s.realCount > 0 && (
+                        <EstimateBadge source={`${s.pricedCount - s.realCount}× geschätzt`} />
+                      )}
+                    </span>
                   </div>
                 </li>
               );
@@ -162,7 +180,9 @@ export default function StoreCompareView() {
           <p className="mt-3 text-xs text-slate-400">
             Ersparnis günstigster vs. teuerster Markt:{' '}
             <span className="font-semibold text-emerald-700">{formatPrice(comparison.savings, prefs.currency)}</span>.
-            Preise sind Schätzwerte (kuratierter Katalog + KI); vor dem Einkauf prüfen.
+            <br />
+            <span className="text-emerald-700">✓ echt</span> = reale REWE-Daten (mit Stand);{' '}
+            <span className="text-amber-700">≈ geschätzt</span> = abgeleitet. Vor dem Einkauf prüfen.
           </p>
 
           {/* Produkt-Tabelle je Markt */}
@@ -211,10 +231,15 @@ export default function StoreCompareView() {
                                 {line.cost == null ? (
                                   <span className="text-slate-300">–</span>
                                 ) : (
-                                  <>
-                                    <div>{formatPrice(line.cost, prefs.currency)}</div>
+                                  <span title={line.productName ?? undefined}>
+                                    <div>
+                                      {line.dataSource === 'real' && (
+                                        <span className="text-emerald-600" title="echt">✓ </span>
+                                      )}
+                                      {formatPrice(line.cost, prefs.currency)}
+                                    </div>
                                     {line.brand && <div className="text-[10px] text-slate-400">{line.brand}</div>}
-                                  </>
+                                  </span>
                                 )}
                               </td>
                             );

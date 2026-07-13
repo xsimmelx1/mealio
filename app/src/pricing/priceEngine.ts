@@ -59,8 +59,14 @@ export interface StoreLineCost {
   /** Marke/Eigenmarke in diesem Markt (Katalog) bzw. Fallback-Eigenmarke (KI). */
   brand: string | null;
   packages: number;
-  /** 'seed' = kuratierter Katalogpreis, 'ai' = geschätzt (×Marktindex). */
+  /** 'seed' = Katalogpreis, 'ai' = KI-geschätzt (×Marktindex). */
   source: 'seed' | 'ai' | null;
+  /** 'real' = echte Quelle (mit Datum/Produkt), 'estimate' = abgeleitet/geschätzt. */
+  dataSource: 'real' | 'estimate' | null;
+  /** Stand der echten Preisdaten (YYYY-MM), nur bei 'real'. */
+  priceDate?: string;
+  /** Echter Produktname der Quelle, nur bei 'real'. */
+  productName?: string;
 }
 
 export interface PriceEngineOptions {
@@ -270,13 +276,17 @@ export class PriceEngine {
       const row = list?.find((p) => p.storeId.toLowerCase() === storeId);
       if (row) {
         const factor = reconcileFactor(dim, packageDimension(row.packageUnit));
-        if (factor === null) return { cost: null, brand: null, packages: 0, source: null };
+        if (factor === null) return { cost: null, brand: null, packages: 0, source: null, dataSource: null };
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / row.packageSize));
+        const isReal = row.dataSource === 'real';
         return {
           cost: round2(packages * row.pricePerPackage),
           brand: row.brand ?? STORE_DEFAULT_BRAND[storeId],
           packages,
           source: 'seed',
+          dataSource: isReal ? 'real' : 'estimate',
+          ...(isReal && row.priceDate ? { priceDate: row.priceDate } : {}),
+          ...(isReal && row.productName ? { productName: row.productName } : {}),
         };
       }
     }
@@ -293,11 +303,12 @@ export class PriceEngine {
           brand: ai.brand ?? STORE_DEFAULT_BRAND[storeId],
           packages,
           source: 'ai',
+          dataSource: 'estimate',
         };
       }
     }
 
-    return { cost: null, brand: null, packages: 0, source: null };
+    return { cost: null, brand: null, packages: 0, source: null, dataSource: null };
   }
 }
 

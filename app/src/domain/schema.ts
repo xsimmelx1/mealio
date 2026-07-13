@@ -178,5 +178,13 @@ export const SeedPriceSchema = z.object({
   packageUnit: z.enum(['g', 'ml', 'stück']),
   /** Preis pro Packung. */
   pricePerPackage: z.number().nonnegative(),
+  /** Herkunft des Preises: echt (gescrapte/kuratierte Quelle) vs. abgeleitete Schätzung. */
+  dataSource: z.enum(['real', 'estimate']).optional(),
+  /** Stand der Preisdaten (YYYY-MM), für UI-Kennzeichnung. */
+  priceDate: z.string().optional(),
+  /** Echter Produktname aus der Quelle (nur bei dataSource='real'). */
+  productName: z.string().optional(),
+  /** EAN/Barcode des echten Produkts (nur bei dataSource='real'). */
+  ean: z.string().optional(),
 });
 export type SeedPrice = z.infer<typeof SeedPriceSchema>;

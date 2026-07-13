@@ -39,8 +39,12 @@ export interface StoreTotal {
   pricedCount: number;
   /** davon per KI geschätzt (Rest: kuratierter Katalog). */
   aiCount: number;
+  /** davon aus echter Quelle (dataSource='real'). */
+  realCount: number;
   /** Positionen, die bei diesem Markt NICHT bepreisbar waren. */
   unpricedCount: number;
+  /** Stand der echten Preisdaten (YYYY-MM), falls vorhanden. */
+  priceDate?: string;
 }
 
 /** Kosten je Position aufgeschlüsselt nach allen Märkten (für die Produkt-Tabelle). */
@@ -91,7 +95,9 @@ export function totalForStore(
   let total = 0;
   let pricedCount = 0;
   let aiCount = 0;
+  let realCount = 0;
   let unpricedCount = 0;
+  let priceDate: string | undefined;
   for (const it of relevant(items)) {
     const dim = toBase(it.totalAmount || 1, it.unit).dim;
     const line = engine.wholePackageCostForStore(it.productKey, it.name, it.totalAmount, dim, storeId);
@@ -99,6 +105,10 @@ export function totalForStore(
       total += line.cost;
       pricedCount++;
       if (line.source === 'ai') aiCount++;
+      if (line.dataSource === 'real') {
+        realCount++;
+        if (line.priceDate && (!priceDate || line.priceDate > priceDate)) priceDate = line.priceDate;
+      }
     } else {
       unpricedCount++;
     }
@@ -109,7 +119,9 @@ export function totalForStore(
     total: Math.round(total * 100) / 100,
     pricedCount,
     aiCount,
+    realCount,
     unpricedCount,
+    priceDate,
   };
 }
 
