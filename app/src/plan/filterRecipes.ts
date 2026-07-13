@@ -62,11 +62,13 @@ export function isEligible(recipe: Recipe, prefs: UserPreferences): boolean {
     if (hasAvoided) return false;
   }
 
-  // Küchengeräte: alle benötigten müssen vorhanden sein.
-  // Leere Geräteliste in den Prefs = keine Einschränkung (Onboarding übersprungen).
-  if (prefs.appliances.length) {
-    const ok = recipe.requiredAppliances.every((a) => prefs.appliances.includes(a));
-    if (!ok) return false;
+  // Küchengeräte (negiert): Rezept entfällt, wenn es ein Gerät braucht, das der
+  // Nutzer NICHT hat. Leere Ausschlussliste = keine Einschränkung.
+  if (prefs.excludedAppliances.length) {
+    const needsMissing = recipe.requiredAppliances.some((a) =>
+      prefs.excludedAppliances.includes(a),
+    );
+    if (needsMissing) return false;
   }
 
   return true;
@@ -123,8 +125,11 @@ export function whySuitable(recipe: Recipe, prefs: UserPreferences): string[] {
   const matchedStyles = prefs.preferredStyles.filter((s) => recipe.mealStyles.includes(s));
   for (const s of matchedStyles) reasons.push(cap(s));
 
-  if (prefs.appliances.length && recipe.requiredAppliances.every((a) => prefs.appliances.includes(a))) {
-    reasons.push('nur vorhandene Geräte');
+  if (
+    prefs.excludedAppliances.length &&
+    !recipe.requiredAppliances.some((a) => prefs.excludedAppliances.includes(a))
+  ) {
+    reasons.push('nutzt nur vorhandene Geräte');
   }
   if (recipe.prepMinutes + recipe.cookMinutes <= 20) {
     reasons.push('schnell gemacht');

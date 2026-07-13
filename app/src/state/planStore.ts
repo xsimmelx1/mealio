@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { db } from '../db/db';
 import type { MealType } from '../domain/enums';
 import type { MealPlan, MealPlanEntry, Recipe, UserPreferences } from '../domain/schema';
-import { pickPlan, pickReplacementSlot } from '../plan/generatePlan';
+import { pickCheapestReplacement, pickPlan, pickReplacementSlot } from '../plan/generatePlan';
 import { LLMRecipeSource, SeedRecipeSource } from '../plan/recipeSource';
 import { isoWeekStart } from '../plan/week';
 
@@ -18,6 +18,12 @@ interface PlanState {
   load: () => Promise<void>;
   generate: (prefs: UserPreferences, seed?: number) => Promise<void>;
   reshuffleSlot: (day: number, mealType: MealType, prefs: UserPreferences, seed?: number) => Promise<void>;
+  reshuffleSlotCheaper: (
+    day: number,
+    mealType: MealType,
+    prefs: UserPreferences,
+    costOf: (recipe: Recipe) => number,
+  ) => Promise<void>;
   skipSlot: (day: number, mealType: MealType) => Promise<void>;
   recipeById: (id: string) => Recipe | undefined;
 }
@@ -94,6 +100,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
     const { plan, catalog } = get();
     if (!plan) return;
     const replacement = pickReplacementSlot(catalog, prefs, plan.entries, day, mealType, seed);
+    if (!replacement) return;
+    const entries = upsertEntry(plan.entries, day, mealType, replacement);
+    const next = { ...plan, entries };
+    await persistPlan(next);
+    set({ plan: next });
+  },
+
+  reshuffleSlotCheaper: async (day, mealType, prefs, costOf) => {
+    const { plan, catalog } = get();
+    if (!plan) return;
+    const replacement = pickCheapestReplacement(catalog, prefs, plan.entries, day, mealType, costOf);
     if (!replacement) return;
     const entries = upsertEntry(plan.entries, day, mealType, replacement);
     const next = { ...plan, entries };

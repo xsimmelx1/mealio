@@ -130,7 +130,8 @@ export const UserPreferencesSchema = z.object({
   allergies: z.array(z.enum(ALLERGIES)).default([]),
   preferredStyles: z.array(z.enum(MEAL_STYLES)).default([]),
   avoidedIngredients: z.array(z.string()).default([]),
-  appliances: z.array(z.enum(APPLIANCES)).default([]),
+  /** Geräte, die der Nutzer NICHT hat -> Rezepte, die sie brauchen, entfallen. */
+  excludedAppliances: z.array(z.enum(APPLIANCES)).default([]),
   numberOfPeople: z.number().int().positive().default(2),
   /** Wochentage, die geplant werden sollen (0=Mo…6=So). */
   planDays: z.array(z.number().int().min(0).max(6)).default([0, 1, 2, 3, 4, 5, 6]),

@@ -4,6 +4,7 @@ import EstimateBadge from '../components/EstimateBadge';
 import ScreenHeader from '../components/ScreenHeader';
 import { MEAL_TYPES, MEAL_TYPE_LABELS } from '../domain/enums';
 import type { MealPlanEntry, Recipe } from '../domain/schema';
+import { isBudgetTight, suggestedBudget } from '../plan/budget';
 import { WEEKDAY_LABELS_LONG } from '../plan/week';
 import { formatPrice } from '../pricing';
 import { usePriceEngine } from '../pricing/usePriceEngine';
@@ -12,9 +13,21 @@ import { usePrefsStore } from '../state/prefsStore';
 
 export default function PlanView() {
   const prefs = usePrefsStore((s) => s.prefs);
-  const { plan, status, error, planSource, fallbackNote, load, generate, reshuffleSlot, skipSlot, recipeById } =
-    usePlanStore();
+  const {
+    plan,
+    status,
+    error,
+    planSource,
+    fallbackNote,
+    load,
+    generate,
+    reshuffleSlot,
+    reshuffleSlotCheaper,
+    skipSlot,
+    recipeById,
+  } = usePlanStore();
   const engine = usePriceEngine();
+  const costOf = (r: Recipe): number => engine.recipeCost(r).total;
 
   useEffect(() => {
     if (status === 'idle') void load();
@@ -58,8 +71,23 @@ export default function PlanView() {
     return { total, unmatched, hasAny };
   }, [days, engine, recipeById]);
 
+  // Teuerster belegter Slot (für Markierung bei Budget-Überschreitung).
+  const mostExpensive = useMemo(() => {
+    let best: { day: number; mealType: string; cost: number } | null = null;
+    for (const { day, entries } of days) {
+      for (const e of entries) {
+        const recipe = e.recipeId ? recipeById(e.recipeId) : undefined;
+        if (!recipe) continue;
+        const cost = engine.recipeCost(recipe).total;
+        if (!best || cost > best.cost) best = { day, mealType: e.mealType, cost };
+      }
+    }
+    return best;
+  }, [days, engine, recipeById]);
+
   const generating = status === 'generating';
   const overBudget = prefs.budget > 0 && weekCost.total > prefs.budget;
+  const budgetTight = isBudgetTight(prefs);
 
   return (
     <div>
@@ -77,6 +105,13 @@ export default function PlanView() {
           </button>
         }
       />
+
+      <Link
+        to="/quick"
+        className="mb-4 flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-700 ring-1 ring-brand-200 active:scale-95"
+      >
+        ⚡ Schnell: nur 1 Gericht
+      </Link>
 
       {status === 'error' && (
         <p className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">Fehler: {error}</p>
@@ -130,6 +165,12 @@ export default function PlanView() {
               {weekCost.unmatched} Zutat(en) ohne Preis — tatsächliche Kosten liegen höher.
             </p>
           )}
+          {budgetTight && (
+            <p className="mt-2 rounded-lg bg-amber-50 px-2 py-1.5 text-xs text-amber-800">
+              Budget ist sehr knapp — realistisch sind ~{suggestedBudget(prefs)} {prefs.currency}.
+              Tipp: „💸 günstiger" an teuren Tagen tauscht gegen preiswertere Rezepte.
+            </p>
+          )}
         </div>
       )}
 
@@ -159,7 +200,13 @@ export default function PlanView() {
                   recipe={entry.recipeId ? recipeById(entry.recipeId) : undefined}
                   currency={prefs.currency}
                   engine={engine}
+                  isExpensive={
+                    overBudget &&
+                    mostExpensive?.day === day &&
+                    mostExpensive?.mealType === entry.mealType
+                  }
                   onShuffle={() => void reshuffleSlot(day, entry.mealType, prefs)}
+                  onCheaper={() => void reshuffleSlotCheaper(day, entry.mealType, prefs, costOf)}
                   onSkip={() => void skipSlot(day, entry.mealType)}
                 />
               ))}
@@ -176,14 +223,18 @@ function MealSlot({
   recipe,
   currency,
   engine,
+  isExpensive,
   onShuffle,
+  onCheaper,
   onSkip,
 }: {
   entry: MealPlanEntry;
   recipe: Recipe | undefined;
   currency: import('../domain/enums').Currency;
   engine: import('../pricing').PriceEngine;
+  isExpensive?: boolean;
   onShuffle: () => void;
+  onCheaper: () => void;
   onSkip: () => void;
 }) {
   const label = MEAL_TYPE_LABELS[entry.mealType];
@@ -193,13 +244,29 @@ function MealSlot({
       {recipe ? (
         <>
           <Link to={`/recipe/${recipe.id}`} className="min-w-0 flex-1 active:opacity-70">
-            <div className="truncate font-semibold text-slate-900">{recipe.title}</div>
+            <div className="truncate font-semibold text-slate-900">
+              {recipe.title}
+              {isExpensive && (
+                <span className="ml-2 rounded-full bg-red-100 px-1.5 py-0.5 text-[10px] font-medium text-red-600">
+                  teuerste
+                </span>
+              )}
+            </div>
             <div className="text-xs text-slate-500">
               ⏱️ {recipe.prepMinutes + recipe.cookMinutes} Min
               {engine.recipeCost(recipe).matchedCount > 0 &&
                 ` · ≈ ${formatPrice(engine.recipeCost(recipe).perServing, currency)}/Portion`}
             </div>
           </Link>
+          <button
+            type="button"
+            aria-label={`${label} günstiger`}
+            title="Günstigeres Rezept wählen"
+            onClick={onCheaper}
+            className="shrink-0 rounded-full px-2 py-1 text-sm text-slate-400 hover:text-emerald-600 active:scale-95"
+          >
+            💸
+          </button>
           <button
             type="button"
             aria-label={`${label} am ${entry.dayOfWeek} neu würfeln`}

@@ -1,3 +1,4 @@
+import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPrices, type OnlinePrice } from '../api/client';
@@ -5,10 +6,13 @@ import EstimateBadge from '../components/EstimateBadge';
 import ScreenHeader from '../components/ScreenHeader';
 import { AISLES, AISLE_LABELS } from '../domain/enums';
 import type { ShoppingItem } from '../domain/schema';
+import { db } from '../db/db';
 import { setPackagePriceOverride } from '../db/priceActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
+import { loadSeedPrices } from '../db/seed';
 import { formatPrice } from '../pricing';
 import { fetchAiPricesCached } from '../pricing/aiPrices';
+import { totalForStoreType } from '../pricing/storeTotals';
 import type { PriceEngine } from '../pricing/priceEngine';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { onlineItemCost } from '../shopping/onlinePrice';
@@ -89,6 +93,16 @@ export default function ShoppingListView() {
 
   const onlineFor = (item: ShoppingItem): OnlinePrice | undefined =>
     onlineMap[item.productKey ?? item.id];
+
+  // Supermarkt-Vergleich: Gesamtkosten je Preisniveau (Discounter vs. Vollsortimenter).
+  const overrides = useLiveQuery(() => db.priceOverrides.toArray(), [], []);
+  const storeCompare = useMemo(() => {
+    const seed = loadSeedPrices();
+    return {
+      discounter: totalForStoreType(items, seed, overrides ?? [], 'discounter'),
+      vollsortimenter: totalForStoreType(items, seed, overrides ?? [], 'vollsortimenter'),
+    };
+  }, [items, overrides]);
 
   const visible = showPantry ? items : items.filter((i) => !i.isPantry);
   const byAisle = useMemo(() => {
@@ -183,6 +197,33 @@ export default function ShoppingListView() {
           </p>
         )}
       </div>
+
+      {/* Supermarkt-Vergleich */}
+      {storeCompare.discounter.pricedCount > 0 && (
+        <div className="card mb-4 p-4">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-medium text-slate-600">Supermarkt-Vergleich</span>
+            <EstimateBadge />
+          </div>
+          <div className="grid grid-cols-2 gap-2 text-center">
+            <div className="rounded-xl bg-emerald-50 py-2">
+              <div className="text-lg font-bold text-emerald-700">
+                {formatPrice(storeCompare.discounter.total, prefs.currency)}
+              </div>
+              <div className="text-xs text-slate-500">Discounter (z. B. Aldi)</div>
+            </div>
+            <div className="rounded-xl bg-slate-50 py-2">
+              <div className="text-lg font-bold text-slate-700">
+                {formatPrice(storeCompare.vollsortimenter.total, prefs.currency)}
+              </div>
+              <div className="text-xs text-slate-500">Vollsortimenter (z. B. Rewe)</div>
+            </div>
+          </div>
+          <p className="mt-2 text-xs text-slate-400">
+            Nur bepreisbare Positionen; ohne KI-/Online-Schätzungen.
+          </p>
+        </div>
+      )}
 
       {/* Gruppen nach Gang */}
       <div className="flex flex-col gap-4">

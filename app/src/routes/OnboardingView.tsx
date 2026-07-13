@@ -23,6 +23,7 @@ import {
   type MealType,
 } from '../domain/enums';
 import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
+import { suggestedBudget } from '../plan/budget';
 import { WEEKDAY_LABELS } from '../plan/week';
 import { usePrefsStore } from '../state/prefsStore';
 
@@ -47,7 +48,7 @@ export default function OnboardingView() {
   const [allergies, setAllergies] = useState<Allergy[]>(prefs.allergies);
   const [avoided, setAvoided] = useState<string[]>(prefs.avoidedIngredients);
   const [styles, setStyles] = useState<MealStyle[]>(prefs.preferredStyles);
-  const [appliances, setAppliances] = useState<Appliance[]>(prefs.appliances);
+  const [excludedAppliances, setExcludedAppliances] = useState<Appliance[]>(prefs.excludedAppliances);
   const [planDays, setPlanDays] = useState<number[]>(prefs.planDays);
   const [mealTypes, setMealTypes] = useState<MealType[]>(prefs.mealTypes);
 
@@ -69,7 +70,7 @@ export default function OnboardingView() {
           allergies,
           avoidedIngredients: avoided,
           preferredStyles: styles,
-          appliances,
+          excludedAppliances,
           planDays,
           mealTypes,
           onboardingComplete: true,
@@ -136,6 +137,14 @@ export default function OnboardingView() {
                   ariaLabel="Wochenbudget"
                 />
               </div>
+              <button
+                type="button"
+                onClick={() => setBudget(suggestedBudget({ numberOfPeople, planDays, mealTypes }))}
+                className="self-start text-xs text-brand-600 underline decoration-dotted"
+              >
+                Vorschlag: ~{suggestedBudget({ numberOfPeople, planDays, mealTypes })} {currency}{' '}
+                (übernehmen)
+              </button>
             </Field>
             <Field label="Währung">
               <ChipSingleSelect
@@ -230,14 +239,14 @@ export default function OnboardingView() {
         {step === 6 && (
           <StepShell
             emoji="🍳"
-            title="Küchengeräte"
-            hint="Nur Rezepte, die zu deiner Ausstattung passen."
+            title="Welche Geräte hast du NICHT?"
+            hint="Markiere fehlende Geräte — Rezepte, die sie brauchen, werden ausgeschlossen. Nichts markiert = alles vorhanden."
           >
             <ChipMultiSelect
               options={toOptions(APPLIANCES, APPLIANCE_LABELS)}
-              selected={appliances}
-              onToggle={(v) => toggle(appliances, v, setAppliances)}
-              ariaLabel="Küchengeräte"
+              selected={excludedAppliances}
+              onToggle={(v) => toggle(excludedAppliances, v, setExcludedAppliances)}
+              ariaLabel="Fehlende Küchengeräte"
             />
           </StepShell>
         )}

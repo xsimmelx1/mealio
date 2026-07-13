@@ -45,10 +45,11 @@ describe('isEligible', () => {
     });
     expect(isEligible(r, prefs({ avoidedIngredients: ['koriander'] }))).toBe(false);
   });
-  it('fehlendes Gerät -> ausgeschlossen; leere Geräteliste = keine Einschränkung', () => {
+  it('negiert Geräte: ausgeschlossenes Gerät -> Rezept entfällt; leere Liste = keine Einschränkung', () => {
     const oven = recipe({ id: 'ov', requiredAppliances: ['backofen'] });
-    expect(isEligible(oven, prefs({ appliances: ['herd'] }))).toBe(false);
-    expect(isEligible(oven, prefs({ appliances: [] }))).toBe(true);
+    expect(isEligible(oven, prefs({ excludedAppliances: ['backofen'] }))).toBe(false);
+    expect(isEligible(oven, prefs({ excludedAppliances: ['mixer'] }))).toBe(true);
+    expect(isEligible(oven, prefs({ excludedAppliances: [] }))).toBe(true);
   });
 });
 

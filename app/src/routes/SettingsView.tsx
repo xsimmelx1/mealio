@@ -22,6 +22,7 @@ import { importRecipes } from '../api/client';
 import { resetPriceOverrides } from '../db/priceActions';
 import { importCatalogRecipes } from '../db/recipeActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
+import { suggestedBudget } from '../plan/budget';
 import { WEEKDAY_LABELS } from '../plan/week';
 import { usePrefsStore } from '../state/prefsStore';
 
@@ -97,6 +98,14 @@ export default function SettingsView() {
             ariaLabel="Wochenbudget"
           />
         </Row>
+        <button
+          type="button"
+          onClick={() => void update({ budget: suggestedBudget(prefs) })}
+          className="self-start text-xs text-brand-600 underline decoration-dotted"
+        >
+          Vorschlag für {prefs.numberOfPeople}× {prefs.mealTypes.length} Mahlzeit(en): ~
+          {suggestedBudget(prefs)} {prefs.currency} (übernehmen)
+        </button>
         <Field label="Währung">
           <ChipSingleSelect
             options={CURRENCIES.map((c) => ({ value: c, label: c }))}
@@ -183,12 +192,12 @@ export default function SettingsView() {
             ariaLabel="Bevorzugte Meal-Styles"
           />
         </Field>
-        <Field label="Küchengeräte">
+        <Field label="Geräte, die du NICHT hast">
           <ChipMultiSelect
             options={toOptions(APPLIANCES, APPLIANCE_LABELS)}
-            selected={prefs.appliances}
-            onToggle={(v) => void update({ appliances: toggleIn(prefs.appliances, v) })}
-            ariaLabel="Küchengeräte"
+            selected={prefs.excludedAppliances}
+            onToggle={(v) => void update({ excludedAppliances: toggleIn(prefs.excludedAppliances, v) })}
+            ariaLabel="Fehlende Küchengeräte"
           />
         </Field>
       </Section>

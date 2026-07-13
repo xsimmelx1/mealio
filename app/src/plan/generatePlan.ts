@@ -118,3 +118,32 @@ export function pickReplacementSlot(
   const notCurrent = ranked.find((r) => r.id !== current);
   return (notCurrent ?? ranked[0]).id;
 }
+
+/**
+ * Wählt für einen Slot das GÜNSTIGSTE zulässige Rezept (Kosten via costOf aufsteigend),
+ * verschieden vom aktuellen und von anderen Slots derselben Mahlzeit. Null, wenn keins passt.
+ */
+export function pickCheapestReplacement(
+  recipes: Recipe[],
+  prefs: UserPreferences,
+  entries: MealPlanEntry[],
+  dayOfWeek: number,
+  mealType: MealType,
+  costOf: (recipe: Recipe) => number,
+): string | null {
+  const pool = eligibleForMeal(recipes, prefs, mealType);
+  if (pool.length === 0) return null;
+  const sorted = [...pool].sort((a, b) => costOf(a) - costOf(b));
+
+  const usedElsewhere = new Set(
+    entries
+      .filter((e) => e.mealType === mealType && e.dayOfWeek !== dayOfWeek && e.recipeId)
+      .map((e) => e.recipeId as string),
+  );
+  const current = entries.find((e) => e.dayOfWeek === dayOfWeek && e.mealType === mealType)?.recipeId;
+
+  const fresh = sorted.find((r) => !usedElsewhere.has(r.id) && r.id !== current);
+  if (fresh) return fresh.id;
+  const notCurrent = sorted.find((r) => r.id !== current);
+  return (notCurrent ?? sorted[0]).id;
+}

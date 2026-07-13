@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { APPLIANCES } from '../domain/enums';
 import {
   NutritionSchema,
   RecipeSchema,
@@ -62,7 +63,8 @@ export async function generatePlan(
     diet: prefs.diet,
     allergies: prefs.allergies,
     avoidedIngredients: prefs.avoidedIngredients,
-    appliances: prefs.appliances,
+    // Server erwartet die VORHANDENEN Geräte -> aus der Ausschlussliste ableiten.
+    appliances: APPLIANCES.filter((a) => !prefs.excludedAppliances.includes(a)),
     preferredStyles: prefs.preferredStyles,
     mealTypes: prefs.mealTypes,
     budget: prefs.budget,

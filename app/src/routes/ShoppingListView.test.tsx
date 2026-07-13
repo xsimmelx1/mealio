@@ -59,7 +59,7 @@ describe('ShoppingListView (Integration)', () => {
   it('aggregiert Positionen und gruppiert nach Gang', async () => {
     renderList();
     expect(await screen.findByText(/hähnchen/i)).toBeInTheDocument();
-    expect(screen.getByText(/reis/i)).toBeInTheDocument();
+    expect(screen.getByText(/langkornreis/i)).toBeInTheDocument();
     expect(screen.getByText(/fleisch & fisch/i)).toBeInTheDocument();
     expect(screen.getByText(/trockenwaren/i)).toBeInTheDocument();
   });
@@ -78,10 +78,10 @@ describe('ShoppingListView (Integration)', () => {
   it('blendet Vorrats-Positionen aus', async () => {
     const user = userEvent.setup();
     renderList();
-    const reisText = await screen.findByText(/reis/i);
+    const reisText = await screen.findByText(/langkornreis/i);
     const reisRow = reisText.closest('li') as HTMLElement;
     await user.click(within(reisRow).getByRole('button', { name: 'hab ich' }));
     await user.click(screen.getByRole('button', { name: /vorrat ausblenden/i }));
-    await waitFor(() => expect(screen.queryByText(/reis/i)).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText(/langkornreis/i)).not.toBeInTheDocument());
   });
 });

@@ -6,6 +6,7 @@ import FavoritesView from './routes/FavoritesView';
 import SettingsView from './routes/SettingsView';
 import RecipeDetailView from './routes/RecipeDetailView';
 import OnboardingView from './routes/OnboardingView';
+import QuickMealView from './routes/QuickMealView';
 import { useInitDb } from './db/useInitDb';
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<Navigate to="/plan" replace />} />
         <Route path="/plan" element={<PlanView />} />
+        <Route path="/quick" element={<QuickMealView />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetailView />} />
         <Route path="/list" element={<ShoppingListView />} />
         <Route path="/favorites" element={<FavoritesView />} />
