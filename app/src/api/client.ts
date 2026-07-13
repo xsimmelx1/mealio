@@ -222,6 +222,34 @@ export async function estimatePrices(
   return PricesResponse.parse(raw).items;
 }
 
+const RecipeImageSchema = z.object({
+  key: z.string(),
+  imageUrl: z.string().nullable(),
+  attribution: z.string().nullable(),
+  sourceUrl: z.string().nullable(),
+});
+export type RecipeImageResult = z.infer<typeof RecipeImageSchema>;
+const RecipeImagesResponse = z.object({ items: z.array(RecipeImageSchema) });
+
+/**
+ * Sucht echte Rezeptfotos (Openverse, CC) per Titel. Fehler werfen -> Aufrufer ignoriert
+ * (Bilder sind optional, Platzhalter bleibt).
+ */
+export async function fetchRecipeImages(
+  items: { key: string; query: string }[],
+): Promise<RecipeImageResult[]> {
+  const raw = await fetchJson(
+    '/recipe-images',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items }),
+    },
+    30_000,
+  );
+  return RecipeImagesResponse.parse(raw).items;
+}
+
 /** Health-Check des Backends (für Feature-Gating / Statusanzeige). */
 export async function health(timeoutMs = 3000): Promise<boolean> {
   try {
@@ -237,6 +265,7 @@ export const apiClient = {
   fetchNutrition,
   fetchPrices,
   estimatePrices,
+  fetchRecipeImages,
   importRecipes,
   health,
   baseUrl: BASE_URL,

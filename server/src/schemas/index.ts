@@ -106,4 +106,14 @@ export const estimatePricesSchema = z.object({
 
 export type EstimatePricesInput = z.infer<typeof estimatePricesSchema>;
 
+/** Request-Vertrag für POST /recipe-images (Bildersuche je Rezept, Openverse). */
+export const recipeImagesSchema = z.object({
+  items: z
+    .array(z.object({ key: shortString, query: z.string().trim().min(1).max(120) }))
+    .min(1)
+    .max(30),
+});
+
+export type RecipeImagesInput = z.infer<typeof recipeImagesSchema>;
+
 // Hinweis: Der validierte Rezept-Typ lebt in llm/recipeSchema.ts (recipe-engine, M9).

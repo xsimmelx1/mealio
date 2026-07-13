@@ -24,6 +24,7 @@ import { createImportRecipesRouter } from './routes/importRecipes.js';
 import { createNutritionRouter } from './routes/nutrition.js';
 import { createPricesRouter } from './routes/prices.js';
 import { createEstimatePricesRouter } from './routes/estimatePrices.js';
+import { createRecipeImagesRouter } from './routes/recipeImages.js';
 import type { PriceProvider } from './prices/providers/types.js';
 
 export interface AppOptions {
@@ -93,6 +94,7 @@ export function createApp(options: AppOptions = {}): Express {
   app.use(createImportRecipesRouter(llm));
   app.use(createNutritionRouter());
   app.use(createEstimatePricesRouter(llm));
+  app.use(createRecipeImagesRouter());
   app.use(
     createPricesRouter({ online: options.pricesOnline, providers: options.priceProviders }),
   );

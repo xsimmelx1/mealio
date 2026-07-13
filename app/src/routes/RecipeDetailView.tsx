@@ -13,6 +13,7 @@ import { formatAmount, scaleAmount } from '../lib/format';
 import { whySuitable } from '../plan/filterRecipes';
 import { formatPrice } from '../pricing';
 import { ensureAiEstimates } from '../pricing/aiPrices';
+import { ensureRecipeImages } from '../images/recipeImages';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { usePrefsStore } from '../state/prefsStore';
 
@@ -65,9 +66,12 @@ export default function RecipeDetailView() {
     };
   }, [recipe?.id, recipe?.nutritionPerServing, online]);
 
-  // KI-Preisschätzungen für die Zutaten sicherstellen (Engine nutzt sie live).
+  // KI-Preisschätzungen für die Zutaten + echtes Foto sicherstellen.
   useEffect(() => {
-    if (recipe && online) void ensureAiEstimates(recipe.ingredients.map((i) => i.name), online);
+    if (recipe && online) {
+      void ensureAiEstimates(recipe.ingredients.map((i) => i.name), online);
+      void ensureRecipeImages([recipe], online);
+    }
   }, [recipe?.id, online]);
 
   if (recipe === undefined) {
@@ -110,6 +114,17 @@ export default function RecipeDetailView() {
       <RecipeImage recipe={recipe} className="mb-1" />
       {recipe.imageUrl && recipe.source === 'themealdb' && (
         <p className="mb-3 text-right text-[10px] text-slate-400">Foto: TheMealDB</p>
+      )}
+      {recipe.imageUrl && recipe.imageAttribution && (
+        <p className="mb-3 text-right text-[10px] text-slate-400">
+          {recipe.imageSourceUrl ? (
+            <a href={recipe.imageSourceUrl} target="_blank" rel="noreferrer" className="underline">
+              Foto: {recipe.imageAttribution}
+            </a>
+          ) : (
+            <>Foto: {recipe.imageAttribution}</>
+          )}
+        </p>
       )}
       {/* Kopf */}
       <div className="mb-4 flex items-start justify-between gap-3">

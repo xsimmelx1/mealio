@@ -1,4 +1,5 @@
 import { useLiveQuery } from 'dexie-react-hooks';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EmptyState from '../components/EmptyState';
 import EstimateBadge from '../components/EstimateBadge';
@@ -7,6 +8,8 @@ import ScreenHeader from '../components/ScreenHeader';
 import { MEAL_STYLE_LABELS } from '../domain/enums';
 import { db } from '../db/db';
 import { toggleFavorite } from '../db/recipeActions';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
+import { ensureRecipeImages } from '../images/recipeImages';
 import { formatPrice } from '../pricing';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { usePrefsStore } from '../state/prefsStore';
@@ -14,8 +17,13 @@ import { usePrefsStore } from '../state/prefsStore';
 export default function FavoritesView() {
   const currency = usePrefsStore((s) => s.prefs.currency);
   const engine = usePriceEngine();
+  const online = useOnlineStatus();
   // IndexedDB indiziert keine Booleans zuverlässig -> im Speicher filtern.
   const favorites = useLiveQuery(() => db.recipes.filter((r) => r.isFavorite).toArray(), [], []);
+
+  useEffect(() => {
+    if (favorites?.length) void ensureRecipeImages(favorites, online);
+  }, [favorites, online]);
 
   return (
     <div>
@@ -29,7 +37,7 @@ export default function FavoritesView() {
         />
       )}
 
-      <ul className="flex flex-col gap-3">
+      <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {(favorites ?? []).map((recipe) => {
           const cost = engine.recipeCost(recipe);
           return (

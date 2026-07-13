@@ -62,8 +62,12 @@ export const RecipeSchema = z.object({
   source: z.enum(['seed', 'llm', 'themealdb']),
   /** Optionaler Quell-Link (Attribution, z. B. TheMealDB). */
   sourceUrl: z.string().optional(),
-  /** Optionales Rezeptfoto (z. B. TheMealDB-Thumbnail; nur URL, kein Byte). */
+  /** Optionales Rezeptfoto (TheMealDB-Thumbnail oder Openverse-Suche; nur URL, kein Byte). */
   imageUrl: z.string().optional(),
+  /** Bild-Attribution (CC-Namensnennung, z. B. bei Openverse-Fotos). */
+  imageAttribution: z.string().optional(),
+  /** Quell-Link des Bilds (Attribution). */
+  imageSourceUrl: z.string().optional(),
   isFavorite: z.boolean().default(false),
   createdAt: z.number().int().nonnegative(),
 });

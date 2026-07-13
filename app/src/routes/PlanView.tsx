@@ -10,6 +10,7 @@ import { isBudgetTight, suggestedBudget } from '../plan/budget';
 import { WEEKDAY_LABELS_LONG } from '../plan/week';
 import { formatPrice } from '../pricing';
 import { ensureAiEstimates } from '../pricing/aiPrices';
+import { ensureRecipeImages } from '../images/recipeImages';
 import { compareAllStores } from '../pricing/storeTotals';
 import { aggregateShoppingItems } from '../shopping/aggregate';
 import { usePriceEngine } from '../pricing/usePriceEngine';
@@ -96,11 +97,14 @@ export default function PlanView() {
   // KI-Preisschätzungen für alle Plan-Zutaten sicherstellen (Engine nutzt sie live).
   useEffect(() => {
     if (!plan || !online) return;
-    const names = plan.entries
+    const recipes = plan.entries
       .map((e) => (e.recipeId ? recipeById(e.recipeId) : undefined))
-      .filter((r): r is Recipe => !!r)
-      .flatMap((r) => r.ingredients.map((i) => i.name));
-    void ensureAiEstimates(names, online);
+      .filter((r): r is Recipe => !!r);
+    void ensureAiEstimates(
+      recipes.flatMap((r) => r.ingredients.map((i) => i.name)),
+      online,
+    );
+    void ensureRecipeImages(recipes, online);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan?.id, catalog.length, online]);
 
