@@ -11,7 +11,8 @@ import { setPackagePriceOverride } from '../db/priceActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { loadSeedPrices } from '../db/seed';
 import { formatPrice } from '../pricing';
-import { fetchAiPricesCached } from '../pricing/aiPrices';
+import { buildAiOnlineMap, ensureAiEstimates } from '../pricing/aiPrices';
+import { normalizeName } from '../pricing/productMatch';
 import { totalForStoreType } from '../pricing/storeTotals';
 import type { PriceEngine } from '../pricing/priceEngine';
 import { usePriceEngine } from '../pricing/usePriceEngine';
@@ -41,6 +42,10 @@ export default function ShoppingListView() {
     if (plan && catalog.length) void rebuild(plan, catalog, engine).catch(() => undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan?.id, catalog.length, engine]);
+
+  // KI-Preisschätzungen (shared Dexie-Cache, live) — Fallback für preislose Positionen.
+  const aiEntries = useLiveQuery(() => db.aiPrices.toArray(), [], []);
+  const aiMap = useMemo(() => buildAiOnlineMap(aiEntries ?? []), [aiEntries]);
 
   // Online-Preise (opt-in, niedrigste Priorität): nur Positionen OHNE lokalen Preis.
   const unpricedKeys = items
@@ -73,16 +78,7 @@ export default function ShoppingListView() {
         }
       }
       // 2) KI-Schätzung als Standard-Fallback für alle weiterhin preislosen Positionen.
-      const still = unpriced.filter((i) => {
-        const p = map[i.productKey ?? i.id];
-        return !(p && onlineItemCost(i, p) != null);
-      });
-      if (still.length) {
-        const ai = await fetchAiPricesCached(
-          still.map((i) => ({ key: i.productKey ?? i.id, name: i.name })),
-        );
-        for (const [k, v] of Object.entries(ai)) if (!map[k]) map[k] = v;
-      }
+      await ensureAiEstimates(unpriced.map((i) => i.name), online);
       if (!cancelled) setOnlineMap(map);
     })();
     return () => {
@@ -91,8 +87,9 @@ export default function ShoppingListView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unpricedKeys, prefs.onlinePricesEnabled, online]);
 
+  // Open Prices (nach productKey/id) hat Vorrang; sonst KI-Schätzung (nach normalisiertem Namen).
   const onlineFor = (item: ShoppingItem): OnlinePrice | undefined =>
-    onlineMap[item.productKey ?? item.id];
+    onlineMap[item.productKey ?? item.id] ?? aiMap[normalizeName(item.name)];
 
   // Supermarkt-Vergleich: Gesamtkosten je Preisniveau (Discounter vs. Vollsortimenter).
   const overrides = useLiveQuery(() => db.priceOverrides.toArray(), [], []);

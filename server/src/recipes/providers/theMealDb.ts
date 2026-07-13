@@ -36,6 +36,8 @@ export interface RawMeal {
   area: string;
   instructions: string;
   ingredients: RawIngredient[];
+  /** Foto-URL (strMealThumb); Link-Back via mealSourceUrl. */
+  thumb: string;
 }
 
 /** Rohes Meal-Objekt der API (nur die genutzten Felder + dynamische Index-Keys). */
@@ -84,6 +86,7 @@ function toRawMeal(meal: ApiMeal | undefined | null): RawMeal | null {
     area: asString(meal.strArea),
     instructions,
     ingredients,
+    thumb: asString(meal.strMealThumb),
   };
 }
 

@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import EmptyState from '../components/EmptyState';
 import EstimateBadge from '../components/EstimateBadge';
+import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
 import { MEAL_STYLE_LABELS } from '../domain/enums';
 import { db } from '../db/db';
@@ -33,8 +34,12 @@ export default function FavoritesView() {
           const cost = engine.recipeCost(recipe);
           return (
             <li key={recipe.id} className="card flex items-center gap-3 p-4">
-              <Link to={`/recipe/${recipe.id}`} className="min-w-0 flex-1 active:opacity-70">
-                <h3 className="truncate text-lg font-semibold text-slate-900">{recipe.title}</h3>
+              <Link to={`/recipe/${recipe.id}`} className="flex min-w-0 flex-1 items-center gap-3 active:opacity-70">
+                <div className="h-14 w-14 shrink-0">
+                  <RecipeImage recipe={recipe} aspect="aspect-square" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="truncate text-lg font-semibold text-slate-900">{recipe.title}</h3>
                 <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
                   <span>⏱️ {recipe.prepMinutes + recipe.cookMinutes} Min</span>
                   {cost.matchedCount > 0 && (
@@ -48,6 +53,7 @@ export default function FavoritesView() {
                       {MEAL_STYLE_LABELS[s]}
                     </span>
                   ))}
+                  </div>
                 </div>
               </Link>
               <button

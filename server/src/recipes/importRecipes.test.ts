@@ -166,6 +166,7 @@ describe('Kategorie-Mapping + structuralMap (ohne Gemini)', () => {
     title: 'Pancakes',
     category: 'Breakfast',
     area: 'American',
+    thumb: 'https://www.themealdb.com/images/media/meals/x.jpg',
     instructions: 'Mix flour and milk. Fry in a pan. Serve with syrup.',
     ingredients: [
       { name: 'flour', measure: '1 cup' },
@@ -203,6 +204,7 @@ describe('normalizeRecipe (llmClient gemockt)', () => {
     title: 'Pancakes',
     category: 'Breakfast',
     area: 'American',
+    thumb: 'https://www.themealdb.com/images/media/meals/x.jpg',
     instructions: 'Mix. Fry. Serve.',
     ingredients: [{ name: 'flour', measure: '1 cup' }],
   };
@@ -241,6 +243,7 @@ describe('POST /import-recipes (Pipeline)', () => {
       title: 'Full English Breakfast',
       category: 'Breakfast',
       area: 'British',
+      thumb: 'https://www.themealdb.com/images/media/meals/eng.jpg',
       instructions: 'Fry eggs. Grill bacon. Serve hot.',
       ingredients: [{ name: 'eggs', measure: '2' }],
     },
@@ -249,6 +252,7 @@ describe('POST /import-recipes (Pipeline)', () => {
       title: 'Shakshuka',
       category: 'Breakfast',
       area: 'Egyptian',
+      thumb: 'https://www.themealdb.com/images/media/meals/sha.jpg',
       instructions: 'Cook sauce. Add eggs. Simmer.',
       ingredients: [{ name: 'tomato', measure: '1 can' }],
     },
@@ -287,6 +291,7 @@ describe('POST /import-recipes (Pipeline)', () => {
     expect(r.ingredients.every((i: { amount: number }) => i.amount > 0)).toBe(true);
     expect(r.nutritionPerServing).toBeNull();
     expect(r.sourceUrl).toMatch(/themealdb\.com\/meal\/10/);
+    expect(r.imageUrl).toMatch(/themealdb\.com\/images/); // Foto-URL durchgereicht
     expect(r).not.toHaveProperty('id');
     expect(r).not.toHaveProperty('source');
     expect(r).not.toHaveProperty('createdAt');

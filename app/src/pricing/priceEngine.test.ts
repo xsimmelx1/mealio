@@ -114,6 +114,26 @@ describe('PriceEngine.ingredientCost', () => {
     expect(c.source).toBeNull();
   });
 
+  it('KI-Fallback: ungematchte Zutat mit KI-Preis -> source ai', () => {
+    const aiEng = new PriceEngine(seed, [], {
+      aiPrices: new Map([['trueffeloel', { pricePerPackage: 4, packageSize: 100, packageUnit: 'ml' }]]),
+    });
+    const c = aiEng.ingredientCost({ name: 'Trüffelöl', amount: 10, unit: 'ml' });
+    expect(c.status).toBe('ok');
+    expect(c.source).toBe('ai');
+    expect(c.cost).toBeCloseTo((10 / 100) * 4); // 0.4
+    // ohne KI-Map bleibt es unmatched
+    expect(new PriceEngine(seed, []).ingredientCost({ name: 'Trüffelöl', amount: 10, unit: 'ml' }).status).toBe('unmatched');
+  });
+
+  it('Seed schlägt KI (KI nur Fallback)', () => {
+    const aiEng = new PriceEngine(seed, [], {
+      aiPrices: new Map([['haehnchenbrust', { pricePerPackage: 99, packageSize: 100, packageUnit: 'g' }]]),
+    });
+    const c = aiEng.ingredientCost({ name: 'Hähnchenbrust', amount: 300, unit: 'g' });
+    expect(c.source).toBe('seed'); // nicht ai
+  });
+
   it('Stück-Zutat gegen Stück-Produkt (2 Eier von 10 @ 2€)', () => {
     const c = eng.ingredientCost({ name: 'Eier', amount: 2, unit: 'stück' });
     expect(c.cost).toBeCloseTo((2 / 10) * 2.0);

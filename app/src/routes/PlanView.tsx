@@ -1,12 +1,20 @@
+import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import EstimateBadge from '../components/EstimateBadge';
+import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
+import { db } from '../db/db';
+import { loadSeedPrices } from '../db/seed';
 import { MEAL_TYPES, MEAL_TYPE_LABELS } from '../domain/enums';
 import type { MealPlanEntry, Recipe } from '../domain/schema';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { isBudgetTight, suggestedBudget } from '../plan/budget';
 import { WEEKDAY_LABELS_LONG } from '../plan/week';
 import { formatPrice } from '../pricing';
+import { ensureAiEstimates } from '../pricing/aiPrices';
+import { totalForStoreType } from '../pricing/storeTotals';
+import { aggregateShoppingItems } from '../shopping/aggregate';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { usePlanStore } from '../state/planStore';
 import { usePrefsStore } from '../state/prefsStore';
@@ -15,6 +23,7 @@ export default function PlanView() {
   const prefs = usePrefsStore((s) => s.prefs);
   const {
     plan,
+    catalog,
     status,
     error,
     planSource,
@@ -27,6 +36,8 @@ export default function PlanView() {
     recipeById,
   } = usePlanStore();
   const engine = usePriceEngine();
+  const online = useOnlineStatus();
+  const overrides = useLiveQuery(() => db.priceOverrides.toArray(), [], []);
   const costOf = (r: Recipe): number => engine.recipeCost(r).total;
 
   useEffect(() => {
@@ -85,6 +96,41 @@ export default function PlanView() {
     return best;
   }, [days, engine, recipeById]);
 
+  // KI-Preisschätzungen für alle Plan-Zutaten sicherstellen (Engine nutzt sie live).
+  useEffect(() => {
+    if (!plan || !online) return;
+    const names = plan.entries
+      .map((e) => (e.recipeId ? recipeById(e.recipeId) : undefined))
+      .filter((r): r is Recipe => !!r)
+      .flatMap((r) => r.ingredients.map((i) => i.name));
+    void ensureAiEstimates(names, online);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plan?.id, catalog.length, online]);
+
+  // Kosten pro Tag (Summe der Slot-Kosten).
+  const dayTotals = useMemo(() => {
+    const map = new Map<number, number>();
+    for (const { day, entries } of days) {
+      let sum = 0;
+      for (const e of entries) {
+        const recipe = e.recipeId ? recipeById(e.recipeId) : undefined;
+        if (recipe) sum += engine.recipeCost(recipe).total;
+      }
+      map.set(day, sum);
+    }
+    return map;
+  }, [days, engine, recipeById]);
+
+  // Supermarkt-Vergleich für den gesamten Plan (Discounter vs. Vollsortimenter).
+  const storeCompare = useMemo(() => {
+    if (!plan || !catalog.length) return null;
+    const items = aggregateShoppingItems(plan, catalog, engine);
+    const seed = loadSeedPrices();
+    const d = totalForStoreType(items, seed, overrides ?? [], 'discounter');
+    const v = totalForStoreType(items, seed, overrides ?? [], 'vollsortimenter');
+    return d.pricedCount > 0 ? { discounter: d.total, vollsortimenter: v.total } : null;
+  }, [plan, catalog, engine, overrides]);
+
   const generating = status === 'generating';
   const overBudget = prefs.budget > 0 && weekCost.total > prefs.budget;
   const budgetTight = isBudgetTight(prefs);
@@ -106,12 +152,21 @@ export default function PlanView() {
         }
       />
 
-      <Link
-        to="/quick"
-        className="mb-4 flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-brand-700 ring-1 ring-brand-200 active:scale-95"
-      >
-        ⚡ Schnell: nur 1 Gericht
-      </Link>
+      {/* Klar abgesetzter Einzelgericht-Einstieg (kein Teil des Wochenplans) */}
+      <div className="mb-4 flex items-center justify-between gap-3 rounded-card border border-dashed border-brand-200 bg-brand-50/50 p-3">
+        <div className="min-w-0">
+          <div className="text-sm font-semibold text-brand-800">Nur schnell etwas kochen?</div>
+          <div className="text-xs text-brand-700/70">Ein Gericht + Einkauf, ohne Wochenplan.</div>
+        </div>
+        <Link
+          to="/quick"
+          className="shrink-0 rounded-full bg-white px-4 py-2 text-sm font-semibold text-brand-700 shadow-sm ring-1 ring-brand-200 active:scale-95"
+        >
+          ⚡ Einzelgericht
+        </Link>
+      </div>
+
+      <div className="mb-4 border-t border-slate-100" />
 
       {status === 'error' && (
         <p className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">Fehler: {error}</p>
@@ -171,6 +226,28 @@ export default function PlanView() {
               Tipp: „💸 günstiger" an teuren Tagen tauscht gegen preiswertere Rezepte.
             </p>
           )}
+          {storeCompare && (
+            <div className="mt-3 border-t border-slate-100 pt-2">
+              <div className="mb-1 text-xs font-medium text-slate-500">Supermarkt-Vergleich</div>
+              <div className="flex items-center justify-between text-sm">
+                <span>
+                  <span className="font-semibold text-emerald-700">
+                    {formatPrice(storeCompare.discounter, prefs.currency)}
+                  </span>{' '}
+                  <span className="text-xs text-slate-400">Aldi</span>
+                </span>
+                <span className="text-xs text-slate-400">
+                  −{formatPrice(Math.max(0, storeCompare.vollsortimenter - storeCompare.discounter), prefs.currency)}
+                </span>
+                <span>
+                  <span className="font-semibold text-slate-700">
+                    {formatPrice(storeCompare.vollsortimenter, prefs.currency)}
+                  </span>{' '}
+                  <span className="text-xs text-slate-400">Rewe</span>
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -189,9 +266,16 @@ export default function PlanView() {
       <div className="flex flex-col gap-3">
         {days.map(({ day, entries }) => (
           <div key={day} className="card p-4">
-            <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
-              {WEEKDAY_LABELS_LONG[day]}
-            </span>
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs font-semibold uppercase tracking-wide text-brand-500">
+                {WEEKDAY_LABELS_LONG[day]}
+              </span>
+              {(dayTotals.get(day) ?? 0) > 0 && (
+                <span className="text-xs text-slate-500">
+                  Tag: ≈ {formatPrice(dayTotals.get(day) ?? 0, prefs.currency)}
+                </span>
+              )}
+            </div>
             <ul className="mt-2 flex flex-col divide-y divide-slate-100">
               {entries.map((entry) => (
                 <MealSlot
@@ -243,6 +327,9 @@ function MealSlot({
       <span className="w-20 shrink-0 text-xs font-medium text-slate-400">{label}</span>
       {recipe ? (
         <>
+          <div className="h-10 w-10 shrink-0">
+            <RecipeImage recipe={recipe} aspect="aspect-square" />
+          </div>
           <Link to={`/recipe/${recipe.id}`} className="min-w-0 flex-1 active:opacity-70">
             <div className="truncate font-semibold text-slate-900">
               {recipe.title}

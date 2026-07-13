@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ChipSingleSelect from '../components/forms/ChipSingleSelect';
 import EstimateBadge from '../components/EstimateBadge';
+import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
 import { MEAL_TYPES, MEAL_TYPE_LABELS, type MealType } from '../domain/enums';
 import type { Recipe } from '../domain/schema';
@@ -102,6 +103,7 @@ export default function QuickMealView() {
         </div>
       ) : (
         <div className="card p-4">
+          <RecipeImage recipe={recipe} className="mb-3" aspect="aspect-[3/1]" />
           <div className="flex items-start justify-between gap-3">
             <Link to={`/recipe/${recipe.id}`} className="min-w-0 active:opacity-70">
               <h2 className="text-lg font-bold text-slate-900">{recipe.title}</h2>

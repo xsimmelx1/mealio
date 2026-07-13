@@ -4,13 +4,15 @@ import { Link, useParams } from 'react-router-dom';
 import { fetchNutrition } from '../api/client';
 import EstimateBadge from '../components/EstimateBadge';
 import NumberStepper from '../components/forms/NumberStepper';
-import { AISLE_LABELS, MEAL_STYLE_LABELS } from '../domain/enums';
+import RecipeImage from '../components/RecipeImage';
+import { MEAL_STYLE_LABELS } from '../domain/enums';
 import { db } from '../db/db';
 import { toggleFavorite } from '../db/recipeActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { formatAmount, scaleAmount } from '../lib/format';
 import { whySuitable } from '../plan/filterRecipes';
 import { formatPrice } from '../pricing';
+import { ensureAiEstimates } from '../pricing/aiPrices';
 import { usePriceEngine } from '../pricing/usePriceEngine';
 import { usePrefsStore } from '../state/prefsStore';
 
@@ -63,6 +65,11 @@ export default function RecipeDetailView() {
     };
   }, [recipe?.id, recipe?.nutritionPerServing, online]);
 
+  // KI-Preisschätzungen für die Zutaten sicherstellen (Engine nutzt sie live).
+  useEffect(() => {
+    if (recipe && online) void ensureAiEstimates(recipe.ingredients.map((i) => i.name), online);
+  }, [recipe?.id, online]);
+
   if (recipe === undefined) {
     return <p className="p-4 text-slate-400">Lädt …</p>;
   }
@@ -80,18 +87,33 @@ export default function RecipeDetailView() {
 
   const activeServings = servings ?? recipe.baseServings;
   const factor = activeServings / recipe.baseServings;
+  const ingredientsTotal = recipe.ingredients.reduce(
+    (acc, ing) => {
+      const c = engine.ingredientCost({ ...ing, amount: scaleAmount(ing.amount, factor) });
+      if (c.status === 'ok' && c.source) {
+        acc.total += c.cost;
+        acc.matched++;
+      }
+      return acc;
+    },
+    { total: 0, matched: 0 },
+  );
   const reasons = whySuitable(recipe, prefs);
   const cost = engine.recipeCost(recipe);
   const macros = recipe.nutritionPerServing;
 
   return (
     <div className="pb-4">
+      <Link to="/plan" className="mb-2 inline-block text-sm text-slate-400">
+        ← zurück
+      </Link>
+      <RecipeImage recipe={recipe} className="mb-1" />
+      {recipe.imageUrl && recipe.source === 'themealdb' && (
+        <p className="mb-3 text-right text-[10px] text-slate-400">Foto: TheMealDB</p>
+      )}
       {/* Kopf */}
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <Link to="/plan" className="text-sm text-slate-400">
-            ← zurück
-          </Link>
           <h1 className="mt-1 text-2xl font-bold text-slate-900">{recipe.title}</h1>
           <div className="mt-1 flex flex-wrap gap-1">
             {recipe.mealStyles.map((s) => (
@@ -190,16 +212,29 @@ export default function RecipeDetailView() {
           <EstimateBadge />
         </div>
         <ul className="flex flex-col divide-y divide-slate-100">
-          {recipe.ingredients.map((ing, i) => (
-            <li key={`${ing.name}-${i}`} className="flex items-baseline justify-between py-2">
-              <span className="text-slate-800">{ing.name}</span>
-              <span className="text-sm tabular-nums text-slate-500">
-                {formatAmount(scaleAmount(ing.amount, factor))} {ing.unit}
-                <span className="ml-2 text-xs text-slate-300">{AISLE_LABELS[ing.aisle]}</span>
-              </span>
-            </li>
-          ))}
+          {recipe.ingredients.map((ing, i) => {
+            const c = engine.ingredientCost({ ...ing, amount: scaleAmount(ing.amount, factor) });
+            return (
+              <li key={`${ing.name}-${i}`} className="flex items-baseline justify-between py-2">
+                <span className="min-w-0 flex-1 truncate text-slate-800">{ing.name}</span>
+                <span className="ml-2 text-sm tabular-nums text-slate-500">
+                  {formatAmount(scaleAmount(ing.amount, factor))} {ing.unit}
+                </span>
+                <span className="ml-3 w-16 shrink-0 text-right text-sm tabular-nums text-slate-600">
+                  {c.status === 'ok' && c.source ? `≈ ${formatPrice(c.cost, prefs.currency)}` : '—'}
+                </span>
+              </li>
+            );
+          })}
         </ul>
+        <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 text-sm">
+          <span className="text-slate-500">Zutaten gesamt ({activeServings} Portionen)</span>
+          <span className="font-semibold text-slate-900">
+            {ingredientsTotal.matched === 0
+              ? 'unbekannt'
+              : `≈ ${formatPrice(ingredientsTotal.total, prefs.currency)}`}
+          </span>
+        </div>
       </div>
 
       {/* Zubereitung */}

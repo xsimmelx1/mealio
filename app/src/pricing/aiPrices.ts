@@ -1,49 +1,77 @@
 import { estimatePrices, type OnlinePrice } from '../api/client';
-import { db } from '../db/db';
+import { db, type AiPriceCacheEntry } from '../db/db';
+import type { AiPriceEntry } from './priceEngine';
+import { normalizeName } from './productMatch';
 
 const TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 Tage
 
-function toOnlinePrice(e: {
-  key: string;
-  pricePerPackage: number;
-  packageSize: number;
-  packageUnit: 'g' | 'ml' | 'stück';
-}): OnlinePrice {
-  return {
-    key: e.key,
-    pricePerPackage: e.pricePerPackage,
-    packageSize: e.packageSize,
-    packageUnit: e.packageUnit,
-    currency: 'EUR',
-    source: 'ai',
-    updatedAt: null,
-  };
+const isFresh = (e: AiPriceCacheEntry, now: number) => now - e.cachedAt < TTL_MS;
+
+/** Map (normalizeName -> {pricePerPackage,packageSize,packageUnit}) für die Preis-Engine. */
+export function buildAiEngineMap(
+  entries: AiPriceCacheEntry[],
+  now: number = Date.now(),
+): Map<string, AiPriceEntry> {
+  const map = new Map<string, AiPriceEntry>();
+  for (const e of entries) {
+    if (isFresh(e, now)) {
+      map.set(e.key, {
+        pricePerPackage: e.pricePerPackage,
+        packageSize: e.packageSize,
+        packageUnit: e.packageUnit,
+      });
+    }
+  }
+  return map;
+}
+
+/** Map (normalizeName -> OnlinePrice mit source "ai") für die Einkaufsliste. */
+export function buildAiOnlineMap(
+  entries: AiPriceCacheEntry[],
+  now: number = Date.now(),
+): Record<string, OnlinePrice> {
+  const map: Record<string, OnlinePrice> = {};
+  for (const e of entries) {
+    if (!isFresh(e, now)) continue;
+    map[e.key] = {
+      key: e.key,
+      pricePerPackage: e.pricePerPackage,
+      packageSize: e.packageSize,
+      packageUnit: e.packageUnit,
+      currency: 'EUR',
+      source: 'ai',
+      updatedAt: null,
+    };
+  }
+  return map;
 }
 
 /**
- * Liefert KI-Preisschätzungen für die gegebenen Zutaten. Nutzt zuerst den Dexie-Cache
- * (7 Tage TTL) und fragt nur unbekannte Keys beim Backend an; frische Schätzungen werden
- * gecacht. Ergebnis: Map key -> OnlinePrice (source "ai"). Fehler werden geschluckt.
+ * Stellt sicher, dass für die gegebenen Zutatnamen KI-Preisschätzungen im Cache liegen.
+ * Keyed nach normalizeName. Fragt nur fehlende Namen an (online). Alle Fehler werden
+ * geschluckt (KI-Preise sind optional). Kein Effekt offline.
  */
-export async function fetchAiPricesCached(
-  items: { key: string; name: string }[],
+export async function ensureAiEstimates(
+  names: string[],
+  online: boolean,
   now: number = Date.now(),
-): Promise<Record<string, OnlinePrice>> {
-  const map: Record<string, OnlinePrice> = {};
-  if (items.length === 0) return map;
-
+): Promise<void> {
+  if (!online || names.length === 0) return;
   try {
-    // 1. Cache lesen.
-    const keys = items.map((i) => i.key);
-    const cached = await db.aiPrices.where('key').anyOf(keys).toArray();
-    const fresh = new Map(cached.filter((c) => now - c.cachedAt < TTL_MS).map((c) => [c.key, c]));
-    for (const [key, c] of fresh) map[key] = toOnlinePrice(c);
+    // normName -> repräsentativer Originalname (für den Prompt).
+    const byKey = new Map<string, string>();
+    for (const n of names) {
+      const k = normalizeName(n);
+      if (k && !byKey.has(k)) byKey.set(k, n);
+    }
+    if (byKey.size === 0) return;
 
-    // 2. Nur unbekannte Keys ans Backend.
-    const missing = items.filter((i) => !fresh.has(i.key));
-    if (missing.length === 0) return map;
+    const cached = await db.aiPrices.where('key').anyOf([...byKey.keys()]).toArray();
+    const fresh = new Set(cached.filter((e) => isFresh(e, now)).map((e) => e.key));
+    const missing = [...byKey.entries()].filter(([k]) => !fresh.has(k));
+    if (missing.length === 0) return;
 
-    const estimates = await estimatePrices(missing);
+    const estimates = await estimatePrices(missing.map(([key, name]) => ({ key, name })));
     const toStore = estimates.filter(
       (e) => e.source === 'ai' && e.pricePerPackage != null && e.packageSize != null && e.packageUnit,
     );
@@ -58,9 +86,7 @@ export async function fetchAiPricesCached(
         })),
       );
     }
-    for (const e of estimates) if (e.source === 'ai') map[e.key] = e;
   } catch {
-    /* KI-Schätzung optional; jeder Fehler (Netz/DB/Teardown) wird geschluckt. */
+    /* KI-Preise optional; Fehler (Netz/DB/Teardown) ignorieren. */
   }
-  return map;
 }

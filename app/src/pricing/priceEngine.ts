@@ -1,7 +1,14 @@
 import type { PriceOverride, SeedPrice } from '../domain/schema';
-import { matchProductKey } from './productMatch';
+import { matchProductKey, normalizeName } from './productMatch';
 import { packageDimension, reconcileFactor, toBase, type Dimension } from './units';
 import type { Ingredient, Recipe } from '../domain/schema';
+
+/** KI-geschätzter Preis für eine Zutat (keyed nach normalizeName). */
+export interface AiPriceEntry {
+  pricePerPackage: number;
+  packageSize: number;
+  packageUnit: 'g' | 'ml' | 'stück';
+}
 
 /**
  * Client-seitige Preis-Engine (offline-fähig).
@@ -28,7 +35,7 @@ export interface IngredientCost {
   status: 'ok' | 'unmatched';
   productKey: string | null;
   cost: number; // 0 bei unmatched
-  source: PriceSource | null;
+  source: PriceSource | 'ai' | null;
 }
 
 export interface RecipeCostEstimate {
@@ -43,6 +50,8 @@ export interface PriceEngineOptions {
   preferredStore?: string;
   /** Bevorzugtes Preisniveau (discounter/vollsortimenter), abgeleitet aus dem Supermarkt. */
   preferredStoreType?: 'discounter' | 'vollsortimenter';
+  /** KI-geschätzte Preise (keyed nach normalizeName) als Fallback für ungematchte Zutaten. */
+  aiPrices?: Map<string, AiPriceEntry>;
 }
 
 export class PriceEngine {
@@ -51,6 +60,7 @@ export class PriceEngine {
   private knownKeys: Set<string>;
   private preferredStore?: string;
   private preferredStoreType?: 'discounter' | 'vollsortimenter';
+  private aiPrices: Map<string, AiPriceEntry>;
 
   constructor(seedPrices: SeedPrice[], overrides: PriceOverride[], opts: PriceEngineOptions = {}) {
     for (const p of seedPrices) {
@@ -64,6 +74,7 @@ export class PriceEngine {
     this.knownKeys = new Set([...this.seedByKey.keys(), ...this.overrideByKey.keys()]);
     this.preferredStore = opts.preferredStore?.trim().toLowerCase() || undefined;
     this.preferredStoreType = opts.preferredStoreType;
+    this.aiPrices = opts.aiPrices ?? new Map();
   }
 
   /** Alle bekannten productKeys (für Matching). */
@@ -146,24 +157,37 @@ export class PriceEngine {
     return matchProductKey(ing.name, this.knownKeys);
   }
 
-  /** Proportionale Kosten einer einzelnen Zutatmenge. */
+  /** Proportionale Kosten einer einzelnen Zutatmenge (Seed/Manual, sonst KI-Fallback). */
   ingredientCost(ing: Pick<Ingredient, 'name' | 'amount' | 'unit' | 'productMatchId'>): IngredientCost {
     if (ing.amount <= 0) {
       return { status: 'ok', productKey: null, cost: 0, source: null };
     }
     const key = this.keyForIngredient(ing);
-    if (!key) return { status: 'unmatched', productKey: null, cost: 0, source: null };
 
-    const product = this.resolve(key);
-    if (!product) return { status: 'unmatched', productKey: key, cost: 0, source: null };
-
-    const base = toBase(ing.amount, ing.unit);
-    const factor = reconcileFactor(base.dim, product.dim);
-    if (factor === null) {
-      return { status: 'unmatched', productKey: key, cost: 0, source: null };
+    // 1. Seed/Manual-Preis über den gematchten Produktschlüssel.
+    if (key) {
+      const product = this.resolve(key);
+      if (product) {
+        const base = toBase(ing.amount, ing.unit);
+        const factor = reconcileFactor(base.dim, product.dim);
+        if (factor !== null) {
+          return { status: 'ok', productKey: key, cost: base.qty * factor * product.basePricePerUnit, source: product.source };
+        }
+      }
     }
-    const cost = base.qty * factor * product.basePricePerUnit;
-    return { status: 'ok', productKey: key, cost, source: product.source };
+
+    // 2. KI-Fallback (keyed nach normalisiertem Namen).
+    const ai = this.aiPrices.get(normalizeName(ing.name));
+    if (ai && ai.packageSize > 0) {
+      const base = toBase(ing.amount, ing.unit);
+      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit));
+      if (factor !== null) {
+        const cost = base.qty * factor * (ai.pricePerPackage / ai.packageSize);
+        return { status: 'ok', productKey: key, cost, source: 'ai' };
+      }
+    }
+
+    return { status: 'unmatched', productKey: key, cost: 0, source: null };
   }
 
   /** Schätzt die Kosten eines Rezepts (proportional) inkl. pro Portion. */

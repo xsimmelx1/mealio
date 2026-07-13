@@ -39,8 +39,8 @@ import {
 /** Attribution laut Vertrag (auch in App-Impressum + README zu führen). */
 export const THEMEALDB_ATTRIBUTION = 'Rezepte via TheMealDB (themealdb.com)';
 
-/** Ein ausgeliefertes Rezept = /generate-plan-Format + optionaler Link-Back. */
-export type ImportedRecipe = Recipe & { sourceUrl?: string };
+/** Ein ausgeliefertes Rezept = /generate-plan-Format + optionaler Link-Back + Foto. */
+export type ImportedRecipe = Recipe & { sourceUrl?: string; imageUrl?: string };
 
 export interface ImportRecipesRouterOptions {
   /** TheMealDB-Adapter (Default: HTTP-Adapter; injizierbar für Tests). */
@@ -141,7 +141,11 @@ export function createImportRecipesRouter(
           });
           return;
         }
-        recipes.push({ ...checked.recipe, sourceUrl: mealSourceUrl(rawMeals[i].idMeal) });
+        recipes.push({
+          ...checked.recipe,
+          sourceUrl: mealSourceUrl(rawMeals[i].idMeal),
+          imageUrl: rawMeals[i].thumb || undefined,
+        });
       });
       return recipes;
     })()
