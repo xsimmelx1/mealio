@@ -13,6 +13,7 @@ import { PriceEngine } from './priceEngine';
  */
 export function usePriceEngine(): PriceEngine {
   const supermarket = usePrefsStore((s) => s.prefs.supermarket);
+  const preferredProductFlags = usePrefsStore((s) => s.prefs.preferredProductFlags);
   const overrides = useLiveQuery(() => db.priceOverrides.toArray(), [], []);
   const aiEntries = useLiveQuery(() => db.aiPrices.toArray(), [], []);
   return useMemo(
@@ -21,7 +22,8 @@ export function usePriceEngine(): PriceEngine {
         preferredStore: supermarket,
         preferredStoreType: storeTypeFor(supermarket) ?? undefined,
         aiPrices: buildAiEngineMap(aiEntries ?? []),
+        preferredProductFlags,
       }),
-    [overrides, supermarket, aiEntries],
+    [overrides, supermarket, aiEntries, preferredProductFlags],
   );
 }

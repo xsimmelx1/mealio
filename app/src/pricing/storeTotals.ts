@@ -41,6 +41,8 @@ export interface StoreTotal {
   aiCount: number;
   /** davon aus echter Quelle (dataSource='real'). */
   realCount: number;
+  /** davon aktuell im Angebot. */
+  offerCount: number;
   /** Positionen, die bei diesem Markt NICHT bepreisbar waren. */
   unpricedCount: number;
   /** Stand der echten Preisdaten (YYYY-MM), falls vorhanden. */
@@ -96,6 +98,7 @@ export function totalForStore(
   let pricedCount = 0;
   let aiCount = 0;
   let realCount = 0;
+  let offerCount = 0;
   let unpricedCount = 0;
   let priceDate: string | undefined;
   for (const it of relevant(items)) {
@@ -105,6 +108,7 @@ export function totalForStore(
       total += line.cost;
       pricedCount++;
       if (line.source === 'ai') aiCount++;
+      if (line.onOffer) offerCount++;
       if (line.dataSource === 'real') {
         realCount++;
         if (line.priceDate && (!priceDate || line.priceDate > priceDate)) priceDate = line.priceDate;
@@ -120,6 +124,7 @@ export function totalForStore(
     pricedCount,
     aiCount,
     realCount,
+    offerCount,
     unpricedCount,
     priceDate,
   };

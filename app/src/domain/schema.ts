@@ -8,6 +8,7 @@ import {
   DIETS,
   MEAL_STYLES,
   MEAL_TYPES,
+  PRODUCT_FLAGS,
   UNITS,
 } from './enums';
 
@@ -105,6 +106,10 @@ export const ShoppingItemSchema = z.object({
   priceDate: z.string().nullable().default(null),
   /** Als Vorrat markiert -> aus Liste ausblendbar. */
   isPantry: z.boolean().default(false),
+  /** Produkt-Eigenschaften (Bio/Fairtrade/Vegan/Regional) — Anzeige. */
+  flags: z.array(z.enum(PRODUCT_FLAGS)).optional(),
+  /** Effektiver Angebotspreis (falls im Angebot), sonst null. */
+  offerPrice: z.number().nonnegative().nullable().optional(),
 });
 export type ShoppingItem = z.infer<typeof ShoppingItemSchema>;
 
@@ -128,6 +133,8 @@ export const UserPreferencesSchema = z.object({
   budget: z.number().nonnegative().default(60),
   currency: z.enum(CURRENCIES).default('EUR'),
   supermarket: z.string().default(''),
+  /** Bevorzugte Produkt-Labels (Bio/Fairtrade/Vegan/Regional). Aktiv = wo verfügbar bevorzugt. */
+  preferredProductFlags: z.array(z.enum(PRODUCT_FLAGS)).default([]),
   diet: z.enum(DIETS).default('omnivor'),
   allergies: z.array(z.enum(ALLERGIES)).default([]),
   preferredStyles: z.array(z.enum(MEAL_STYLES)).default([]),
@@ -186,5 +193,15 @@ export const SeedPriceSchema = z.object({
   productName: z.string().optional(),
   /** EAN/Barcode des echten Produkts (nur bei dataSource='real'). */
   ean: z.string().optional(),
+  /** Produkt-Eigenschaften (Bio/Fairtrade/Vegan/Regional). */
+  flags: z.array(z.enum(PRODUCT_FLAGS)).optional(),
+  /** Diese Zeile ist ein aktueller Angebotsartikel (eigenes, günstigeres Produkt). */
+  isOffer: z.boolean().optional(),
+  /** Gültig bis (ISO-Datum), falls die Quelle es liefert. */
+  offerValidUntil: z.string().optional(),
+  /** Nutri-Score (a–e), aus Open Food Facts. */
+  nutriScore: z.enum(['a', 'b', 'c', 'd', 'e']).optional(),
+  /** Eco-Score (a–e), aus Open Food Facts. */
+  ecoScore: z.enum(['a', 'b', 'c', 'd', 'e']).optional(),
 });
 export type SeedPrice = z.infer<typeof SeedPriceSchema>;

@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import EstimateBadge from '../components/EstimateBadge';
+import FlagBadges from '../components/FlagBadges';
 import ScreenHeader from '../components/ScreenHeader';
-import { STORE_IDS } from '../domain/enums';
+import { PRODUCT_FLAGS, PRODUCT_FLAG_ICON, STORE_IDS, type ProductFlag } from '../domain/enums';
+import { PRODUCT_FLAG_LABELS } from '../domain/labels';
 import type { Recipe } from '../domain/schema';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { formatPrice } from '../pricing';
@@ -30,6 +32,8 @@ export default function StoreCompareView() {
   const engine = usePriceEngine();
   const online = useOnlineStatus();
   const [showTable, setShowTable] = useState(false);
+  const [onlyOffers, setOnlyOffers] = useState(false);
+  const [flagFilter, setFlagFilter] = useState<ProductFlag | ''>('');
 
   useEffect(() => {
     if (status === 'idle') void load();
@@ -106,6 +110,14 @@ export default function StoreCompareView() {
             </p>
           )}
 
+          {prefs.preferredProductFlags.length > 0 && (
+            <p className="mb-3 text-xs text-emerald-700">
+              Bevorzugt:{' '}
+              {prefs.preferredProductFlags.map((f) => `${PRODUCT_FLAG_ICON[f]} ${PRODUCT_FLAG_LABELS[f]}`).join(' · ')}{' '}
+              — wo verfügbar werden diese Varianten gewählt.
+            </p>
+          )}
+
           {/* Ranking je Markt */}
           <ul className="flex flex-col gap-2">
             {comparison.stores.map((s, i) => {
@@ -158,7 +170,12 @@ export default function StoreCompareView() {
                           ? '✓ ganzer Plan im Budget'
                           : `Budget reicht für ≈ ${reach.coveredDays} von ${plannedDays} Tagen`}
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex flex-wrap items-center justify-end gap-1">
+                      {s.offerCount > 0 && (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-rose-100 px-2 py-0.5 text-[11px] font-semibold text-rose-700">
+                          🏷️ {s.offerCount} im Angebot
+                        </span>
+                      )}
                       {s.realCount > 0 && (
                         <span
                           className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-medium text-emerald-800"
@@ -195,61 +212,106 @@ export default function StoreCompareView() {
           </button>
 
           {showTable && (
-            <div className="mt-2 overflow-x-auto rounded-card border border-slate-200">
-              <table className="min-w-full border-collapse text-xs">
-                <thead>
-                  <tr className="bg-slate-50">
-                    <th className="sticky left-0 z-10 bg-slate-50 px-2 py-2 text-left font-semibold text-slate-600">
-                      Produkt
-                    </th>
-                    {STORE_IDS.map((id) => (
-                      <th key={id} className="px-2 py-2 text-right font-semibold text-slate-600">
-                        {comparison.stores.find((s) => s.storeId === id)?.label ?? id}
+            <>
+              {/* Filter */}
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setOnlyOffers((v) => !v)}
+                  className={`rounded-full px-2.5 py-1 font-medium ${
+                    onlyOffers ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  🏷️ nur Angebote
+                </button>
+                {PRODUCT_FLAGS.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    onClick={() => setFlagFilter((cur) => (cur === f ? '' : f))}
+                    className={`rounded-full px-2.5 py-1 font-medium ${
+                      flagFilter === f ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600'
+                    }`}
+                  >
+                    {PRODUCT_FLAG_ICON[f]} {PRODUCT_FLAG_LABELS[f]}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-2 overflow-x-auto rounded-card border border-slate-200">
+                <table className="min-w-full border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-slate-50">
+                      <th className="sticky left-0 z-10 bg-slate-50 px-2 py-2 text-left font-semibold text-slate-600">
+                        Produkt
                       </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparison.rows
-                    .filter((r) => STORE_IDS.some((id) => r.byStore[id].cost != null))
-                    .map((r) => {
-                      const costs = STORE_IDS.map((id) => r.byStore[id].cost).filter(
-                        (c): c is number => c != null,
-                      );
-                      const min = costs.length ? Math.min(...costs) : null;
-                      return (
-                        <tr key={r.item.id} className="border-t border-slate-100">
-                          <td className="sticky left-0 z-10 bg-white px-2 py-2 text-slate-700">{r.item.name}</td>
-                          {STORE_IDS.map((id) => {
-                            const line = r.byStore[id];
-                            const isMin = min != null && line.cost === min;
-                            return (
-                              <td
-                                key={id}
-                                className={`px-2 py-2 text-right ${isMin ? 'font-semibold text-emerald-700' : 'text-slate-600'}`}
-                              >
-                                {line.cost == null ? (
-                                  <span className="text-slate-300">–</span>
-                                ) : (
-                                  <span title={line.productName ?? undefined}>
-                                    <div>
-                                      {line.dataSource === 'real' && (
-                                        <span className="text-emerald-600" title="echt">✓ </span>
+                      {STORE_IDS.map((id) => (
+                        <th key={id} className="px-2 py-2 text-right font-semibold text-slate-600">
+                          {comparison.stores.find((s) => s.storeId === id)?.label ?? id}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {comparison.rows
+                      .filter((r) => STORE_IDS.some((id) => r.byStore[id].cost != null))
+                      .filter((r) => !onlyOffers || STORE_IDS.some((id) => r.byStore[id].onOffer))
+                      .filter(
+                        (r) => !flagFilter || STORE_IDS.some((id) => (r.byStore[id].flags ?? []).includes(flagFilter)),
+                      )
+                      .map((r) => {
+                        const costs = STORE_IDS.map((id) => r.byStore[id].cost).filter(
+                          (c): c is number => c != null,
+                        );
+                        const min = costs.length ? Math.min(...costs) : null;
+                        return (
+                          <tr key={r.item.id} className="border-t border-slate-100 align-top">
+                            <td className="sticky left-0 z-10 bg-white px-2 py-2 text-slate-700">{r.item.name}</td>
+                            {STORE_IDS.map((id) => {
+                              const line = r.byStore[id];
+                              const isMin = min != null && line.cost === min;
+                              return (
+                                <td
+                                  key={id}
+                                  className={`px-2 py-2 text-right ${isMin ? 'font-semibold text-emerald-700' : 'text-slate-600'}`}
+                                >
+                                  {line.cost == null ? (
+                                    <span className="text-slate-300">–</span>
+                                  ) : (
+                                    <span title={line.productName ?? undefined}>
+                                      <div>
+                                        {line.dataSource === 'real' && (
+                                          <span className="text-emerald-600" title="echt">✓ </span>
+                                        )}
+                                        {formatPrice(line.cost, prefs.currency)}
+                                      </div>
+                                      {line.onOffer && line.regularCost != null && (
+                                        <div className="text-[10px] text-rose-600">
+                                          🏷️ statt{' '}
+                                          <span className="text-slate-400 line-through">
+                                            {formatPrice(line.regularCost, prefs.currency)}
+                                          </span>
+                                        </div>
                                       )}
-                                      {formatPrice(line.cost, prefs.currency)}
-                                    </div>
-                                    {line.brand && <div className="text-[10px] text-slate-400">{line.brand}</div>}
-                                  </span>
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-            </div>
+                                      {line.unitPrice != null && (
+                                        <div className="text-[10px] text-slate-400">
+                                          {formatPrice(line.unitPrice, prefs.currency)}/{line.unitPriceLabel}
+                                        </div>
+                                      )}
+                                      {line.brand && <div className="text-[10px] text-slate-400">{line.brand}</div>}
+                                      <FlagBadges flags={line.flags} compact className="justify-end" />
+                                    </span>
+                                  )}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+            </>
           )}
         </>
       )}

@@ -1,4 +1,5 @@
 import type { BaseUnit } from './grammage';
+import type { ProductFlag } from '../../app/src/domain/enums';
 
 /** Ein normalisiertes echtes Produkt aus einer Quelle (Shop/Datensatz). */
 export interface RawProduct {
@@ -12,8 +13,10 @@ export interface RawProduct {
   unit: BaseUnit;
   /** Quell-Kategorie (roh, quellenspezifisch). */
   category: string;
-  /** Sonderangebot? (true -> für Normalpreis-Zwecke ignorieren) */
+  /** Aktueller Angebotsartikel? (eigenes, i. d. R. günstigeres Produkt) */
   sale: boolean;
+  /** Produkt-Eigenschaften (Bio/Fairtrade/Vegan/Regional), aus Name/Marke + OFF. */
+  flags: ProductFlag[];
 }
 
 /** Eine Preisquelle (ein Adapter pro Markt/Datensatz). */

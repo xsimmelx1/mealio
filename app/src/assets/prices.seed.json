@@ -144,7 +144,8 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "ja! Backpulver 10x15g",
-    "ean": "4337256201247"
+    "ean": "4337256201247",
+    "ecoScore": "c"
   },
   {
     "productKey": "backpulver",
@@ -570,7 +571,11 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "Maggi Gemüse Brühe für 7l",
-    "ean": "42402671"
+    "ean": "42402671",
+    "flags": [
+      "vegan"
+    ],
+    "nutriScore": "c"
   },
   {
     "productKey": "bruehe",
@@ -657,7 +662,28 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Süßrahmbutter 250g",
-    "ean": "4337256537711"
+    "ean": "4337256537711",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "brand": "Meggle",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.19,
+    "dataSource": "real",
+    "priceDate": "2025-09",
+    "productName": "Meggle Feine Butter 250g",
+    "ean": "40349558",
+    "isOffer": true,
+    "nutriScore": "e",
+    "ecoScore": "d"
   },
   {
     "productKey": "butter",
@@ -912,7 +938,11 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "Mutti Bio Gehackte Tomaten 400g",
-    "ean": "8005110413520"
+    "ean": "8005110413520",
+    "flags": [
+      "bio"
+    ],
+    "nutriScore": "a"
   },
   {
     "productKey": "dosentomaten",
@@ -999,7 +1029,9 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "ja! Bunte Eier 10 Stück",
-    "ean": "4337256755429"
+    "ean": "4337256755429",
+    "nutriScore": "a",
+    "ecoScore": "b"
   },
   {
     "productKey": "eier",
@@ -1086,7 +1118,30 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Feta 200g",
-    "ean": "4337256665216"
+    "ean": "4337256665216",
+    "flags": [
+      "bio"
+    ],
+    "nutriScore": "d",
+    "ecoScore": "d"
+  },
+  {
+    "productKey": "feta",
+    "label": "Feta",
+    "brand": "Patros",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 150,
+    "packageUnit": "g",
+    "pricePerPackage": 1.79,
+    "dataSource": "real",
+    "priceDate": "2025-09",
+    "productName": "Patros Schafmilchfeta 150g",
+    "ean": "4002468134361",
+    "isOffer": true,
+    "nutriScore": "d",
+    "ecoScore": "e"
   },
   {
     "productKey": "feta",
@@ -1173,7 +1228,8 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "ja! Gouda mittelalt 300g",
-    "ean": "4337256428712"
+    "ean": "4337256428712",
+    "nutriScore": "e"
   },
   {
     "productKey": "gouda",
@@ -1344,7 +1400,8 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "ja! Hackfleisch gemischt 500g",
-    "ean": "4388840218257"
+    "ean": "4388840218257",
+    "nutriScore": "c"
   },
   {
     "productKey": "hackfleisch",
@@ -1431,7 +1488,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Hähnchenbrustfilet ca. 320g",
-    "ean": "2160910000007"
+    "ean": "2160910000007",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "haehnchenbrust",
@@ -1602,7 +1662,11 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio + vegan No Muhh Haferdrink vegan 1l",
-    "ean": "4337256564359"
+    "ean": "4337256564359",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "haferdrink",
@@ -2118,7 +2182,8 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "Suntat Kidneybohnen 480g",
-    "ean": "8690804006166"
+    "ean": "8690804006166",
+    "nutriScore": "a"
   },
   {
     "productKey": "kidneybohnen",
@@ -2463,7 +2528,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Gemüsemais 230g",
-    "ean": "4337256850575"
+    "ean": "4337256850575",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "mais",
@@ -2637,7 +2705,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio H-Vollmilch 3,8% 1l",
-    "ean": "4337256385367"
+    "ean": "4337256385367",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "milch",
@@ -3405,7 +3476,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Rapsöl nativ 500ml",
-    "ean": "4337256199995"
+    "ean": "4337256199995",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "rapsoel",
@@ -3492,7 +3566,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Naturreis Spitzen-Langkorn 1kg",
-    "ean": "4337256409261"
+    "ean": "4337256409261",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "reis",
@@ -3579,7 +3656,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Rote Linsen 500g",
-    "ean": "4337256788779"
+    "ean": "4337256788779",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "rote-linsen",
@@ -3918,7 +3998,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "Biozentrale Bio Soja Granulat 250g",
-    "ean": "4005009103925"
+    "ean": "4005009103925",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "sojagranulat",
@@ -4350,7 +4433,12 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "Gazi Bio Tofu Natur 200g",
-    "ean": "4002566031111"
+    "ean": "4002566031111",
+    "flags": [
+      "bio",
+      "vegan"
+    ],
+    "nutriScore": "a"
   },
   {
     "productKey": "tofu",
@@ -4521,7 +4609,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "Mutti Bio Tomatenmark 164ml",
-    "ean": "8005110001673"
+    "ean": "8005110001673",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "tomatenmark",
@@ -4608,7 +4699,10 @@
     "dataSource": "real",
     "priceDate": "2025-09",
     "productName": "REWE Bio Backhefe 3x7g",
-    "ean": "4337256232197"
+    "ean": "4337256232197",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "trockenhefe",

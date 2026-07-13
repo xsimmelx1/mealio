@@ -2,6 +2,7 @@ import type { PriceOverride, SeedPrice } from '../domain/schema';
 import {
   STORE_DEFAULT_BRAND,
   STORE_PRICE_INDEX,
+  type ProductFlag,
   type StoreId,
 } from '../domain/enums';
 import { matchProductKey, normalizeName } from './productMatch';
@@ -34,8 +35,14 @@ export interface ResolvedProduct {
   packageSize: number;
   packageUnit: 'g' | 'ml' | 'stück';
   dim: Dimension;
-  /** Grundpreis pro Basiseinheit (€/g bzw. €/ml bzw. €/Stück). */
+  /** Grundpreis pro Basiseinheit (€/g bzw. €/ml bzw. €/Stück) — effektiv (inkl. Angebot). */
   basePricePerUnit: number;
+  /** Produkt-Eigenschaften (Bio/Fairtrade/Vegan/Regional). */
+  flags: ProductFlag[];
+  /** Im Angebot? (pricePerPackage ist dann der Angebotspreis) */
+  onOffer: boolean;
+  /** Normaler Packungspreis (für Durchstreich-Anzeige), falls onOffer. */
+  regularPricePerPackage?: number;
 }
 
 export interface IngredientCost {
@@ -67,6 +74,22 @@ export interface StoreLineCost {
   priceDate?: string;
   /** Echter Produktname der Quelle, nur bei 'real'. */
   productName?: string;
+  /** Produkt-Eigenschaften (Bio/Fairtrade/Vegan/Regional). */
+  flags: ProductFlag[];
+  /** Im Angebot? (cost = effektiver Angebotspreis) */
+  onOffer: boolean;
+  /** Normale (Nicht-Angebots-)Kosten für Durchstreich-Anzeige, nur wenn onOffer. */
+  regularCost?: number;
+  /** Angebot gültig bis (ISO-Datum), falls vorhanden. */
+  offerValidUntil?: string;
+  /** Grundpreis pro üblicher Einheit (€/kg bzw. €/l bzw. €/Stück). */
+  unitPrice?: number;
+  /** Bezugseinheit des Grundpreises. */
+  unitPriceLabel?: 'kg' | 'l' | 'Stück';
+  /** Nutri-Score (a–e), falls vorhanden. */
+  nutriScore?: string;
+  /** Eco-Score (a–e), falls vorhanden. */
+  ecoScore?: string;
 }
 
 export interface PriceEngineOptions {
@@ -76,6 +99,8 @@ export interface PriceEngineOptions {
   preferredStoreType?: 'discounter' | 'vollsortimenter';
   /** KI-geschätzte Preise (keyed nach normalizeName) als Fallback für ungematchte Zutaten. */
   aiPrices?: Map<string, AiPriceEntry>;
+  /** Bevorzugte Produkt-Labels: wo verfügbar bevorzugt die Engine gelabelte Varianten. */
+  preferredProductFlags?: ProductFlag[];
 }
 
 export class PriceEngine {
@@ -85,6 +110,7 @@ export class PriceEngine {
   private preferredStore?: string;
   private preferredStoreType?: 'discounter' | 'vollsortimenter';
   private aiPrices: Map<string, AiPriceEntry>;
+  private preferredProductFlags: ProductFlag[];
 
   constructor(seedPrices: SeedPrice[], overrides: PriceOverride[], opts: PriceEngineOptions = {}) {
     for (const p of seedPrices) {
@@ -99,6 +125,7 @@ export class PriceEngine {
     this.preferredStore = opts.preferredStore?.trim().toLowerCase() || undefined;
     this.preferredStoreType = opts.preferredStoreType;
     this.aiPrices = opts.aiPrices ?? new Map();
+    this.preferredProductFlags = opts.preferredProductFlags ?? [];
   }
 
   /** Alle bekannten productKeys (für Matching). */
@@ -106,36 +133,28 @@ export class PriceEngine {
     return this.knownKeys;
   }
 
-  private cheapest(list: SeedPrice[]): SeedPrice {
-    return list.reduce((best, p) =>
-      p.pricePerPackage / p.packageSize < best.pricePerPackage / best.packageSize ? p : best,
-    );
-  }
-
   /**
    * Wählt den passendsten Seed-Preis: exakter Store > passendes Preisniveau
-   * (aus dem gewählten Supermarkt) > Discounter > günstigster Grundpreis.
+   * (aus dem gewählten Supermarkt) > Discounter > günstigster (jeweils Label-Präferenz +
+   * effektiver Grundpreis via chooseStoreRow).
    */
   private pickSeed(productKey: string): SeedPrice | null {
     const list = this.seedByKey.get(productKey);
     if (!list || list.length === 0) return null;
 
-    // 1. Exakter Store-Treffer (z. B. Seed hat genau diese storeId).
     if (this.preferredStore) {
-      const match = list.find((p) => p.storeId.toLowerCase() === this.preferredStore);
-      if (match) return match;
+      const best = this.chooseStoreRow(list.filter((p) => p.storeId.toLowerCase() === this.preferredStore));
+      if (best) return best;
     }
-    // 2. Passendes Preisniveau des gewählten Supermarkts (Discounter vs. Vollsortimenter).
     if (this.preferredStoreType) {
-      const typed = list.filter((p) => p.storeType === this.preferredStoreType);
-      if (typed.length) return this.cheapest(typed);
+      const best = this.chooseStoreRow(list.filter((p) => p.storeType === this.preferredStoreType));
+      if (best) return best;
     }
-    // 3. Standard: Discounter, sonst günstigster.
     const discounter = list.filter((p) => p.storeType === 'discounter');
-    return this.cheapest(discounter.length ? discounter : list);
+    return this.chooseStoreRow(discounter.length ? discounter : list);
   }
 
-  /** Löst einen productKey zu einem konkreten Produkt inkl. Grundpreis auf. */
+  /** Löst einen productKey zu einem konkreten Produkt inkl. Grundpreis auf (inkl. Angebot/Flags). */
   resolve(productKey: string): ResolvedProduct | null {
     const seed = this.pickSeed(productKey);
     const override = this.overrideByKey.get(productKey);
@@ -143,6 +162,15 @@ export class PriceEngine {
     if (seed) {
       const dim = packageDimension(seed.packageUnit);
       const pricePerPackage = override ? override.pricePerPackage : seed.pricePerPackage;
+      const onOffer = !override && seed.isOffer === true;
+      // Regulärer Vergleichspreis: günstigste Nicht-Angebots-Zeile desselben Markts.
+      let regularPricePerPackage: number | undefined;
+      if (onOffer) {
+        const normals = (this.seedByKey.get(productKey) ?? []).filter(
+          (p) => p.storeId === seed.storeId && !p.isOffer,
+        );
+        if (normals.length) regularPricePerPackage = this.chooseStoreRow(normals)?.pricePerPackage;
+      }
       return {
         productKey,
         label: seed.label,
@@ -153,6 +181,9 @@ export class PriceEngine {
         packageUnit: seed.packageUnit,
         dim,
         basePricePerUnit: pricePerPackage / seed.packageSize,
+        flags: seed.flags ?? [],
+        onOffer,
+        ...(regularPricePerPackage != null ? { regularPricePerPackage } : {}),
       };
     }
 
@@ -169,6 +200,8 @@ export class PriceEngine {
         packageUnit: 'g',
         dim: 'mass',
         basePricePerUnit: override.basePrice / 1000,
+        flags: [],
+        onOffer: false,
       };
     }
 
@@ -270,23 +303,44 @@ export class PriceEngine {
     dim: Dimension,
     storeId: StoreId,
   ): StoreLineCost {
-    // 1. Kuratierter Katalogpreis für genau diesen Markt.
+    // 1. Kuratierter Katalogpreis für genau diesen Markt. Normalprodukt (Label-Präferenz + günstigster)
+    //    plus ggf. günstigeres Angebot → effektiver Bestpreis.
     if (productKey) {
-      const list = this.seedByKey.get(productKey);
-      const row = list?.find((p) => p.storeId.toLowerCase() === storeId);
-      if (row) {
+      const storeRows = (this.seedByKey.get(productKey) ?? []).filter(
+        (p) => p.storeId.toLowerCase() === storeId,
+      );
+      const normalPick = this.chooseStoreRow(storeRows.filter((p) => !p.isOffer)) ?? this.chooseStoreRow(storeRows);
+      const offerPick = this.chooseStoreRow(storeRows.filter((p) => p.isOffer));
+      const lineFor = (row: SeedPrice) => {
         const factor = reconcileFactor(dim, packageDimension(row.packageUnit));
-        if (factor === null) return { cost: null, brand: null, packages: 0, source: null, dataSource: null };
+        if (factor === null) return null;
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / row.packageSize));
+        return { row, packages, cost: round2(packages * row.pricePerPackage), base: row.pricePerPackage / row.packageSize };
+      };
+      const normal = normalPick ? lineFor(normalPick) : null;
+      const offer = offerPick ? lineFor(offerPick) : null;
+      const useOffer = !!offer && (!normal || offer.base < normal.base);
+      const chosen = useOffer ? offer : normal;
+      if (chosen) {
+        const row = chosen.row;
         const isReal = row.dataSource === 'real';
+        const up = unitPriceOf(row.pricePerPackage, row.packageSize, row.packageUnit);
         return {
-          cost: round2(packages * row.pricePerPackage),
+          cost: chosen.cost,
           brand: row.brand ?? STORE_DEFAULT_BRAND[storeId],
-          packages,
+          packages: chosen.packages,
           source: 'seed',
           dataSource: isReal ? 'real' : 'estimate',
+          flags: row.flags ?? [],
+          onOffer: useOffer,
+          unitPrice: up.unitPrice,
+          unitPriceLabel: up.unitPriceLabel,
+          ...(useOffer && normal ? { regularCost: normal.cost } : {}),
+          ...(useOffer && row.offerValidUntil ? { offerValidUntil: row.offerValidUntil } : {}),
           ...(isReal && row.priceDate ? { priceDate: row.priceDate } : {}),
           ...(isReal && row.productName ? { productName: row.productName } : {}),
+          ...(row.nutriScore ? { nutriScore: row.nutriScore } : {}),
+          ...(row.ecoScore ? { ecoScore: row.ecoScore } : {}),
         };
       }
     }
@@ -298,20 +352,56 @@ export class PriceEngine {
       if (factor !== null) {
         const perPackage = ai.pricePerPackage * STORE_PRICE_INDEX[storeId];
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / ai.packageSize));
+        const up = unitPriceOf(perPackage, ai.packageSize, ai.packageUnit);
         return {
           cost: round2(packages * perPackage),
           brand: ai.brand ?? STORE_DEFAULT_BRAND[storeId],
           packages,
           source: 'ai',
           dataSource: 'estimate',
+          flags: [],
+          onOffer: false,
+          unitPrice: up.unitPrice,
+          unitPriceLabel: up.unitPriceLabel,
         };
       }
     }
 
-    return { cost: null, brand: null, packages: 0, source: null, dataSource: null };
+    return emptyLine();
+  }
+
+  /** Wählt unter mehreren Zeilen für (key,store): bevorzugte Labels (wo vorhanden), dann günstigster
+   * effektiver Grundpreis. Nie leer, solange rows nicht leer. */
+  private chooseStoreRow(rows: SeedPrice[]): SeedPrice | null {
+    if (rows.length === 0) return null;
+    const prefs = this.preferredProductFlags;
+    let pool = rows;
+    if (prefs.length) {
+      const all = rows.filter((r) => prefs.every((f) => (r.flags ?? []).includes(f)));
+      const any = rows.filter((r) => prefs.some((f) => (r.flags ?? []).includes(f)));
+      pool = all.length ? all : any.length ? any : rows;
+    }
+    const effBase = (r: SeedPrice) => r.pricePerPackage / r.packageSize;
+    return pool.reduce((best, r) => (effBase(r) < effBase(best) ? r : best));
   }
 }
 
 function round2(n: number): number {
   return Math.round(n * 100) / 100;
+}
+
+/** Leere (nicht bepreisbare) Vergleichszeile. */
+function emptyLine(): StoreLineCost {
+  return { cost: null, brand: null, packages: 0, source: null, dataSource: null, flags: [], onOffer: false };
+}
+
+/** Grundpreis pro üblicher Einheit: g→€/kg, ml→€/l, stück→€/Stück. */
+function unitPriceOf(
+  perPackage: number,
+  size: number,
+  unit: 'g' | 'ml' | 'stück',
+): { unitPrice: number; unitPriceLabel: 'kg' | 'l' | 'Stück' } {
+  if (size <= 0) return { unitPrice: perPackage, unitPriceLabel: unit === 'ml' ? 'l' : unit === 'g' ? 'kg' : 'Stück' };
+  if (unit === 'stück') return { unitPrice: round2(perPackage / size), unitPriceLabel: 'Stück' };
+  return { unitPrice: round2((perPackage / size) * 1000), unitPriceLabel: unit === 'g' ? 'kg' : 'l' };
 }

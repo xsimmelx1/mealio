@@ -27,6 +27,17 @@ schreibt einen Report (echte Treffer je Markt).
 Jede Zeile trägt `dataSource` (`real`/`estimate`), bei `real` zusätzlich `priceDate`,
 `productName`, `ean`. Die App kennzeichnet das im Supermarkt-Vergleich (✓ echt · Stand … / ≈ geschätzt).
 
+### Angebote, Labels & Scores
+- **Angebote**: REWE-Angebotsartikel (Datensatz-`sale`) werden als eigene, günstigere Zeilen mit
+  `isOffer: true` erzeugt. Die Engine nutzt den effektiven Bestpreis (Angebot, falls günstiger) und
+  zeigt den Normalpreis durchgestrichen. Discounter-Angebote (Lidl/Kaufland/Aldi) sind der nächste
+  Adapter-Schritt (`sources/offers/`), Aldi ist Akamai-geblockt.
+- **Labels** (`flags`: bio/fairtrade/vegan/regional): aus Name/Marke (`lib/flags.ts`) + Open Food Facts.
+- **Open Food Facts** (`sources/off.ts`, ODbL): reichert echte Zeilen per EAN um Fairtrade/Bio/Vegan
+  sowie Nutri-/Eco-Score an; Ergebnis in `scripts/cache/off.json` gecacht.
+- Nutzer-Präferenz `preferredProductFlags`: ist ein Label aktiv, bevorzugt die Engine wo verfügbar die
+  gelabelte Variante (sonst Fallback), inkl. Badges im Vergleich/Liste.
+
 ## Weitere Quellen andocken
 Neuen Adapter in `sources/` anlegen (`PriceSource`), in `genPrices.ts` einhängen und die
 echten Treffer je `storeId` bevorzugt vor der Ableitung verwenden. Kandidaten:

@@ -1,4 +1,5 @@
 import { parse } from 'csv-parse/sync';
+import { detectFlags } from '../lib/flags';
 import { parseGrammage } from '../lib/grammage';
 import type { PriceSource, RawProduct } from '../lib/types';
 
@@ -57,8 +58,9 @@ export async function createReweSource(): Promise<PriceSource> {
           const pkg = parseGrammage(r.grammage || '');
           if (!Number.isFinite(price) || price <= 0 || !pkg) continue;
           const brand = r.brand && r.brand !== 'NA' ? r.brand.trim() : null;
+          const name = (r.name || '').trim();
           out.push({
-            name: (r.name || '').trim(),
+            name,
             brand,
             ean: r.ean && /^\d{6,14}$/.test(r.ean) ? r.ean : null,
             price: Math.round(price * 100) / 100,
@@ -66,6 +68,7 @@ export async function createReweSource(): Promise<PriceSource> {
             unit: pkg.unit,
             category: (r.category || '').trim(),
             sale: (r.sale || '').toLowerCase() === 'true',
+            flags: detectFlags(name, brand),
           });
         }
         return out;

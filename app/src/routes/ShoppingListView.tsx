@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPrices, type OnlinePrice } from '../api/client';
 import EstimateBadge from '../components/EstimateBadge';
+import FlagBadges from '../components/FlagBadges';
+import OfferBadge from '../components/OfferBadge';
 import ScreenHeader from '../components/ScreenHeader';
 import { AISLES, AISLE_LABELS } from '../domain/enums';
 import type { ShoppingItem } from '../domain/schema';
@@ -283,9 +285,11 @@ function ShoppingRow({
         className="h-5 w-5 shrink-0 rounded border-slate-300 text-brand-500 focus:ring-brand-400"
       />
       <div className="min-w-0 flex-1">
-        <div className={`truncate text-slate-800 ${item.isChecked ? 'line-through' : ''}`}>
-          {item.name}
+        <div className={`text-slate-800 ${item.isChecked ? 'line-through' : ''}`}>
+          <span className="align-middle">{item.name}</span>
           {item.isPantry && <span className="ml-2 text-xs text-slate-400">Vorrat</span>}
+          {item.offerPrice != null && <OfferBadge className="ml-2 align-middle" />}
+          <FlagBadges flags={item.flags} compact className="ml-1 align-middle" />
         </div>
         <div className="text-xs text-slate-400">
           {formatAmountShort(item.totalAmount)} {item.unit}

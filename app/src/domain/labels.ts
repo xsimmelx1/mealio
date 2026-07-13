@@ -1,4 +1,4 @@
-import type { Allergy, Appliance, Diet } from './enums';
+import type { Allergy, Appliance, Diet, ProductFlag } from './enums';
 
 /** Menschenlesbare Labels für Diäten, Allergien, Geräte (UI-weit genutzt). */
 export const DIET_LABELS: Record<Diet, string> = {
@@ -31,6 +31,13 @@ export const APPLIANCE_LABELS: Record<Appliance, string> = {
   pürierstab: 'Pürierstab',
   toaster: 'Toaster',
   wasserkocher: 'Wasserkocher',
+};
+
+export const PRODUCT_FLAG_LABELS: Record<ProductFlag, string> = {
+  bio: 'Bio',
+  fairtrade: 'Fairtrade',
+  vegan: 'Vegan',
+  regional: 'Regional',
 };
 
 /** Options-Helfer für Chip-Auswahlen. */

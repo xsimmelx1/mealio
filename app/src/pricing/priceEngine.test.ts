@@ -221,6 +221,32 @@ describe('PriceEngine.wholePackageCostForStore', () => {
     expect(eng.wholePackageCostForStore(null, 'Sternenstaub', 10, 'mass', 'aldi').cost).toBeNull();
   });
 
+  it('nutzt Angebotszeile als effektiven Bestpreis + Durchstreich-Regulärpreis', () => {
+    const rows: SeedPrice[] = [
+      { productKey: 'butter', label: 'Butter', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'kühlregal', packageSize: 250, packageUnit: 'g', pricePerPackage: 3.49 },
+      { productKey: 'butter', label: 'Butter', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'kühlregal', packageSize: 250, packageUnit: 'g', pricePerPackage: 2.19, isOffer: true },
+    ];
+    const e = new PriceEngine(rows, []);
+    const line = e.wholePackageCostForStore('butter', 'Butter', 250, 'mass', 'rewe');
+    expect(line.onOffer).toBe(true);
+    expect(line.cost).toBeCloseTo(2.19);
+    expect(line.regularCost).toBeCloseTo(3.49);
+    expect(line.unitPrice).toBeCloseTo(8.76); // 2.19€ / 250g -> €/kg
+  });
+
+  it('Flag-Präferenz "bio" wählt die Bio-Variante', () => {
+    const rows: SeedPrice[] = [
+      { productKey: 'milch', label: 'Milch', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'kühlregal', packageSize: 1000, packageUnit: 'ml', pricePerPackage: 0.95 },
+      { productKey: 'milch', label: 'Milch', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'kühlregal', packageSize: 1000, packageUnit: 'ml', pricePerPackage: 1.25, flags: ['bio'] },
+    ];
+    const plain = new PriceEngine(rows, []);
+    expect(plain.wholePackageCostForStore('milch', 'Milch', 1000, 'volume', 'rewe').cost).toBeCloseTo(0.95);
+    const bio = new PriceEngine(rows, [], { preferredProductFlags: ['bio'] });
+    const line = bio.wholePackageCostForStore('milch', 'Milch', 1000, 'volume', 'rewe');
+    expect(line.cost).toBeCloseTo(1.25);
+    expect(line.flags).toContain('bio');
+  });
+
   it('reicht echt/geschätzt + Stand + Produktname aus der Katalog-Zeile durch', () => {
     const seedWithMeta: SeedPrice[] = [
       { productKey: 'mehl', label: 'Mehl', brand: 'ja!', storeId: 'rewe', storeType: 'vollsortimenter', aisle: 'backwaren', packageSize: 1000, packageUnit: 'g', pricePerPackage: 0.59, dataSource: 'real', priceDate: '2025-09', productName: 'ja! Weizenmehl Type 405 1kg', ean: '4337256679244' },

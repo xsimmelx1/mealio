@@ -33,5 +33,7 @@ jobs:
             Automatisch generiert aus echten Quellen (REWE-Datensatz).
             Bitte Stichprobe prüfen (Preise/Marken/Packungsgrößen) vor dem Merge.
           branch: auto/update-prices
-          add-paths: app/src/assets/prices.seed.json
+          add-paths: |
+            app/src/assets/prices.seed.json
+            scripts/cache/off.json
           delete-branch: true

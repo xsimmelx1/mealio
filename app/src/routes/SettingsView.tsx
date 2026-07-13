@@ -15,9 +15,10 @@ import {
   MEAL_STYLE_LABELS,
   MEAL_TYPES,
   MEAL_TYPE_LABELS,
+  PRODUCT_FLAGS,
   SUPERMARKETS,
 } from '../domain/enums';
-import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, toOptions } from '../domain/labels';
+import { ALLERGY_LABELS, APPLIANCE_LABELS, DIET_LABELS, PRODUCT_FLAG_LABELS, toOptions } from '../domain/labels';
 import { importRecipes } from '../api/client';
 import { resetPriceOverrides } from '../db/priceActions';
 import { importCatalogRecipes } from '../db/recipeActions';
@@ -120,6 +121,14 @@ export default function SettingsView() {
             value={prefs.supermarket}
             onChange={(v) => void update({ supermarket: v })}
             ariaLabel="Supermarkt"
+          />
+        </Field>
+        <Field label="Bevorzugte Labels (Bio, Fairtrade …)">
+          <ChipMultiSelect
+            options={toOptions(PRODUCT_FLAGS, PRODUCT_FLAG_LABELS)}
+            selected={prefs.preferredProductFlags}
+            onToggle={(v) => void update({ preferredProductFlags: toggleIn(prefs.preferredProductFlags, v) })}
+            ariaLabel="Bevorzugte Produkt-Labels"
           />
         </Field>
       </Section>

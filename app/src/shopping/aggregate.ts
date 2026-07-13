@@ -67,6 +67,8 @@ export function aggregateShoppingItems(
     let estimatedPrice: number | null = null;
     let source: ShoppingItem['source'] = 'unknown';
     let priceDate: string | null = null;
+    let flags: ShoppingItem['flags'] = [];
+    let offerPrice: number | null = null;
     if (g.productKey) {
       const resolved = engine.resolve(g.productKey);
       const whole = engine.wholePackageCost(g.productKey, g.qty, g.dim);
@@ -76,6 +78,9 @@ export function aggregateShoppingItems(
         // Anzeigename: Produkt-Label falls vorhanden.
         if (resolved?.label) g.name = resolved.label;
         priceDate = SEED_PRICE_DATE;
+        flags = resolved?.flags ?? [];
+        // estimatedPrice ist bereits der effektive (Angebots-)Preis; markiere Angebot.
+        if (resolved?.onOffer) offerPrice = estimatedPrice;
       }
     }
     items.push({
@@ -90,6 +95,8 @@ export function aggregateShoppingItems(
       source,
       priceDate,
       isPantry: false,
+      flags,
+      offerPrice,
     });
   }
 

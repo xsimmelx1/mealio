@@ -154,6 +154,18 @@ export function storeTypeOf(storeId: StoreId): StoreType {
   return storeTypeFor(storeId) ?? 'discounter';
 }
 
+/** Produkt-Eigenschaften (Label-Regel): Bio/Fairtrade/Vegan/Regional. */
+export const PRODUCT_FLAGS = ['bio', 'fairtrade', 'vegan', 'regional'] as const;
+export type ProductFlag = (typeof PRODUCT_FLAGS)[number];
+
+/** Emoji-Marker je Produkt-Flag (leichtgewichtige, markenfreie Badges). */
+export const PRODUCT_FLAG_ICON: Record<ProductFlag, string> = {
+  bio: '🌱',
+  fairtrade: '⚖️',
+  vegan: '🌿',
+  regional: '🌍',
+};
+
 /** Typische ungeliebte Zutaten (vordefinierte Schnellauswahl, ergänzt Freitext). */
 export const COMMON_DISLIKED = [
   'koriander',
