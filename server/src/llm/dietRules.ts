@@ -114,6 +114,53 @@ export const ALLERGEN_KEYWORDS: Record<string, string[]> = {
   sesam: ['sesam', 'tahin', 'tahini'],
 };
 
+/** Fleisch-/Wurst-Keywords (für Vegetarisch/Vegan-Konformität; ergänzt fisch/schalentiere). */
+export const MEAT_KEYWORDS: string[] = [
+  'hackfleisch',
+  'hack',
+  'fleisch',
+  'hähnchen',
+  'haehnchen',
+  'hühn',
+  'huhn',
+  'pute',
+  'geflügel',
+  'rind',
+  'gulasch',
+  'steak',
+  'schwein',
+  'kalb',
+  'lamm',
+  'ente',
+  'speck',
+  'bacon',
+  'schinken',
+  'salami',
+  'wurst',
+  'würst',
+  'chorizo',
+  'kassler',
+  'leber',
+];
+
+/** Bereits pflanzliche Marker → nie als tierisch werten (Spiegel des Frontends). */
+const PLANT_MARKERS = ['vegan', 'pflanz', 'soja', 'tofu', 'hafer', 'kokos', 'mandel', 'seitan'];
+
+/**
+ * Prüft, ob ein Zutatname der Ziel-Diät widerspricht (tierisch). Vegetarisch verbietet
+ * Fleisch/Fisch/Meeresfrüchte; Vegan zusätzlich Milch/Ei/Honig. Bereits pflanzliche Namen
+ * (z. B. „Sojagranulat", „Räuchertofu") werden ignoriert.
+ */
+export function hasAnimalIngredient(name: string, diet: 'vegetarisch' | 'vegan'): boolean {
+  const n = ` ${name.toLowerCase()} `;
+  if (PLANT_MARKERS.some((m) => n.includes(m))) return false;
+  const groups =
+    diet === 'vegan'
+      ? [MEAT_KEYWORDS, ALLERGEN_KEYWORDS.fisch, ALLERGEN_KEYWORDS.schalentiere, ALLERGEN_KEYWORDS.laktose, ALLERGEN_KEYWORDS.ei, ['honig']]
+      : [MEAT_KEYWORDS, ALLERGEN_KEYWORDS.fisch, ALLERGEN_KEYWORDS.schalentiere];
+  return groups.some((kws) => kws.some((kw) => n.includes(kw)));
+}
+
 /** DietTags, die ein Allergen bereits vertrauenswürdig ausschließen. */
 const DIET_TAG_EXCLUDES: Partial<Record<string, DietTag>> = {
   gluten: 'glutenfrei',

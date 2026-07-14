@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import type { ProductFlag } from '../../app/src/domain/enums';
 import { parseGrammage } from '../lib/grammage';
+import { detectFlags, mergeFlags } from '../lib/flags';
 import type { RawProduct } from '../lib/types';
 
 /**
@@ -94,7 +95,8 @@ function toTagged(it: ScItem): { storeId: string; product: RawProduct } | null {
       unit: pkg.unit,
       category: '',
       sale: it.is_on_offer === true,
-      flags: flagsOf(it),
+      // SC-Flags (is_bio/is_vegan/is_fairtrade) + Name/Marke-Heuristik (u. a. Regional).
+      flags: mergeFlags(flagsOf(it), detectFlags(name, it.brand?.trim() || null)),
     },
   };
 }

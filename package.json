@@ -17,7 +17,8 @@
     "test:server": "npm run test -w server",
     "lint": "npm run lint -w app --if-present && npm run lint -w server --if-present",
     "gen:prices": "tsx scripts/genPrices.ts",
-    "gen:fallback": "tsx scripts/genFallback.ts"
+    "gen:fallback": "tsx scripts/genFallback.ts",
+    "gen:labels": "tsx scripts/applyLabelOverlay.ts"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

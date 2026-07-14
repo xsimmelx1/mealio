@@ -204,6 +204,52 @@ export async function importRecipes(
 }
 
 /**
+ * Poliert die Kochschritte eines bereits (deterministisch) auf vegetarisch/vegan
+ * umgestellten Rezepts per Backend-LLM. Sendet das Rezept, übernimmt aber NUR die neuen
+ * `steps` — die (bereits ersetzten) Zutaten des Aufrufers bleiben autoritativ. Fehler/
+ * ungültige Antwort → Aufrufer behält seine deterministischen Schritte.
+ */
+export async function adaptRecipeSteps(
+  recipe: Recipe,
+  targetDiet: 'vegetarisch' | 'vegan',
+): Promise<string[]> {
+  const body = {
+    recipe: {
+      title: recipe.title,
+      mealStyles: recipe.mealStyles,
+      mealTypes: recipe.mealTypes,
+      dietTags: recipe.dietTags,
+      requiredAppliances: recipe.requiredAppliances,
+      prepMinutes: recipe.prepMinutes,
+      cookMinutes: recipe.cookMinutes,
+      baseServings: recipe.baseServings,
+      ingredients: recipe.ingredients.map((i) => ({
+        name: i.name,
+        amount: i.amount,
+        unit: i.unit,
+        aisle: i.aisle,
+      })),
+      steps: recipe.steps,
+      nutritionPerServing: null,
+    },
+    targetDiet,
+  };
+  const raw = await fetchJson(
+    '/adapt-recipe',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    },
+    60_000,
+  );
+  const parsed = ImportResponse.parse(raw);
+  const r = LlmRecipeSchema.safeParse(parsed.recipes[0]);
+  if (!r.success || r.data.steps.length < 3) return recipe.steps;
+  return r.data.steps;
+}
+
+/**
  * KI-geschätzte Preise für Zutaten ohne gefundenen Preis (letzte Instanz).
  * Gleiche Shape wie fetchPrices (source "ai" | "unknown"). Fehler werfen -> ignorieren.
  */
@@ -262,6 +308,7 @@ export async function health(timeoutMs = 3000): Promise<boolean> {
 
 export const apiClient = {
   generatePlan,
+  adaptRecipeSteps,
   fetchNutrition,
   fetchPrices,
   estimatePrices,

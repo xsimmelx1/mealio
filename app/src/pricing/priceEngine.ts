@@ -6,7 +6,7 @@ import {
   type StoreId,
 } from '../domain/enums';
 import { matchProductKey, normalizeName } from './productMatch';
-import { packageDimension, reconcileFactor, toBase, type Dimension } from './units';
+import { packageDimension, PIECE_GRAMS, reconcileFactor, toBase, type Dimension } from './units';
 import type { Ingredient, Recipe } from '../domain/schema';
 
 /** KI-geschätzter Preis für eine Zutat (keyed nach normalizeName). */
@@ -49,6 +49,23 @@ export interface IngredientCost {
   status: 'ok' | 'unmatched';
   productKey: string | null;
   cost: number; // 0 bei unmatched
+  source: PriceSource | 'ai' | null;
+}
+
+/**
+ * Einkaufskosten EINER Rezept-Zutat über GANZE Packungen — was man tatsächlich zahlt, weil
+ * man z. B. keinen Teelöffel Kurkuma einzeln kaufen kann. Trägt zusätzlich die Anzahl Packungen
+ * und die Packungsgröße für die Anzeige (Rest bleibt übrig).
+ */
+export interface IngredientPurchase {
+  status: 'ok' | 'unmatched';
+  productKey: string | null;
+  /** Kosten der zu kaufenden ganzen Packung(en); 0 bei unmatched. */
+  cost: number;
+  /** Anzahl ganzer Packungen (≥1, wenn irgendetwas gebraucht wird). */
+  packages: number;
+  packageSize: number;
+  packageUnit: 'g' | 'ml' | 'stück';
   source: PriceSource | 'ai' | null;
 }
 
@@ -226,7 +243,7 @@ export class PriceEngine {
       const product = this.resolve(key);
       if (product) {
         const base = toBase(ing.amount, ing.unit);
-        const factor = reconcileFactor(base.dim, product.dim);
+        const factor = reconcileFactor(base.dim, product.dim, PIECE_GRAMS[key]);
         if (factor !== null) {
           return { status: 'ok', productKey: key, cost: base.qty * factor * product.basePricePerUnit, source: product.source };
         }
@@ -237,7 +254,7 @@ export class PriceEngine {
     const ai = this.aiPrices.get(normalizeName(ing.name));
     if (ai && ai.packageSize > 0) {
       const base = toBase(ing.amount, ing.unit);
-      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit));
+      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit), key ? PIECE_GRAMS[key] : undefined);
       if (factor !== null) {
         const cost = base.qty * factor * (ai.pricePerPackage / ai.packageSize);
         return { status: 'ok', productKey: key, cost, source: 'ai' };
@@ -245,6 +262,62 @@ export class PriceEngine {
     }
 
     return { status: 'unmatched', productKey: key, cost: 0, source: null };
+  }
+
+  /**
+   * Einkaufskosten EINER Zutatmenge über GANZE Packungen (Seed/Manual, sonst KI-Fallback).
+   * Anders als {@link ingredientCost} (anteiliger Verbrauchswert) ist dies der Betrag an der Kasse:
+   * man kauft mindestens eine ganze Packung, auch wenn das Rezept nur wenig braucht.
+   */
+  ingredientPurchase(
+    ing: Pick<Ingredient, 'name' | 'amount' | 'unit' | 'productMatchId'>,
+  ): IngredientPurchase {
+    if (ing.amount <= 0) {
+      return { status: 'ok', productKey: null, cost: 0, packages: 0, packageSize: 0, packageUnit: 'g', source: null };
+    }
+    const key = this.keyForIngredient(ing);
+
+    // 1. Seed/Manual-Preis über den gematchten Produktschlüssel.
+    if (key) {
+      const product = this.resolve(key);
+      if (product) {
+        const base = toBase(ing.amount, ing.unit);
+        const factor = reconcileFactor(base.dim, product.dim, PIECE_GRAMS[key]);
+        if (factor !== null) {
+          const packages = Math.max(1, Math.ceil((base.qty * factor) / product.packageSize));
+          return {
+            status: 'ok',
+            productKey: key,
+            cost: round2(packages * product.pricePerPackage),
+            packages,
+            packageSize: product.packageSize,
+            packageUnit: product.packageUnit,
+            source: product.source,
+          };
+        }
+      }
+    }
+
+    // 2. KI-Fallback (keyed nach normalisiertem Namen).
+    const ai = this.aiPrices.get(normalizeName(ing.name));
+    if (ai && ai.packageSize > 0) {
+      const base = toBase(ing.amount, ing.unit);
+      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit), key ? PIECE_GRAMS[key] : undefined);
+      if (factor !== null) {
+        const packages = Math.max(1, Math.ceil((base.qty * factor) / ai.packageSize));
+        return {
+          status: 'ok',
+          productKey: key,
+          cost: round2(packages * ai.pricePerPackage),
+          packages,
+          packageSize: ai.packageSize,
+          packageUnit: ai.packageUnit,
+          source: 'ai',
+        };
+      }
+    }
+
+    return { status: 'unmatched', productKey: key, cost: 0, packages: 0, packageSize: 0, packageUnit: 'g', source: null };
   }
 
   /** Schätzt die Kosten eines Rezepts (proportional) inkl. pro Portion. */
@@ -281,7 +354,7 @@ export class PriceEngine {
   ): { cost: number | null; source: PriceSource | null; packages: number } {
     const product = this.resolve(productKey);
     if (!product) return { cost: null, source: null, packages: 0 };
-    const factor = reconcileFactor(dim, product.dim);
+    const factor = reconcileFactor(dim, product.dim, PIECE_GRAMS[productKey]);
     if (factor === null) return { cost: null, source: null, packages: 0 };
     const needed = totalBaseQty * factor;
     const packages = Math.max(1, Math.ceil(needed / product.packageSize));
@@ -312,7 +385,7 @@ export class PriceEngine {
       const normalPick = this.chooseStoreRow(storeRows.filter((p) => !p.isOffer)) ?? this.chooseStoreRow(storeRows);
       const offerPick = this.chooseStoreRow(storeRows.filter((p) => p.isOffer));
       const lineFor = (row: SeedPrice) => {
-        const factor = reconcileFactor(dim, packageDimension(row.packageUnit));
+        const factor = reconcileFactor(dim, packageDimension(row.packageUnit), PIECE_GRAMS[productKey]);
         if (factor === null) return null;
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / row.packageSize));
         return { row, packages, cost: round2(packages * row.pricePerPackage), base: row.pricePerPackage / row.packageSize };
@@ -348,7 +421,7 @@ export class PriceEngine {
     // 2. KI-Fallback: marktneutraler Basispreis × Markt-Index.
     const ai = this.aiPrices.get(normalizeName(name));
     if (ai && ai.packageSize > 0) {
-      const factor = reconcileFactor(dim, packageDimension(ai.packageUnit));
+      const factor = reconcileFactor(dim, packageDimension(ai.packageUnit), productKey ? PIECE_GRAMS[productKey] : undefined);
       if (factor !== null) {
         const perPackage = ai.pricePerPackage * STORE_PRICE_INDEX[storeId];
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / ai.packageSize));

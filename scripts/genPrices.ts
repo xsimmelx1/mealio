@@ -24,7 +24,32 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const SEED_PATH = resolve(__dirname, '../app/src/assets/prices.seed.json');
 const CATALOG_PATH = resolve(__dirname, 'ingredients.catalog.json');
 const FALLBACK_PATH = resolve(__dirname, '../app/src/assets/fallbackPrices.json');
+const OVERLAY_PATHS = [
+  resolve(__dirname, 'labeledProducts.overlay.json'),
+  resolve(__dirname, 'veganProducts.overlay.json'),
+];
 const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/** Signatur einer Zeile für Idempotenz beim Overlay-Merge. */
+const rowSig = (r: SeedPrice) =>
+  `${r.productKey}|${r.storeId}|${r.brand ?? ''}|${(r.flags ?? []).slice().sort().join(',')}|${r.isOffer ? 1 : 0}`;
+
+/** Lädt die kuratierten Overlays (Fairtrade/Regional/Bio-Varianten + vegane Ersatzprodukte). */
+function loadOverlay(): SeedPrice[] {
+  const rows: SeedPrice[] = [];
+  for (const path of OVERLAY_PATHS) {
+    try {
+      const raw = JSON.parse(readFileSync(path, 'utf8')) as unknown[];
+      for (const r of raw) {
+        const p = SeedPriceSchema.safeParse(r);
+        if (p.success) rows.push(p.data);
+      }
+    } catch {
+      /* Overlay optional */
+    }
+  }
+  return rows;
+}
 
 /** Lädt die einmalig gezogene SC-Fallback-Grundlage (key|store -> Zeile). Fehlt sie -> leer. */
 function loadFallback(): Map<string, SeedPrice> {
@@ -260,6 +285,19 @@ async function main() {
     if (o.nutriScore) r.nutriScore = o.nutriScore as SeedPrice['nutriScore'];
     if (o.ecoScore) r.ecoScore = o.ecoScore as SeedPrice['ecoScore'];
   }
+
+  // Kuratierter Label-Overlay: Fairtrade/Regional/Bio-Varianten als zusätzliche Zeilen anhängen
+  // (Regional/Fairtrade sind aus offenen Quellen kaum ableitbar). Idempotent über die Signatur.
+  const overlay = loadOverlay();
+  const seen = new Set(raw.map(rowSig));
+  let overlayRows = 0;
+  for (const row of overlay) {
+    if (seen.has(rowSig(row))) continue;
+    raw.push(row);
+    seen.add(rowSig(row));
+    overlayRows++;
+  }
+  if (overlayRows) console.log(`Label-Overlay: ${overlayRows} Zeilen angehängt (Fairtrade/Regional/Bio).`);
 
   // Validierung + Report.
   const rows: SeedPrice[] = [];

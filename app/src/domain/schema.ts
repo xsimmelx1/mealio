@@ -9,6 +9,7 @@ import {
   MEAL_STYLES,
   MEAL_TYPES,
   PRODUCT_FLAGS,
+  STORE_IDS,
   UNITS,
 } from './enums';
 
@@ -59,7 +60,7 @@ export const RecipeSchema = z.object({
   nutritionPerServing: NutritionSchema.nullable().default(null),
   /** Schätzwert, wird von der Preis-Engine berechnet. null = unbekannt. */
   estimatedCostPerServing: z.number().nonnegative().nullable().default(null),
-  source: z.enum(['seed', 'llm', 'themealdb']),
+  source: z.enum(['seed', 'llm', 'themealdb', 'adapted']),
   /** Optionaler Quell-Link (Attribution, z. B. TheMealDB). */
   sourceUrl: z.string().optional(),
   /** Optionales Rezeptfoto (TheMealDB-Thumbnail oder Openverse-Suche; nur URL, kein Byte). */
@@ -137,6 +138,8 @@ export const UserPreferencesSchema = z.object({
   budget: z.number().nonnegative().default(60),
   currency: z.enum(CURRENCIES).default('EUR'),
   supermarket: z.string().default(''),
+  /** Märkte, die im Supermarkt-Vergleich berücksichtigt werden. Leer = alle 7. */
+  preferredStores: z.array(z.enum(STORE_IDS)).default([]),
   /** Bevorzugte Produkt-Labels (Bio/Fairtrade/Vegan/Regional). Aktiv = wo verfügbar bevorzugt. */
   preferredProductFlags: z.array(z.enum(PRODUCT_FLAGS)).default([]),
   diet: z.enum(DIETS).default('omnivor'),

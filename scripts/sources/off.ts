@@ -41,10 +41,12 @@ function saveCache(cache: Cache): void {
 function mapLabels(tags: string[]): ProductFlag[] {
   const t = tags.map((x) => x.toLowerCase());
   const flags: ProductFlag[] = [];
-  if (t.some((x) => x.includes('organic') || x.includes('bio'))) flags.push('bio');
+  // Bio-Siegel: EU-Bio/organic + gängige Verbände (demeter/bioland/naturland) → alle als `bio`.
+  if (t.some((x) => /organic|\bbio\b|demeter|bioland|naturland/.test(x))) flags.push('bio');
   if (t.some((x) => x.includes('vegan'))) flags.push('vegan');
-  if (t.some((x) => x.includes('fair')))
-    flags.push('fairtrade');
+  if (t.some((x) => x.includes('fair'))) flags.push('fairtrade');
+  // Regional: OFF kennt „regional"/„local" nur schwach — best effort (i. d. R. via Overlay ergänzt).
+  if (t.some((x) => /regional|\blocal\b|aus-der-region/.test(x))) flags.push('regional');
   return flags;
 }
 

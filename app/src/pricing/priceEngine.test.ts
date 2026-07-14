@@ -186,6 +186,48 @@ describe('PriceEngine.wholePackageCost', () => {
   });
 });
 
+describe('PriceEngine.ingredientPurchase', () => {
+  const eng = new PriceEngine(seed, []);
+
+  it('winzige Menge -> ganze Packung (kein Teelöffel einzeln kaufbar)', () => {
+    const p = eng.ingredientPurchase({ name: 'Hähnchenbrust', amount: 50, unit: 'g' });
+    expect(p.status).toBe('ok');
+    expect(p.packages).toBe(1);
+    expect(p.cost).toBeCloseTo(4.0); // ganze 500-g-Packung, nicht anteilig 0,40 €
+    expect(p.packageSize).toBe(500);
+    expect(p.packageUnit).toBe('g');
+  });
+
+  it('rundet auf mehrere Packungen auf', () => {
+    const p = eng.ingredientPurchase({ name: 'Hähnchenbrust', amount: 600, unit: 'g' });
+    expect(p.packages).toBe(2);
+    expect(p.cost).toBeCloseTo(8.0);
+  });
+
+  it('unterscheidet sich vom anteiligen ingredientCost', () => {
+    const scaled = { name: 'Hähnchenbrust', amount: 50, unit: 'g' as const };
+    expect(eng.ingredientCost(scaled).cost).toBeCloseTo(0.4); // anteilig
+    expect(eng.ingredientPurchase(scaled).cost).toBeCloseTo(4.0); // ganze Packung
+  });
+
+  it('KI-Fallback nutzt die KI-Packungsgröße', () => {
+    const ai = new Map([
+      ['kurkuma', { pricePerPackage: 1.49, packageSize: 40, packageUnit: 'g' as const }],
+    ]);
+    const engAi = new PriceEngine([], [], { aiPrices: ai });
+    const p = engAi.ingredientPurchase({ name: 'Kurkuma', amount: 2, unit: 'g' });
+    expect(p.source).toBe('ai');
+    expect(p.packages).toBe(1);
+    expect(p.cost).toBeCloseTo(1.49);
+  });
+
+  it('unmatched -> status unmatched, cost 0', () => {
+    const p = eng.ingredientPurchase({ name: 'Einhornstaub', amount: 10, unit: 'g' });
+    expect(p.status).toBe('unmatched');
+    expect(p.cost).toBe(0);
+  });
+});
+
 describe('PriceEngine.wholePackageCostForStore', () => {
   const storeSeed: SeedPrice[] = [
     { productKey: 'haehnchenbrust', label: 'Hähnchenbrust', brand: 'Meine Metzgerei', storeId: 'aldi', storeType: 'discounter', aisle: 'fleisch-fisch', packageSize: 500, packageUnit: 'g', pricePerPackage: 4.0 },
@@ -260,5 +302,35 @@ describe('PriceEngine.wholePackageCostForStore', () => {
     const est = e.wholePackageCostForStore('mehl', 'Mehl', 1000, 'mass', 'aldi');
     expect(est.dataSource).toBe('estimate');
     expect(est.priceDate).toBeUndefined();
+  });
+});
+
+describe('PriceEngine — Stück-Frischware (Ø-Stückgewicht)', () => {
+  const produce: SeedPrice[] = [
+    {
+      productKey: 'zwiebeln',
+      label: 'Zwiebeln',
+      storeId: 'aldi',
+      storeType: 'discounter',
+      aisle: 'obst-gemüse',
+      packageSize: 1000,
+      packageUnit: 'g',
+      pricePerPackage: 1.2,
+    },
+  ];
+  const eng = new PriceEngine(produce, []);
+
+  it('bepreist „2 Zwiebeln" (stück) über das Ø-Stückgewicht statt „—"', () => {
+    const c = eng.ingredientCost({ name: 'Zwiebeln', amount: 2, unit: 'stück' });
+    expect(c.status).toBe('ok');
+    // 2 Stück × 120 g = 240 g × (1,20 € / 1000 g)
+    expect(c.cost).toBeCloseTo((2 * 120) * (1.2 / 1000));
+  });
+
+  it('Einkauf: „2 Zwiebeln" -> eine ganze 1000-g-Packung', () => {
+    const p = eng.ingredientPurchase({ name: 'Zwiebeln', amount: 2, unit: 'stück' });
+    expect(p.status).toBe('ok');
+    expect(p.packages).toBe(1);
+    expect(p.cost).toBeCloseTo(1.2);
   });
 });
