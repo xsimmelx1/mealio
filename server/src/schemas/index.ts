@@ -4,6 +4,7 @@
  */
 
 import { z } from 'zod';
+import { llmRecipeSchema } from '../llm/recipeSchema.js';
 
 /** Kurzer, getrimmter String mit Längengrenze (Input-Sanitizing). */
 const shortString = z.string().trim().min(1).max(120);
@@ -115,5 +116,18 @@ export const recipeImagesSchema = z.object({
 });
 
 export type RecipeImagesInput = z.infer<typeof recipeImagesSchema>;
+
+/**
+ * Request-Vertrag für POST /adapt-recipe. `recipe` ist ein bereits (im Frontend)
+ * deterministisch auf die Ziel-Diät umgestelltes Rezept (LLM-Rezeptschema); der Endpunkt
+ * schreibt nur dessen Kochschritte um. Unbekannte Zutat-Felder (z. B. productMatchId)
+ * werden von llmRecipeSchema still verworfen.
+ */
+export const adaptRecipeSchema = z.object({
+  recipe: llmRecipeSchema,
+  targetDiet: z.enum(['vegetarisch', 'vegan']),
+});
+
+export type AdaptRecipeInput = z.infer<typeof adaptRecipeSchema>;
 
 // Hinweis: Der validierte Rezept-Typ lebt in llm/recipeSchema.ts (recipe-engine, M9).
