@@ -6,7 +6,7 @@ import {
   type StoreId,
 } from '../domain/enums';
 import { matchProductKey, normalizeName } from './productMatch';
-import { packageDimension, reconcileFactor, toBase, type Dimension } from './units';
+import { packageDimension, PIECE_GRAMS, reconcileFactor, toBase, type Dimension } from './units';
 import type { Ingredient, Recipe } from '../domain/schema';
 
 /** KI-geschätzter Preis für eine Zutat (keyed nach normalizeName). */
@@ -243,7 +243,7 @@ export class PriceEngine {
       const product = this.resolve(key);
       if (product) {
         const base = toBase(ing.amount, ing.unit);
-        const factor = reconcileFactor(base.dim, product.dim);
+        const factor = reconcileFactor(base.dim, product.dim, PIECE_GRAMS[key]);
         if (factor !== null) {
           return { status: 'ok', productKey: key, cost: base.qty * factor * product.basePricePerUnit, source: product.source };
         }
@@ -254,7 +254,7 @@ export class PriceEngine {
     const ai = this.aiPrices.get(normalizeName(ing.name));
     if (ai && ai.packageSize > 0) {
       const base = toBase(ing.amount, ing.unit);
-      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit));
+      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit), key ? PIECE_GRAMS[key] : undefined);
       if (factor !== null) {
         const cost = base.qty * factor * (ai.pricePerPackage / ai.packageSize);
         return { status: 'ok', productKey: key, cost, source: 'ai' };
@@ -282,7 +282,7 @@ export class PriceEngine {
       const product = this.resolve(key);
       if (product) {
         const base = toBase(ing.amount, ing.unit);
-        const factor = reconcileFactor(base.dim, product.dim);
+        const factor = reconcileFactor(base.dim, product.dim, PIECE_GRAMS[key]);
         if (factor !== null) {
           const packages = Math.max(1, Math.ceil((base.qty * factor) / product.packageSize));
           return {
@@ -302,7 +302,7 @@ export class PriceEngine {
     const ai = this.aiPrices.get(normalizeName(ing.name));
     if (ai && ai.packageSize > 0) {
       const base = toBase(ing.amount, ing.unit);
-      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit));
+      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit), key ? PIECE_GRAMS[key] : undefined);
       if (factor !== null) {
         const packages = Math.max(1, Math.ceil((base.qty * factor) / ai.packageSize));
         return {
@@ -354,7 +354,7 @@ export class PriceEngine {
   ): { cost: number | null; source: PriceSource | null; packages: number } {
     const product = this.resolve(productKey);
     if (!product) return { cost: null, source: null, packages: 0 };
-    const factor = reconcileFactor(dim, product.dim);
+    const factor = reconcileFactor(dim, product.dim, PIECE_GRAMS[productKey]);
     if (factor === null) return { cost: null, source: null, packages: 0 };
     const needed = totalBaseQty * factor;
     const packages = Math.max(1, Math.ceil(needed / product.packageSize));
@@ -385,7 +385,7 @@ export class PriceEngine {
       const normalPick = this.chooseStoreRow(storeRows.filter((p) => !p.isOffer)) ?? this.chooseStoreRow(storeRows);
       const offerPick = this.chooseStoreRow(storeRows.filter((p) => p.isOffer));
       const lineFor = (row: SeedPrice) => {
-        const factor = reconcileFactor(dim, packageDimension(row.packageUnit));
+        const factor = reconcileFactor(dim, packageDimension(row.packageUnit), PIECE_GRAMS[productKey]);
         if (factor === null) return null;
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / row.packageSize));
         return { row, packages, cost: round2(packages * row.pricePerPackage), base: row.pricePerPackage / row.packageSize };
@@ -421,7 +421,7 @@ export class PriceEngine {
     // 2. KI-Fallback: marktneutraler Basispreis × Markt-Index.
     const ai = this.aiPrices.get(normalizeName(name));
     if (ai && ai.packageSize > 0) {
-      const factor = reconcileFactor(dim, packageDimension(ai.packageUnit));
+      const factor = reconcileFactor(dim, packageDimension(ai.packageUnit), productKey ? PIECE_GRAMS[productKey] : undefined);
       if (factor !== null) {
         const perPackage = ai.pricePerPackage * STORE_PRICE_INDEX[storeId];
         const packages = Math.max(1, Math.ceil((totalBaseQty * factor) / ai.packageSize));

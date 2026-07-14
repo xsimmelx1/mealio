@@ -304,3 +304,33 @@ describe('PriceEngine.wholePackageCostForStore', () => {
     expect(est.priceDate).toBeUndefined();
   });
 });
+
+describe('PriceEngine — Stück-Frischware (Ø-Stückgewicht)', () => {
+  const produce: SeedPrice[] = [
+    {
+      productKey: 'zwiebeln',
+      label: 'Zwiebeln',
+      storeId: 'aldi',
+      storeType: 'discounter',
+      aisle: 'obst-gemüse',
+      packageSize: 1000,
+      packageUnit: 'g',
+      pricePerPackage: 1.2,
+    },
+  ];
+  const eng = new PriceEngine(produce, []);
+
+  it('bepreist „2 Zwiebeln" (stück) über das Ø-Stückgewicht statt „—"', () => {
+    const c = eng.ingredientCost({ name: 'Zwiebeln', amount: 2, unit: 'stück' });
+    expect(c.status).toBe('ok');
+    // 2 Stück × 120 g = 240 g × (1,20 € / 1000 g)
+    expect(c.cost).toBeCloseTo((2 * 120) * (1.2 / 1000));
+  });
+
+  it('Einkauf: „2 Zwiebeln" -> eine ganze 1000-g-Packung', () => {
+    const p = eng.ingredientPurchase({ name: 'Zwiebeln', amount: 2, unit: 'stück' });
+    expect(p.status).toBe('ok');
+    expect(p.packages).toBe(1);
+    expect(p.cost).toBeCloseTo(1.2);
+  });
+});

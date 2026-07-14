@@ -27,9 +27,16 @@ describe('reconcileFactor', () => {
     expect(reconcileFactor('mass', 'volume')).toBe(1);
     expect(reconcileFactor('volume', 'mass')).toBe(1);
   });
-  it('Stück <-> Nicht-Stück -> null (unbekannt)', () => {
+  it('Stück <-> Nicht-Stück ohne Stückgewicht -> null (unbekannt)', () => {
     expect(reconcileFactor('count', 'mass')).toBeNull();
     expect(reconcileFactor('mass', 'count')).toBeNull();
+  });
+  it('Stück <-> Masse mit Stückgewicht -> umgerechnet', () => {
+    // 1 Stück -> 120 g: Faktor 120; Rückrichtung 1/120.
+    expect(reconcileFactor('count', 'mass', 120)).toBe(120);
+    expect(reconcileFactor('mass', 'count', 120)).toBeCloseTo(1 / 120);
+    // Ungültiges/fehlendes Stückgewicht -> weiterhin null.
+    expect(reconcileFactor('count', 'mass', 0)).toBeNull();
   });
 });
 
