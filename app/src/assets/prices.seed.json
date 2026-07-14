@@ -605,14 +605,19 @@
   {
     "productKey": "bruehe",
     "label": "Gemüsebrühe (ergibt Brühe)",
-    "brand": "Eigenmarke",
+    "brand": "supermarktcompare",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "gewürze",
     "packageSize": 7000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.63,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.99,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "bio Gemüsebrühe ergibt 7 Liter",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "bruehe",
@@ -690,8 +695,10 @@
     "aisle": "gewürze",
     "packageSize": 7000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.83,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.59,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "K Classic Klare Gemüse-Brühe ergibt 7 Liter"
   },
   {
     "productKey": "butter",
@@ -1839,14 +1846,16 @@
   {
     "productKey": "hackfleisch",
     "label": "Hackfleisch gemischt",
-    "brand": "Eigenmarke",
+    "brand": "Tillmans",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 4.01,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.79,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Tillmans Hackfleisch  gemischt (500g)"
   },
   {
     "productKey": "hackfleisch",
@@ -1863,14 +1872,16 @@
   {
     "productKey": "hackfleisch",
     "label": "Hackfleisch gemischt",
-    "brand": "Penny",
+    "brand": "Heinz Wille",
     "storeId": "penny",
     "storeType": "discounter",
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 4.16,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.89,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Heinz Wille Hackfleisch gemischt (500g)"
   },
   {
     "productKey": "hackfleisch",
@@ -1915,14 +1926,16 @@
   {
     "productKey": "hackfleisch",
     "label": "Hackfleisch gemischt",
-    "brand": "K-Classic",
+    "brand": "Purland",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "fleisch-fisch",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 4.5,
-    "dataSource": "estimate"
+    "pricePerPackage": 3.99,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Purland Hackfleisch Schwein und Rind gemischt (500g)"
   },
   {
     "productKey": "hackfleisch",
@@ -2207,14 +2220,16 @@
   {
     "productKey": "haferflocken",
     "label": "Haferflocken",
-    "brand": "Eigenmarke",
+    "brand": "Knusperone",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.57,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.79,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Knusperone Haferflocken Zarte (500g)"
   },
   {
     "productKey": "haferflocken",
@@ -2288,8 +2303,10 @@
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 0.63,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.79,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "K Classic Haferflocken zart (500g)"
   },
   {
     "productKey": "honig",
@@ -2898,14 +2915,16 @@
   {
     "productKey": "kokosmilch",
     "label": "Kokosmilch",
-    "brand": "Eigenmarke",
+    "brand": "Caribic",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "konserven",
-    "packageSize": 400,
+    "packageSize": 500,
     "packageUnit": "ml",
-    "pricePerPackage": 0.98,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.65,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Caribic Creme Seife flüssig Mango &amp; Kokosmilch (500ml)"
   },
   {
     "productKey": "kokosmilch",
@@ -2985,14 +3004,16 @@
   {
     "productKey": "lachsfilet",
     "label": "Lachsfilet",
-    "brand": "Eigenmarke",
+    "brand": "Mama Mancini",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "fleisch-fisch",
-    "packageSize": 250,
+    "packageSize": 400,
     "packageUnit": "g",
-    "pricePerPackage": 3.85,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.99,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Mama Mancini Pasta Deliziosa mit Lachsfilet (400g)"
   },
   {
     "productKey": "lachsfilet",
@@ -3060,14 +3081,16 @@
   {
     "productKey": "lachsfilet",
     "label": "Lachsfilet",
-    "brand": "K-Classic",
+    "brand": "Lachsfilet",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "fleisch-fisch",
-    "packageSize": 250,
+    "packageSize": 100,
     "packageUnit": "g",
-    "pricePerPackage": 4.31,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.69,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Lachsfilet ohne Haut frisch (100g)"
   },
   {
     "productKey": "lachsfilet",
@@ -3177,14 +3200,16 @@
   {
     "productKey": "mehl",
     "label": "Weizenmehl Type 405",
-    "brand": "Eigenmarke",
+    "brand": "Back Family",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "backwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 0.48,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.59,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Back Family Weizenmehl Type 405 1kg"
   },
   {
     "productKey": "mehl",
@@ -3369,14 +3394,16 @@
   {
     "productKey": "mozzarella",
     "label": "Mozzarella",
-    "brand": "Eigenmarke",
+    "brand": "Cucina",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "kühlregal",
-    "packageSize": 125,
+    "packageSize": 200,
     "packageUnit": "g",
-    "pricePerPackage": 0.7,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.55,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Cucina Mozzarella (200g)"
   },
   {
     "productKey": "mozzarella",
@@ -4157,14 +4184,16 @@
   {
     "productKey": "rapsoel",
     "label": "Rapsöl",
-    "brand": "Eigenmarke",
+    "brand": "supermarktcompare",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "sonstiges",
     "packageSize": 500,
     "packageUnit": "ml",
-    "pricePerPackage": 1.43,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.55,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Rapsöl 500 ml"
   },
   {
     "productKey": "rapsoel",
@@ -4235,14 +4264,18 @@
   {
     "productKey": "rapsoel",
     "label": "Rapsöl",
-    "brand": "K-Classic",
+    "brand": "Osana",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "sonstiges",
-    "packageSize": 500,
+    "packageSize": 1000,
     "packageUnit": "ml",
-    "pricePerPackage": 1.61,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.59,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Rapsöl",
+    "ean": "4099200029863",
+    "ecoScore": "c"
   },
   {
     "productKey": "rapsoel",
@@ -4277,14 +4310,16 @@
   {
     "productKey": "reis",
     "label": "Langkornreis",
-    "brand": "Eigenmarke",
+    "brand": "Golden Sun",
     "storeId": "lidl",
     "storeType": "discounter",
     "aisle": "trockenwaren",
     "packageSize": 1000,
     "packageUnit": "g",
-    "pricePerPackage": 2.15,
-    "dataSource": "estimate"
+    "pricePerPackage": 1.19,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Golden Sun Spitzen Langkornreis im Kochbeutel (1000g)"
   },
   {
     "productKey": "reis",
@@ -4343,14 +4378,16 @@
   {
     "productKey": "reis",
     "label": "Langkornreis",
-    "brand": "K-Classic",
+    "brand": "Wurzener Langkornreis",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "trockenwaren",
-    "packageSize": 1000,
+    "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 2.38,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.95,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Wurzener Langkornreis lose (500g)"
   },
   {
     "productKey": "rindergulasch",
@@ -4442,14 +4479,16 @@
   {
     "productKey": "rote-linsen",
     "label": "Rote Linsen",
-    "brand": "Eigenmarke",
+    "brand": "Le Gusto",
     "storeId": "aldi",
     "storeType": "discounter",
     "aisle": "trockenwaren",
     "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 1.35,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.99,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "Le Gusto Rote Linsen (500g)"
   },
   {
     "productKey": "rote-linsen",
@@ -5492,10 +5531,12 @@
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "konserven",
-    "packageSize": 164,
+    "packageSize": 71,
     "packageUnit": "ml",
-    "pricePerPackage": 1.74,
-    "dataSource": "estimate"
+    "pricePerPackage": 0.25,
+    "dataSource": "real",
+    "priceDate": "2026-07",
+    "productName": "K Classic Tomatenmark  2-fach konzentriert (71ml)"
   },
   {
     "productKey": "trockenhefe",

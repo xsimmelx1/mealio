@@ -23,7 +23,23 @@ import type { IngredientSpec, OfferSource } from './lib/types';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SEED_PATH = resolve(__dirname, '../app/src/assets/prices.seed.json');
 const CATALOG_PATH = resolve(__dirname, 'ingredients.catalog.json');
+const FALLBACK_PATH = resolve(__dirname, '../app/src/assets/fallbackPrices.json');
 const round2 = (n: number) => Math.round(n * 100) / 100;
+
+/** Lädt die einmalig gezogene SC-Fallback-Grundlage (key|store -> Zeile). Fehlt sie -> leer. */
+function loadFallback(): Map<string, SeedPrice> {
+  const map = new Map<string, SeedPrice>();
+  try {
+    const raw = JSON.parse(readFileSync(FALLBACK_PATH, 'utf8')) as SeedPrice[];
+    for (const r of raw) {
+      const p = SeedPriceSchema.safeParse(r);
+      if (p.success && !p.data.isOffer) map.set(`${p.data.productKey}|${p.data.storeId}`, p.data);
+    }
+  } catch {
+    /* optional */
+  }
+  return map;
+}
 
 interface OldMeta {
   label: string;
@@ -192,6 +208,46 @@ async function main() {
     }
   }
 
+  // SC-Fallback: abgeleitete Schätzungen durch echte supermarktcompare-Preise ersetzen, wo vorhanden
+  // (v. a. Frischware + Discounter-Normalpreise). REWE-Real und Angebote bleiben unangetastet.
+  const fallback = loadFallback();
+  const base = (r: SeedPrice) => r.pricePerPackage / r.packageSize;
+  const scOrig = new Map<number, SeedPrice>(); // index -> ursprüngliche Schätzzeile (für Rücknahme)
+  if (fallback.size) {
+    // 1) Merge mit losem Band gegen GROBE Fehlzuordnungen (0,25×–4× des Ankers).
+    for (let i = 0; i < raw.length; i++) {
+      const r = raw[i];
+      if (r.dataSource !== 'estimate' || r.isOffer) continue;
+      const fb = fallback.get(`${r.productKey}|${r.storeId}`);
+      if (!fb) continue;
+      const ref = anchorBaseByKey.get(r.productKey) ?? base(r);
+      const b = base(fb);
+      if (b >= ref * 0.25 && b <= ref * 4) {
+        scOrig.set(i, r);
+        raw[i] = fb;
+      }
+    }
+    // 2) Post-Pass: pro Zutat SC-Zeilen zurücknehmen, bis Grundpreis-Spreizung ≤5 (Ausreißer zuerst).
+    const idxByKey = new Map<string, number[]>();
+    raw.forEach((r, i) => idxByKey.set(r.productKey, [...(idxByKey.get(r.productKey) ?? []), i]));
+    for (const idxs of idxByKey.values()) {
+      const bases = () => idxs.map((i) => base(raw[i]));
+      let guard = 0;
+      while (Math.max(...bases()) / Math.min(...bases()) > 5 && guard++ < 20) {
+        const med = [...bases()].sort((a, b2) => a - b2)[Math.floor(idxs.length / 2)];
+        // entfernbare (SC-ersetzte) Zeile mit größtem Abstand zum Median finden
+        const cand = idxs
+          .filter((i) => scOrig.has(i))
+          .sort((a, b2) => Math.abs(Math.log(base(raw[b2]) / med)) - Math.abs(Math.log(base(raw[a]) / med)));
+        if (cand.length === 0) break;
+        const revert = cand[0];
+        raw[revert] = scOrig.get(revert)!;
+        scOrig.delete(revert);
+      }
+    }
+  }
+  const scReplaced = scOrig.size;
+
   // Open-Food-Facts-Anreicherung: echte Zeilen mit EAN → Fairtrade/Bio/Vegan + Nutri-/Eco-Score.
   const eans = raw.filter((r) => r.dataSource === 'real' && r.ean).map((r) => r.ean as string);
   console.log(`Open Food Facts: reichere ${new Set(eans).size} EANs an …`);
@@ -238,7 +294,9 @@ async function main() {
   writeFileSync(SEED_PATH, JSON.stringify(rows, null, 2) + '\n', 'utf8');
 
   console.log(`\n${allKeys.length} Zutaten, ${rows.length} Zeilen -> ${SEED_PATH}`);
-  console.log(`Echte REWE-Treffer: ${realKeys}/${allKeys.length} · Angebotszeilen: ${offerRows} · Zeilen mit Label: ${flagged}`);
+  console.log(
+    `Echte REWE-Treffer: ${realKeys}/${allKeys.length} · Angebotszeilen: ${offerRows} · SC-Fallback ersetzt: ${scReplaced} · Zeilen mit Label: ${flagged}`,
+  );
   console.log('Pro Markt (real/estimate/offer):');
   for (const id of STORE_IDS)
     console.log(`  ${id.padEnd(9)} real=${report[id].real}  estimate=${report[id].estimate}  offer=${report[id].offer}`);

@@ -16,7 +16,8 @@
     "test:app": "npm run test -w app",
     "test:server": "npm run test -w server",
     "lint": "npm run lint -w app --if-present && npm run lint -w server --if-present",
-    "gen:prices": "tsx scripts/genPrices.ts"
+    "gen:prices": "tsx scripts/genPrices.ts",
+    "gen:fallback": "tsx scripts/genFallback.ts"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

@@ -16,16 +16,16 @@ export interface MatchResult {
 export function matchProduct(
   spec: IngredientSpec,
   products: RawProduct[],
-  opts: { offers?: boolean } = {},
+  opts: { offers?: boolean; ignoreCategory?: boolean; anySale?: boolean } = {},
 ): MatchResult | null {
   const terms = spec.terms.map(lc);
   const excludes = (spec.exclude ?? []).map(lc);
   const prefer = (spec.preferBrands ?? ['ja!', 'rewe']).map(lc);
-  const cats = spec.categories;
+  const cats = opts.ignoreCategory ? undefined : spec.categories;
   const wantOffers = opts.offers === true;
 
   const candidates = products.filter((p) => {
-    if (p.sale !== wantOffers) return false; // Normalprodukte bzw. (offers:true) nur Angebote
+    if (!opts.anySale && p.sale !== wantOffers) return false; // Normal- bzw. (offers) Angebotsprodukte
     if (p.price <= 0 || p.size <= 0) return false;
     if (p.unit !== spec.packageUnit) return false;
     if (cats && cats.length && !cats.includes(p.category)) return false;

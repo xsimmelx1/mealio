@@ -43,6 +43,16 @@ Jede Zeile trägt `dataSource` (`real`/`estimate`), bei `real` zusätzlich `pric
 - Nutzer-Präferenz `preferredProductFlags`: ist ein Label aktiv, bevorzugt die Engine wo verfügbar die
   gelabelte Variante (sonst Fallback), inkl. Badges im Vergleich/Liste.
 
+## SC-Fallback-Grundlage (einmalig)
+`npm run gen:fallback` zieht **einmalig** echte per-Markt-Preise (inkl. Discounter + Frischware)
+von der offenen JSON-API von supermarktcompare.de für alle Katalog-Zutaten und schreibt
+`app/src/assets/fallbackPrices.json` (gecacht in `scripts/cache/sc.json`). `gen:prices` ersetzt
+damit abgeleitete Schätzungen durch echte SC-Preise, wo weder REWE- noch Angebotsdaten vorliegen —
+mit Plausibilitäts-Band (0,25×–4× Anker) + Post-Pass, der pro Zutat die Grundpreis-Spreizung ≤5 hält.
+Bewusst getrennt vom Live-Lauf (gebackene Grundlage, keine Live-Abhängigkeit).
+**Attribution/Recht:** supermarktcompare.de ist ein kommerzieller Aggregator (keine offene Lizenz) —
+vor produktiver Auslieferung ToS prüfen und Quelle im Impressum nennen.
+
 ## Weitere Quellen andocken
 Neuen Adapter in `sources/` anlegen (`PriceSource`), in `genPrices.ts` einhängen und die
 echten Treffer je `storeId` bevorzugt vor der Ableitung verwenden. Kandidaten:
