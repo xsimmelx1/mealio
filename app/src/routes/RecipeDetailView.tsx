@@ -1,30 +1,47 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { fetchNutrition } from '../api/client';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { adaptRecipeSteps, fetchNutrition } from '../api/client';
 import EstimateBadge from '../components/EstimateBadge';
+import ChipSingleSelect from '../components/forms/ChipSingleSelect';
 import NumberStepper from '../components/forms/NumberStepper';
+import Toggle from '../components/forms/Toggle';
 import RecipeImage from '../components/RecipeImage';
-import { MEAL_STYLE_LABELS } from '../domain/enums';
+import { MEAL_STYLE_LABELS, SUPERMARKETS } from '../domain/enums';
+import type { Recipe } from '../domain/schema';
 import { db } from '../db/db';
-import { toggleFavorite } from '../db/recipeActions';
+import { importCatalogRecipes, toggleFavorite } from '../db/recipeActions';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { formatAmount, scaleAmount } from '../lib/format';
+import { adaptRecipeToDiet, type AdaptResult, type TargetDiet } from '../plan/dietSubstitutions';
 import { whySuitable } from '../plan/filterRecipes';
 import { formatPrice } from '../pricing';
 import { ensureAiEstimates } from '../pricing/aiPrices';
 import { ensureRecipeImages } from '../images/recipeImages';
-import { usePriceEngine } from '../pricing/usePriceEngine';
+import { useLocalPriceEngine } from '../pricing/useLocalPriceEngine';
 import { usePrefsStore } from '../state/prefsStore';
+
+const SUPERMARKET_OPTIONS: { value: string; label: string }[] = SUPERMARKETS.map((s) => ({
+  value: s.value,
+  label: s.label,
+}));
 
 export default function RecipeDetailView() {
   const { recipeId } = useParams<{ recipeId: string }>();
+  const navigate = useNavigate();
   const prefs = usePrefsStore((s) => s.prefs);
-  const engine = usePriceEngine();
 
   const online = useOnlineStatus();
   const recipe = useLiveQuery(() => (recipeId ? db.recipes.get(recipeId) : undefined), [recipeId]);
   const [servings, setServings] = useState<number | null>(null);
+  // Ephemere Preis-Linse (Default aus Prefs) — ändert die globalen Prefs NICHT.
+  const [store, setStore] = useState(prefs.supermarket);
+  const [bio, setBio] = useState(prefs.preferredProductFlags.includes('bio'));
+  // Vorschau der Diät-Umstellung (nicht persistiert bis „Speichern").
+  const [preview, setPreview] = useState<AdaptResult | null>(null);
+  const [polishing, setPolishing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const engine = useLocalPriceEngine(store, bio ? ['bio'] : []);
   const [nutrition, setNutrition] = useState<{ loading: boolean; note: string | null }>({
     loading: false,
     note: null,
@@ -74,6 +91,11 @@ export default function RecipeDetailView() {
     }
   }, [recipe?.id, online]);
 
+  // Beim Wechsel des Rezepts eine offene Umstellungs-Vorschau verwerfen.
+  useEffect(() => {
+    setPreview(null);
+  }, [recipeId]);
+
   if (recipe === undefined) {
     return <p className="p-4 text-slate-400">Lädt …</p>;
   }
@@ -89,11 +111,55 @@ export default function RecipeDetailView() {
     );
   }
 
-  const activeServings = servings ?? recipe.baseServings;
-  const factor = activeServings / recipe.baseServings;
+  // Angezeigtes Rezept: Umstellungs-Vorschau, sonst das Original.
+  const view = preview?.recipe ?? recipe;
+
+  // Ein Rezept auf eine Diät umstellen: deterministische Zutaten-Ersetzung (offline),
+  // danach — wenn online — Kochschritte per KI an die neuen Zutaten anpassen.
+  const applyDiet = async (diet: TargetDiet) => {
+    const result = adaptRecipeToDiet(recipe, diet);
+    setPreview(result);
+    if (!online) return;
+    setPolishing(true);
+    try {
+      const steps = await adaptRecipeSteps(result.recipe, diet);
+      setPreview((p) => (p ? { ...p, recipe: { ...p.recipe, steps } } : p));
+    } catch {
+      /* KI-Politur optional — deterministische Schritte bleiben. */
+    } finally {
+      setPolishing(false);
+    }
+  };
+
+  // Umgestellte Vorschau als eigenständiges neues Rezept sichern (Original bleibt).
+  const saveAdapted = async () => {
+    if (!preview) return;
+    setSaving(true);
+    const now = Date.now();
+    const adapted: Recipe = {
+      ...preview.recipe,
+      id: `adapted-${recipe.id}-${now}`,
+      source: 'adapted',
+      sourceUrl: recipe.id,
+      nutritionPerServing: null,
+      estimatedCostPerServing: null,
+      isFavorite: false,
+      createdAt: now,
+    };
+    try {
+      await importCatalogRecipes([adapted]);
+      setPreview(null);
+      navigate(`/recipe/${adapted.id}`);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const activeServings = servings ?? view.baseServings;
+  const factor = activeServings / view.baseServings;
   // Zwei Perspektiven: `purchase` = was man an der Kasse zahlt (ganze Packungen — man kann keinen
   // Teelöffel Kurkuma einzeln kaufen), `consumed` = anteiliger Verbrauchswert im Rezept.
-  const ingredientsTotal = recipe.ingredients.reduce(
+  const ingredientsTotal = view.ingredients.reduce(
     (acc, ing) => {
       const scaled = { ...ing, amount: scaleAmount(ing.amount, factor) };
       const c = engine.ingredientCost(scaled);
@@ -107,9 +173,9 @@ export default function RecipeDetailView() {
     },
     { purchase: 0, consumed: 0, matched: 0 },
   );
-  const reasons = whySuitable(recipe, prefs);
-  const cost = engine.recipeCost(recipe);
-  const macros = recipe.nutritionPerServing;
+  const reasons = whySuitable(view, prefs);
+  const cost = engine.recipeCost(view);
+  const macros = view.nutritionPerServing;
 
   return (
     <div className="pb-4">
@@ -170,6 +236,92 @@ export default function RecipeDetailView() {
           </div>
           <div className="text-xs text-slate-500">pro Portion</div>
         </div>
+      </div>
+
+      {/* Rezept-Optionen: Preis-Linse (Supermarkt/Bio) + Diät-Umstellung */}
+      <div className="card mb-4 flex flex-col gap-4 p-4">
+        <div>
+          <div className="mb-1.5 text-xs font-medium text-slate-500">Preise für Supermarkt</div>
+          <ChipSingleSelect
+            options={SUPERMARKET_OPTIONS}
+            value={store}
+            onChange={setStore}
+            ariaLabel="Supermarkt für Preise"
+          />
+        </div>
+        <Toggle
+          checked={bio}
+          onChange={setBio}
+          label="🌱 Bio bevorzugen"
+          description="Preise für Bio-Varianten, wo verfügbar."
+        />
+        <div className="border-t border-slate-100 pt-3">
+          <div className="mb-1.5 text-xs font-medium text-slate-500">
+            Auf pflanzlich umstellen {polishing && <span className="text-brand-500">· KI passt Schritte an …</span>}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => void applyDiet('vegetarisch')}
+              className="rounded-full bg-white px-4 py-2 text-sm font-medium text-emerald-700 ring-1 ring-emerald-200 active:scale-95"
+            >
+              🥕 Vegetarisch
+            </button>
+            <button
+              type="button"
+              onClick={() => void applyDiet('vegan')}
+              className="rounded-full bg-white px-4 py-2 text-sm font-medium text-emerald-700 ring-1 ring-emerald-200 active:scale-95"
+            >
+              🌿 Vegan
+            </button>
+            {preview && (
+              <button
+                type="button"
+                onClick={() => setPreview(null)}
+                className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-500 ring-1 ring-slate-200 active:scale-95"
+              >
+                ↩︎ Original
+              </button>
+            )}
+          </div>
+        </div>
+
+        {preview && (
+          <div className="rounded-card bg-emerald-50 p-3">
+            <div className="mb-1 text-sm font-semibold text-emerald-800">
+              Vorschau: umgestelltes Rezept
+              <span className="ml-1 text-xs font-normal text-emerald-700">
+                ({online ? 'Schritte KI-angepasst' : 'Schritte automatisch ersetzt'})
+              </span>
+            </div>
+            {preview.substitutions.length > 0 ? (
+              <ul className="flex flex-col gap-0.5 text-xs text-emerald-900/80">
+                {preview.substitutions.map((s, i) => (
+                  <li key={i}>
+                    {s.from} → <span className="font-medium">{s.to}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-emerald-900/80">Keine tierischen Zutaten gefunden — bereits passend.</p>
+            )}
+            {preview.unresolved.length > 0 && (
+              <p className="mt-2 rounded-lg bg-amber-100 px-2 py-1.5 text-xs text-amber-800">
+                ⚠️ Kein Ersatz für: {preview.unresolved.join(', ')}. Bitte manuell prüfen.
+              </p>
+            )}
+            <div className="mt-2 flex gap-2">
+              <button
+                type="button"
+                onClick={() => void saveAdapted()}
+                disabled={saving}
+                className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white active:scale-95 disabled:opacity-60"
+              >
+                {saving ? 'Speichere …' : 'Als neues Rezept speichern'}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Warum geeignet */}
@@ -236,7 +388,7 @@ export default function RecipeDetailView() {
           <span className="w-16 text-right">Anteil</span>
         </div>
         <ul className="flex flex-col divide-y divide-slate-100">
-          {recipe.ingredients.map((ing, i) => {
+          {view.ingredients.map((ing, i) => {
             const scaled = { ...ing, amount: scaleAmount(ing.amount, factor) };
             const c = engine.ingredientCost(scaled);
             const p = engine.ingredientPurchase(scaled);
@@ -294,7 +446,7 @@ export default function RecipeDetailView() {
       <div className="card p-4">
         <h2 className="mb-3 text-sm font-semibold text-slate-700">Zubereitung</h2>
         <ol className="flex flex-col gap-3">
-          {recipe.steps.map((step, i) => (
+          {view.steps.map((step, i) => (
             <li key={i} className="flex gap-3">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold text-white">
                 {i + 1}
