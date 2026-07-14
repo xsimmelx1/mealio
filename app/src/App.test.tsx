@@ -38,6 +38,19 @@ describe('App shell', () => {
       renderAt('/');
       expect(await screen.findByRole('heading', { name: 'Wochenplan' })).toBeInTheDocument();
     });
+
+    it('zeigt die Einkaufsliste als dauerhaftes Panel neben dem Plan (Desktop)', async () => {
+      renderAt('/plan');
+      await screen.findByRole('heading', { name: 'Wochenplan' });
+      // Das rechte Panel rendert die Einkaufsliste zusätzlich zum Hauptinhalt.
+      expect(screen.getByRole('heading', { name: 'Einkaufsliste' })).toBeInTheDocument();
+    });
+
+    it('dupliziert die Einkaufsliste nicht auf /list', async () => {
+      renderAt('/list');
+      const headings = await screen.findAllByRole('heading', { name: 'Einkaufsliste' });
+      expect(headings).toHaveLength(1);
+    });
   });
 
   it('zeigt Onboarding außerhalb des Tab-Layouts (ohne Bottom-Nav)', async () => {
