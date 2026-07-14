@@ -3,7 +3,14 @@ import { Link } from 'react-router-dom';
 import EstimateBadge from '../components/EstimateBadge';
 import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
-import { MEAL_TYPES, MEAL_TYPE_LABELS, SUPERMARKETS } from '../domain/enums';
+import {
+  MEAL_TYPES,
+  MEAL_TYPE_LABELS,
+  PRODUCT_FLAGS,
+  PRODUCT_FLAG_ICON,
+  SUPERMARKETS,
+} from '../domain/enums';
+import { PRODUCT_FLAG_LABELS } from '../domain/labels';
 import type { MealPlanEntry, Recipe } from '../domain/schema';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { isBudgetTight, suggestedBudget } from '../plan/budget';
@@ -168,6 +175,35 @@ export default function PlanView() {
                 }`}
               >
                 {s.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Schnellfilter: bevorzugte Produkt-Labels (Bio/Vegan/…) — rechnet Preise/Vergleich live um */}
+      <div className="mb-4">
+        <div className="mb-1 text-xs font-medium text-slate-500">Bevorzugte Labels</div>
+        <div className="-mx-1 flex flex-wrap gap-1 px-1">
+          {PRODUCT_FLAGS.map((f) => {
+            const active = prefs.preferredProductFlags.includes(f);
+            return (
+              <button
+                key={f}
+                type="button"
+                onClick={() =>
+                  void updatePrefs({
+                    preferredProductFlags: active
+                      ? prefs.preferredProductFlags.filter((x) => x !== f)
+                      : [...prefs.preferredProductFlags, f],
+                  })
+                }
+                aria-pressed={active}
+                className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  active ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 ring-1 ring-slate-200'
+                }`}
+              >
+                {PRODUCT_FLAG_ICON[f]} {PRODUCT_FLAG_LABELS[f]}
               </button>
             );
           })}

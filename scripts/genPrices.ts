@@ -89,13 +89,17 @@ async function main() {
     const match = spec ? matchProduct(spec, products) : null;
     const offer = spec ? matchProduct(spec, products, { offers: true }) : null;
 
+    // Anker-Priorität: echter Treffer > kuratierter Fallback der Spec > alter Bestand > Default.
+    // (Kuratierter Fallback schlägt bewusst `old`, damit stale/fehlmatchte Alt-Preise nicht kleben.)
+    const hasFallback = spec?.fallbackPrice != null;
     const anchor: Anchor = {
       productKey: key,
       label,
       aisle,
-      packageSize: match?.product.size ?? old?.packageSize ?? 1,
-      packageUnit: (match?.product.unit ?? old?.packageUnit ?? 'stück') as SeedPrice['packageUnit'],
-      pricePerPackage: match?.product.price ?? old?.pricePerPackage ?? 1,
+      packageSize: match?.product.size ?? (hasFallback ? spec!.fallbackSize ?? 1 : old?.packageSize ?? 1),
+      packageUnit: (match?.product.unit ??
+        (hasFallback ? spec!.fallbackUnit ?? 'stück' : old?.packageUnit ?? 'stück')) as SeedPrice['packageUnit'],
+      pricePerPackage: match?.product.price ?? (hasFallback ? (spec!.fallbackPrice as number) : old?.pricePerPackage ?? 1),
     };
     if (anchor.packageSize > 0) anchorBaseByKey.set(key, anchor.pricePerPackage / anchor.packageSize);
     if (match) realKeys++;

@@ -64,4 +64,9 @@ export interface IngredientSpec {
   preferBrands?: string[];
   /** Plausibler Packungsgrößen-Bereich in Basiseinheit (Ausreißer verwerfen). */
   size?: { min?: number; max?: number };
+  /** Kuratierter Fallback-Preis (EUR/Packung), falls keine echte Quelle matcht — garantiert einen Preis. */
+  fallbackPrice?: number;
+  /** Packungsgröße/-einheit zum Fallback-Preis. */
+  fallbackSize?: number;
+  fallbackUnit?: BaseUnit;
 }

@@ -361,5 +361,108 @@
     "exclude": ["barista kaffee"],
     "size": { "min": 500, "max": 1000 },
     "preferBrands": ["rewe", "ja!"]
+  },
+  {
+    "productKey": "zimt",
+    "label": "Zimt gemahlen",
+    "aisle": "gewürze",
+    "packageUnit": "g",
+    "terms": ["zimt"],
+    "categories": ["Kochen & Backen"],
+    "exclude": ["stern", "gebäck", "brötchen", "schnecke", "tee", "zucker", "müsli", "porridge", "risbellis", "reis-fit", "apfel", "snack", "waffel", "riegel", "flakes"],
+    "size": { "min": 15, "max": 100 },
+    "preferBrands": ["fuchs", "ja!", "rewe"],
+    "fallbackPrice": 0.99, "fallbackSize": 40, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "honig",
+    "label": "Honig",
+    "aisle": "trockenwaren",
+    "packageUnit": "g",
+    "terms": ["honig"],
+    "exclude": ["senf", "bonbon", "kuchen", "riegel", "melone", "lebkuchen", "shampoo", "creme"],
+    "size": { "min": 250, "max": 500 },
+    "preferBrands": ["ja!", "rewe", "langnese"],
+    "fallbackPrice": 2.49, "fallbackSize": 500, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "ahornsirup",
+    "label": "Ahornsirup",
+    "aisle": "trockenwaren",
+    "packageUnit": "ml",
+    "terms": ["ahornsirup"],
+    "exclude": ["riegel", "müsli"],
+    "size": { "min": 150, "max": 500 },
+    "preferBrands": ["grafschafter", "ja!", "rewe"],
+    "fallbackPrice": 3.99, "fallbackSize": 250, "fallbackUnit": "ml"
+  },
+  {
+    "productKey": "quinoa",
+    "label": "Quinoa",
+    "aisle": "trockenwaren",
+    "packageUnit": "g",
+    "terms": ["quinoa"],
+    "exclude": ["riegel", "chips", "cracker", "salat fertig"],
+    "size": { "min": 200, "max": 500 },
+    "preferBrands": ["rewe bio", "ja!", "rewe"],
+    "fallbackPrice": 2.49, "fallbackSize": 250, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "chiasamen",
+    "label": "Chiasamen",
+    "aisle": "trockenwaren",
+    "packageUnit": "g",
+    "terms": ["chia"],
+    "exclude": ["riegel", "pudding fertig", "drink", "brot"],
+    "size": { "min": 150, "max": 500 },
+    "preferBrands": ["rewe bio", "ja!", "rewe"],
+    "fallbackPrice": 2.29, "fallbackSize": 250, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "erdnuesse",
+    "label": "Erdnüsse",
+    "aisle": "trockenwaren",
+    "packageUnit": "g",
+    "terms": ["erdnüsse"],
+    "exclude": ["butter", "mus", "riegel", "flips", "creme", "öl", "locken"],
+    "size": { "min": 200, "max": 500 },
+    "preferBrands": ["ültje", "ja!", "rewe"],
+    "fallbackPrice": 1.99, "fallbackSize": 200, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "garnelen",
+    "label": "Garnelen",
+    "aisle": "fleisch-fisch",
+    "packageUnit": "g",
+    "terms": ["garnelen"],
+    "categories": ["Fleisch & Fisch", "Fisch"],
+    "exclude": ["chips", "cracker", "fertiggericht", "pasta", "pfanne", "salat", "cocktail", "sauce", "aufstrich", "ring", "topping", "surimi", "form", "nach art"],
+    "size": { "min": 150, "max": 500 },
+    "preferBrands": ["rewe", "ja!", "costa"],
+    "fallbackPrice": 3.99, "fallbackSize": 200, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "rindergulasch",
+    "label": "Rindergulasch",
+    "aisle": "fleisch-fisch",
+    "packageUnit": "g",
+    "terms": ["rindergulasch"],
+    "categories": ["Fleisch & Fisch"],
+    "exclude": ["gewürz", "fix", "suppe", "fond", "sauce", "konserve", "dose"],
+    "size": { "min": 400, "max": 1000 },
+    "preferBrands": ["rewe", "ja!"],
+    "fallbackPrice": 6.99, "fallbackSize": 500, "fallbackUnit": "g"
+  },
+  {
+    "productKey": "doener-gewuerz",
+    "label": "Döner-Gewürz",
+    "aisle": "gewürze",
+    "packageUnit": "g",
+    "terms": ["döner"],
+    "categories": ["Getränke & Genussmittel", "Fertiggerichte & Konserven"],
+    "exclude": ["box", "tasche", "fladen", "sauce", "spieß"],
+    "size": { "min": 15, "max": 100 },
+    "preferBrands": ["fuchs", "ja!", "rewe"],
+    "fallbackPrice": 1.49, "fallbackSize": 40, "fallbackUnit": "g"
   }
 ]
