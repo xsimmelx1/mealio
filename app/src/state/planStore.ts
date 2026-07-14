@@ -82,15 +82,13 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         candidates = await new SeedRecipeSource().getCandidates(prefs);
       }
 
-      // Spar-Modus: günstige + Angebots-Rezepte bevorzugen (sonst kein Boost).
-      let scoreBoost: ((recipe: Recipe) => number) | undefined;
-      if (prefs.budgetMode) {
-        const [overrides, aiEntries] = await Promise.all([
-          db.priceOverrides.toArray(),
-          db.aiPrices.toArray(),
-        ]);
-        scoreBoost = buildBudgetScoreBoost(overrides, aiEntries, prefs.preferredProductFlags);
-      }
+      // Immer günstigste Rezepte bevorzugen (Kosten/Portion + Angebots-Zutaten). Bei gesetztem
+      // Label-Filter (z. B. Bio) wählt die Engine zudem gelabelte Produkte, wo verfügbar.
+      const [overrides, aiEntries] = await Promise.all([
+        db.priceOverrides.toArray(),
+        db.aiPrices.toArray(),
+      ]);
+      const scoreBoost = buildBudgetScoreBoost(overrides, aiEntries, prefs.preferredProductFlags);
 
       const entries = pickPlan(candidates, prefs, seed, scoreBoost);
       const hasAny = entries.some((e) => e.recipeId);
