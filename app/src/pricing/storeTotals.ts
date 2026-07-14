@@ -135,16 +135,19 @@ export function totalForStore(
  * zuerst), Ersparnis, Balken-Maximum sowie eine Positions-Aufschlüsselung je Markt.
  * Erwartet eine Engine mit KI-Preisen (z. B. aus usePriceEngine).
  */
-export function compareAllStores(items: ShoppingItem[], engine: PriceEngine): StoreComparison {
+export function compareAllStores(
+  items: ShoppingItem[],
+  engine: PriceEngine,
+  storeIds: readonly StoreId[] = STORE_IDS,
+): StoreComparison {
+  const ids = storeIds.length ? storeIds : STORE_IDS;
   const list = relevant(items);
-  const stores = STORE_IDS.map((id) => totalForStore(items, engine, id)).sort(
-    (a, b) => a.total - b.total,
-  );
+  const stores = ids.map((id) => totalForStore(items, engine, id)).sort((a, b) => a.total - b.total);
 
   const rows: StoreItemRow[] = list.map((it) => {
     const dim = toBase(it.totalAmount || 1, it.unit).dim;
     const byStore = {} as Record<StoreId, StoreLineCost>;
-    for (const id of STORE_IDS) {
+    for (const id of ids) {
       byStore[id] = engine.wholePackageCostForStore(it.productKey, it.name, it.totalAmount, dim, id);
     }
     return { item: it, byStore };
@@ -164,7 +167,7 @@ export function compareAllStores(items: ShoppingItem[], engine: PriceEngine): St
   }
   const cheapest = stores[0];
   const mostExpensive = stores[stores.length - 1];
-  const pricedItemCount = rows.filter((r) => STORE_IDS.some((id) => r.byStore[id].cost != null)).length;
+  const pricedItemCount = rows.filter((r) => ids.some((id) => r.byStore[id].cost != null)).length;
   return {
     stores,
     cheapest,

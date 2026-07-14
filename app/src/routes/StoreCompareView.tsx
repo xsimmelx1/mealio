@@ -51,11 +51,13 @@ export default function StoreCompareView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plan?.id, catalog.length, online]);
 
+  const storeIds = prefs.preferredStores.length ? prefs.preferredStores : STORE_IDS;
+
   const comparison = useMemo(() => {
     if (!plan || !catalog.length) return null;
     const items = aggregateShoppingItems(plan, catalog, engine);
-    return compareAllStores(items, engine);
-  }, [plan, catalog, engine]);
+    return compareAllStores(items, engine, storeIds);
+  }, [plan, catalog, engine, storeIds]);
 
   const budget = prefs.budget;
   const plannedDays = prefs.planDays.length || 1;
@@ -245,7 +247,7 @@ export default function StoreCompareView() {
                       <th className="sticky left-0 z-10 bg-slate-50 px-2 py-2 text-left font-semibold text-slate-600">
                         Produkt
                       </th>
-                      {STORE_IDS.map((id) => (
+                      {storeIds.map((id) => (
                         <th key={id} className="px-2 py-2 text-right font-semibold text-slate-600">
                           {comparison.stores.find((s) => s.storeId === id)?.label ?? id}
                         </th>
@@ -254,20 +256,20 @@ export default function StoreCompareView() {
                   </thead>
                   <tbody>
                     {comparison.rows
-                      .filter((r) => STORE_IDS.some((id) => r.byStore[id].cost != null))
-                      .filter((r) => !onlyOffers || STORE_IDS.some((id) => r.byStore[id].onOffer))
+                      .filter((r) => storeIds.some((id) => r.byStore[id].cost != null))
+                      .filter((r) => !onlyOffers || storeIds.some((id) => r.byStore[id].onOffer))
                       .filter(
-                        (r) => !flagFilter || STORE_IDS.some((id) => (r.byStore[id].flags ?? []).includes(flagFilter)),
+                        (r) => !flagFilter || storeIds.some((id) => (r.byStore[id].flags ?? []).includes(flagFilter)),
                       )
                       .map((r) => {
-                        const costs = STORE_IDS.map((id) => r.byStore[id].cost).filter(
+                        const costs = storeIds.map((id) => r.byStore[id].cost).filter(
                           (c): c is number => c != null,
                         );
                         const min = costs.length ? Math.min(...costs) : null;
                         return (
                           <tr key={r.item.id} className="border-t border-slate-100 align-top">
                             <td className="sticky left-0 z-10 bg-white px-2 py-2 text-slate-700">{r.item.name}</td>
-                            {STORE_IDS.map((id) => {
+                            {storeIds.map((id) => {
                               const line = r.byStore[id];
                               const isMin = min != null && line.cost === min;
                               return (

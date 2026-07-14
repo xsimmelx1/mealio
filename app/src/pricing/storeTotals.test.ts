@@ -105,6 +105,21 @@ describe('compareAllStores', () => {
     expect(cmp.cheapest).toBeNull();
     expect(cmp.stores).toHaveLength(0);
   });
+
+  it('beschränkt Ranking + byStore auf die gewählte Markt-Teilmenge', () => {
+    const cmp = compareAllStores([item()], engine, ['aldi', 'rewe']);
+    expect(new Set(cmp.stores.map((s) => s.storeId))).toEqual(new Set(['aldi', 'rewe']));
+    expect(cmp.cheapest?.storeId).toBe('aldi');
+    expect(cmp.mostExpensive?.storeId).toBe('rewe');
+    expect(cmp.savings).toBeCloseTo(1.0);
+    // byStore enthält nur die gewählten Märkte
+    expect(Object.keys(cmp.rows[0].byStore).sort()).toEqual(['aldi', 'rewe']);
+  });
+
+  it('leere Teilmenge -> Fallback auf alle 7 Märkte', () => {
+    const cmp = compareAllStores([item()], engine, []);
+    expect(cmp.stores).toHaveLength(7);
+  });
 });
 
 describe('budgetReach', () => {

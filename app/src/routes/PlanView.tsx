@@ -1,16 +1,21 @@
 import { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import ChipMultiSelect from '../components/forms/ChipMultiSelect';
+import ChipSingleSelect from '../components/forms/ChipSingleSelect';
 import EstimateBadge from '../components/EstimateBadge';
 import RecipeImage from '../components/RecipeImage';
 import ScreenHeader from '../components/ScreenHeader';
 import {
+  DIETS,
   MEAL_TYPES,
   MEAL_TYPE_LABELS,
   PRODUCT_FLAGS,
   PRODUCT_FLAG_ICON,
-  SUPERMARKETS,
+  STORE_IDS,
+  STORE_LABELS,
 } from '../domain/enums';
-import { PRODUCT_FLAG_LABELS } from '../domain/labels';
+import type { Diet, StoreId } from '../domain/enums';
+import { DIET_LABELS, PRODUCT_FLAG_LABELS, toOptions } from '../domain/labels';
 import type { MealPlanEntry, Recipe } from '../domain/schema';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { isBudgetTight, suggestedBudget } from '../plan/budget';
@@ -130,12 +135,44 @@ export default function PlanView() {
   }, [days, engine, recipeById]);
 
   // Supermarkt-Vergleich für den gesamten Plan (günstigster Markt; Details unter /compare).
+  const storeIds = prefs.preferredStores.length ? prefs.preferredStores : STORE_IDS;
   const storeCompare = useMemo(() => {
     if (!plan || !catalog.length) return null;
     const items = aggregateShoppingItems(plan, catalog, engine);
-    const cmp = compareAllStores(items, engine);
+    const cmp = compareAllStores(items, engine, storeIds);
     return cmp.cheapest ? cmp : null;
-  }, [plan, catalog, engine]);
+  }, [plan, catalog, engine, storeIds]);
+
+  // Ernährungsform ist ein harter Filter (isEligible) → bei Änderung Plan neu generieren.
+  const changeDiet = (diet: Diet) => {
+    const next = { ...prefs, diet };
+    void updatePrefs({ diet });
+    if (plan) void generate(next);
+  };
+
+  // Label an-/abwählen (biast Produktwahl/Preise live, kein Regenerieren).
+  const toggleFlag = (flag: (typeof PRODUCT_FLAGS)[number]) => {
+    const active = prefs.preferredProductFlags.includes(flag);
+    void updatePrefs({
+      preferredProductFlags: active
+        ? prefs.preferredProductFlags.filter((x) => x !== flag)
+        : [...prefs.preferredProductFlags, flag],
+    });
+  };
+
+  // Markt an-/abwählen (schränkt Vergleich ein). Genau 1 gewählt → Preis-Linse auf diesen Markt,
+  // sonst marktneutral (''), damit die Per-Portion-Anzeige sinnvoll bleibt.
+  const toggleStore = (id: StoreId) => {
+    const nextStores = prefs.preferredStores.includes(id)
+      ? prefs.preferredStores.filter((x) => x !== id)
+      : [...prefs.preferredStores, id];
+    void updatePrefs({ preferredStores: nextStores, supermarket: nextStores.length === 1 ? nextStores[0] : '' });
+  };
+
+  const labelOptions = PRODUCT_FLAGS.map((f) => ({
+    value: f,
+    label: `${PRODUCT_FLAG_ICON[f]} ${PRODUCT_FLAG_LABELS[f]}`,
+  }));
 
   const generating = status === 'generating';
   const overBudget = prefs.budget > 0 && weekCost.total > prefs.budget;
@@ -158,55 +195,36 @@ export default function PlanView() {
         }
       />
 
-      {/* Supermarkt-Umschalter: rechnet Kosten/Vergleich live um */}
-      <div className="mb-4">
-        <div className="mb-1 text-xs font-medium text-slate-500">Preise für Supermarkt</div>
-        <div className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1">
-          {SUPERMARKETS.map((s) => {
-            const active = prefs.supermarket === s.value;
-            return (
-              <button
-                key={s.value || 'egal'}
-                type="button"
-                onClick={() => void updatePrefs({ supermarket: s.value })}
-                aria-pressed={active}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
-                  active ? 'bg-brand-500 text-white shadow-sm' : 'bg-white text-slate-600 ring-1 ring-slate-200'
-                }`}
-              >
-                {s.label}
-              </button>
-            );
-          })}
+      {/* Plan-Filter: Ernährungsform (harter Filter) · Labels · Märkte (Mehrfachauswahl). */}
+      <div className="mb-4 flex flex-col gap-4 rounded-card border border-slate-200 bg-white p-4">
+        <div>
+          <div className="mb-1.5 text-xs font-medium text-slate-500">Ernährungsform</div>
+          <ChipSingleSelect
+            options={toOptions(DIETS, DIET_LABELS)}
+            value={prefs.diet}
+            onChange={changeDiet}
+            ariaLabel="Ernährungsform"
+          />
         </div>
-      </div>
-
-      {/* Schnellfilter: bevorzugte Produkt-Labels (Bio/Vegan/…) — rechnet Preise/Vergleich live um */}
-      <div className="mb-4">
-        <div className="mb-1 text-xs font-medium text-slate-500">Bevorzugte Labels</div>
-        <div className="-mx-1 flex flex-wrap gap-1 px-1">
-          {PRODUCT_FLAGS.map((f) => {
-            const active = prefs.preferredProductFlags.includes(f);
-            return (
-              <button
-                key={f}
-                type="button"
-                onClick={() =>
-                  void updatePrefs({
-                    preferredProductFlags: active
-                      ? prefs.preferredProductFlags.filter((x) => x !== f)
-                      : [...prefs.preferredProductFlags, f],
-                  })
-                }
-                aria-pressed={active}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
-                  active ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-slate-600 ring-1 ring-slate-200'
-                }`}
-              >
-                {PRODUCT_FLAG_ICON[f]} {PRODUCT_FLAG_LABELS[f]}
-              </button>
-            );
-          })}
+        <div>
+          <div className="mb-1.5 text-xs font-medium text-slate-500">Bevorzugte Labels</div>
+          <ChipMultiSelect
+            options={labelOptions}
+            selected={prefs.preferredProductFlags}
+            onToggle={toggleFlag}
+            ariaLabel="Bevorzugte Labels"
+          />
+        </div>
+        <div>
+          <div className="mb-1.5 text-xs font-medium text-slate-500">
+            Märkte vergleichen <span className="font-normal text-slate-400">· leer = alle 7</span>
+          </div>
+          <ChipMultiSelect
+            options={toOptions(STORE_IDS, STORE_LABELS)}
+            selected={prefs.preferredStores}
+            onToggle={toggleStore}
+            ariaLabel="Märkte vergleichen"
+          />
         </div>
       </div>
 
@@ -301,7 +319,9 @@ export default function PlanView() {
                   </span>
                 )}
               </div>
-              <span className="shrink-0 text-sm font-semibold text-brand-600">Alle 7 Märkte →</span>
+              <span className="shrink-0 text-sm font-semibold text-brand-600">
+                {storeIds.length === STORE_IDS.length ? 'Alle 7 Märkte' : `${storeIds.length} Märkte`} →
+              </span>
             </Link>
           )}
         </div>

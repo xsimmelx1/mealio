@@ -106,6 +106,23 @@
   {
     "productKey": "apfel",
     "label": "Apfel",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.62,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -114,6 +131,23 @@
     "packageUnit": "stück",
     "pricePerPackage": 0.46,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.63,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "apfel",
@@ -154,6 +188,23 @@
   {
     "productKey": "apfel",
     "label": "Apfel",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.72,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -166,6 +217,23 @@
   {
     "productKey": "apfel",
     "label": "Apfel",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.73,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -174,6 +242,22 @@
     "packageUnit": "stück",
     "pricePerPackage": 0.51,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "apfel",
+    "label": "Apfel",
+    "brand": "K-Regional",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.58,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "backpulver",
@@ -278,6 +362,22 @@
   {
     "productKey": "banane",
     "label": "Banane",
+    "brand": "Fairtrade",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.43,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -286,6 +386,22 @@
     "packageUnit": "stück",
     "pricePerPackage": 0.32,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "brand": "Fairglobe",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.44,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
   },
   {
     "productKey": "banane",
@@ -326,6 +442,22 @@
   {
     "productKey": "banane",
     "label": "Banane",
+    "brand": "REWE Fair",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.5,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -338,6 +470,22 @@
   {
     "productKey": "banane",
     "label": "Banane",
+    "brand": "Fairtrade",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.51,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -346,6 +494,22 @@
     "packageUnit": "stück",
     "pricePerPackage": 0.36,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "banane",
+    "label": "Banane",
+    "brand": "Fairtrade",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1,
+    "packageUnit": "stück",
+    "pricePerPackage": 0.47,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
   },
   {
     "productKey": "basilikum",
@@ -742,6 +906,22 @@
   {
     "productKey": "butter",
     "label": "Butter",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 3.98,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
     "brand": "Penny",
     "storeId": "penny",
     "storeType": "discounter",
@@ -844,6 +1024,22 @@
   {
     "productKey": "butter",
     "label": "Butter",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.62,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -852,6 +1048,22 @@
     "packageUnit": "g",
     "pricePerPackage": 3.21,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "butter",
+    "label": "Butter",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 4.28,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "butter",
@@ -1228,6 +1440,23 @@
   {
     "productKey": "dosentomaten",
     "label": "Gehackte Tomaten (Dose)",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.25,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -1236,6 +1465,23 @@
     "packageUnit": "g",
     "pricePerPackage": 1.65,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.27,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "dosentomaten",
@@ -1295,6 +1541,23 @@
   {
     "productKey": "dosentomaten",
     "label": "Gehackte Tomaten (Dose)",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.64,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -1303,6 +1566,23 @@
     "packageUnit": "g",
     "pricePerPackage": 1.83,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "dosentomaten",
+    "label": "Gehackte Tomaten (Dose)",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 2.44,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "eier",
@@ -1319,6 +1599,23 @@
   {
     "productKey": "eier",
     "label": "Eier",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.81,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -1327,6 +1624,23 @@
     "packageUnit": "stück",
     "pricePerPackage": 2.07,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.84,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "eier",
@@ -1343,6 +1657,22 @@
   {
     "productKey": "eier",
     "label": "Eier",
+    "brand": "Regional",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.47,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
     "brand": "Netto",
     "storeId": "netto",
     "storeType": "discounter",
@@ -1351,6 +1681,22 @@
     "packageUnit": "stück",
     "pricePerPackage": 2.14,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
+    "brand": "Regional",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 2.5,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "eier",
@@ -1372,6 +1718,23 @@
   {
     "productKey": "eier",
     "label": "Eier",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.24,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -1384,6 +1747,23 @@
   {
     "productKey": "eier",
     "label": "Eier",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.3,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -1392,6 +1772,23 @@
     "packageUnit": "stück",
     "pricePerPackage": 2.29,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "eier",
+    "label": "Eier",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 10,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.05,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "erdnuesse",
@@ -2234,6 +2631,23 @@
   {
     "productKey": "haferflocken",
     "label": "Haferflocken",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.78,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -2242,6 +2656,23 @@
     "packageUnit": "g",
     "pricePerPackage": 0.57,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.79,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "haferflocken",
@@ -2258,6 +2689,23 @@
   {
     "productKey": "haferflocken",
     "label": "Haferflocken",
+    "brand": "Naturgut Bio",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.8,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
     "brand": "Netto",
     "storeId": "netto",
     "storeType": "discounter",
@@ -2266,6 +2714,23 @@
     "packageUnit": "g",
     "pricePerPackage": 0.59,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.8,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "haferflocken",
@@ -2285,6 +2750,23 @@
   {
     "productKey": "haferflocken",
     "label": "Haferflocken",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.9,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -2293,6 +2775,23 @@
     "packageUnit": "g",
     "pricePerPackage": 0.7,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.91,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "haferflocken",
@@ -2307,6 +2806,23 @@
     "dataSource": "real",
     "priceDate": "2026-07",
     "productName": "K Classic Haferflocken zart (500g)"
+  },
+  {
+    "productKey": "haferflocken",
+    "label": "Haferflocken",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.85,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "honig",
@@ -2377,6 +2893,22 @@
   {
     "productKey": "honig",
     "label": "Honig",
+    "brand": "REWE Regional",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 3.01,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "honig",
+    "label": "Honig",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -2389,6 +2921,22 @@
   {
     "productKey": "honig",
     "label": "Honig",
+    "brand": "EDEKA Regional",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 3.07,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "honig",
+    "label": "Honig",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -2397,6 +2945,22 @@
     "packageUnit": "g",
     "pricePerPackage": 2.47,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "honig",
+    "label": "Honig",
+    "brand": "K-Regional",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.84,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "joghurt",
@@ -2413,6 +2977,22 @@
   {
     "productKey": "joghurt",
     "label": "Naturjoghurt 3,5%",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -2421,6 +3001,22 @@
     "packageUnit": "g",
     "pricePerPackage": 0.74,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.02,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "joghurt",
@@ -2464,6 +3060,22 @@
   {
     "productKey": "joghurt",
     "label": "Naturjoghurt 3,5%",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.16,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -2472,6 +3084,22 @@
     "packageUnit": "g",
     "pricePerPackage": 0.91,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "joghurt",
+    "label": "Naturjoghurt 3,5%",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.18,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "joghurt",
@@ -2500,6 +3128,23 @@
   {
     "productKey": "karotten",
     "label": "Karotten",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.46,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -2508,6 +3153,23 @@
     "packageUnit": "g",
     "pricePerPackage": 1.07,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.47,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "karotten",
@@ -2548,6 +3210,23 @@
   {
     "productKey": "karotten",
     "label": "Karotten",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.68,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -2556,6 +3235,23 @@
     "packageUnit": "g",
     "pricePerPackage": 1.32,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "karotten",
+    "label": "Karotten",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.71,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "karotten",
@@ -2584,6 +3280,23 @@
   {
     "productKey": "kartoffeln",
     "label": "Kartoffeln festkochend",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.37,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -2592,6 +3305,23 @@
     "packageUnit": "g",
     "pricePerPackage": 2.48,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.41,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "kartoffeln",
@@ -2620,6 +3350,22 @@
   {
     "productKey": "kartoffeln",
     "label": "Kartoffeln festkochend",
+    "brand": "Regional",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 3,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
     "brand": "ja!",
     "storeId": "rewe",
     "storeType": "vollsortimenter",
@@ -2628,6 +3374,23 @@
     "packageUnit": "g",
     "pricePerPackage": 2.99,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.89,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "kartoffeln",
@@ -2644,6 +3407,23 @@
   {
     "productKey": "kartoffeln",
     "label": "Kartoffeln festkochend",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.96,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -2652,6 +3432,22 @@
     "packageUnit": "g",
     "pricePerPackage": 2.75,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "kartoffeln",
+    "label": "Kartoffeln festkochend",
+    "brand": "K-Regional",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 2500,
+    "packageUnit": "g",
+    "pricePerPackage": 3.16,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "kichererbsen",
@@ -3265,6 +4061,22 @@
   {
     "productKey": "mehl",
     "label": "Weizenmehl Type 405",
+    "brand": "REWE Regional",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.66,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -3273,6 +4085,22 @@
     "packageUnit": "g",
     "pricePerPackage": 0.6,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "mehl",
+    "label": "Weizenmehl Type 405",
+    "brand": "EDEKA Regional",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 0.67,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "mehl",
@@ -3301,6 +4129,22 @@
   {
     "productKey": "milch",
     "label": "Vollmilch 3,5%",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.41,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -3309,6 +4153,22 @@
     "packageUnit": "ml",
     "pricePerPackage": 1.04,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.43,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "milch",
@@ -3325,6 +4185,22 @@
   {
     "productKey": "milch",
     "label": "Vollmilch 3,5%",
+    "brand": "Naturgut Bio",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.44,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
     "brand": "Netto",
     "storeId": "netto",
     "storeType": "discounter",
@@ -3333,6 +4209,22 @@
     "packageUnit": "ml",
     "pricePerPackage": 1.08,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.46,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio"
+    ]
   },
   {
     "productKey": "milch",
@@ -3355,6 +4247,22 @@
   {
     "productKey": "milch",
     "label": "Vollmilch 3,5%",
+    "brand": "REWE Regional",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.4,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -3367,6 +4275,23 @@
   {
     "productKey": "milch",
     "label": "Vollmilch 3,5%",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.66,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -3375,6 +4300,23 @@
     "packageUnit": "ml",
     "pricePerPackage": 1.15,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "milch",
+    "label": "Vollmilch 3,5%",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 1000,
+    "packageUnit": "ml",
+    "pricePerPackage": 1.53,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "regional"
+    ]
   },
   {
     "productKey": "milch",
@@ -3495,6 +4437,23 @@
   {
     "productKey": "nudeln",
     "label": "Nudeln (Penne)",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.89,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -3503,6 +4462,23 @@
     "packageUnit": "g",
     "pricePerPackage": 0.66,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.9,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "nudeln",
@@ -3546,6 +4522,23 @@
   {
     "productKey": "nudeln",
     "label": "Nudeln (Penne)",
+    "brand": "REWE Bio",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.03,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -3558,6 +4551,23 @@
   {
     "productKey": "nudeln",
     "label": "Nudeln (Penne)",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.05,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -3566,6 +4576,23 @@
     "packageUnit": "g",
     "pricePerPackage": 0.73,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "nudeln",
+    "label": "Nudeln (Penne)",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 0.97,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "olivenoel",
@@ -4160,6 +5187,22 @@
   {
     "productKey": "quinoa",
     "label": "Quinoa",
+    "brand": "REWE Fair",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.93,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "quinoa",
+    "label": "Quinoa",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -4168,6 +5211,22 @@
     "packageUnit": "g",
     "pricePerPackage": 2.34,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "quinoa",
+    "label": "Quinoa",
+    "brand": "Fairtrade",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.99,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
   },
   {
     "productKey": "quinoa",
@@ -4366,6 +5425,22 @@
   {
     "productKey": "reis",
     "label": "Langkornreis",
+    "brand": "REWE Fair",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.32,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -4374,6 +5449,22 @@
     "packageUnit": "g",
     "pricePerPackage": 2.64,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "brand": "Fairtrade",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.38,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
   },
   {
     "productKey": "reis",
@@ -4388,6 +5479,22 @@
     "dataSource": "real",
     "priceDate": "2026-07",
     "productName": "Wurzener Langkornreis lose (500g)"
+  },
+  {
+    "productKey": "reis",
+    "label": "Langkornreis",
+    "brand": "Fairtrade",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "trockenwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 3.13,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
   },
   {
     "productKey": "rindergulasch",
@@ -5285,6 +6392,23 @@
   {
     "productKey": "tofu",
     "label": "Tofu natur",
+    "brand": "GUT BIO",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.47,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -5293,6 +6417,23 @@
     "packageUnit": "g",
     "pricePerPackage": 1.82,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "brand": "Bioland",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.5,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "tofu",
@@ -5353,6 +6494,23 @@
   {
     "productKey": "tofu",
     "label": "Tofu natur",
+    "brand": "EDEKA Bio",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.9,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
     "brand": "K-Classic",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
@@ -5361,6 +6519,23 @@
     "packageUnit": "g",
     "pricePerPackage": 2.01,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "tofu",
+    "label": "Tofu natur",
+    "brand": "K-Bio",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.69,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "bio",
+      "vegan"
+    ]
   },
   {
     "productKey": "tomaten",
@@ -5425,6 +6600,22 @@
   {
     "productKey": "tomaten",
     "label": "Tomaten",
+    "brand": "REWE Regional",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.23,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -5433,6 +6624,22 @@
     "packageUnit": "g",
     "pricePerPackage": 2.03,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "tomaten",
+    "label": "Tomaten",
+    "brand": "EDEKA Regional",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 2.27,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "tomaten",
@@ -5907,6 +7114,22 @@
   {
     "productKey": "zucker",
     "label": "Haushaltszucker",
+    "brand": "Fairglobe",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
     "brand": "Penny",
     "storeId": "penny",
     "storeType": "discounter",
@@ -5946,6 +7169,22 @@
   {
     "productKey": "zucker",
     "label": "Haushaltszucker",
+    "brand": "REWE Fair",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.14,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -5954,6 +7193,22 @@
     "packageUnit": "g",
     "pricePerPackage": 0.91,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "brand": "Fairtrade",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.16,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
   },
   {
     "productKey": "zucker",
@@ -5968,6 +7223,22 @@
     "dataSource": "estimate"
   },
   {
+    "productKey": "zucker",
+    "label": "Haushaltszucker",
+    "brand": "Fairtrade",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.07,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "fairtrade"
+    ]
+  },
+  {
     "productKey": "zwiebeln",
     "label": "Zwiebeln",
     "brand": "Eigenmarke",
@@ -5978,6 +7249,22 @@
     "packageUnit": "g",
     "pricePerPackage": 1.39,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "brand": "Regional",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.64,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "zwiebeln",
@@ -6030,6 +7317,22 @@
   {
     "productKey": "zwiebeln",
     "label": "Zwiebeln",
+    "brand": "REWE Regional",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.89,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -6038,6 +7341,22 @@
     "packageUnit": "g",
     "pricePerPackage": 1.72,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "zwiebeln",
+    "label": "Zwiebeln",
+    "brand": "EDEKA Regional",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "obst-gemüse",
+    "packageSize": 1000,
+    "packageUnit": "g",
+    "pricePerPackage": 1.93,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "regional"
+    ]
   },
   {
     "productKey": "zwiebeln",

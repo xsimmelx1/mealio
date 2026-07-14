@@ -48,6 +48,14 @@ describe('prices.seed.json', () => {
     }
   });
 
+  it('enthält Fairtrade-, Regional- und Bio-Zeilen (Label-Overlay)', () => {
+    const count = (flag: string) =>
+      seedPrices.filter((e) => (e.flags ?? []).includes(flag as never)).length;
+    expect(count('fairtrade'), 'keine Fairtrade-Zeilen').toBeGreaterThan(0);
+    expect(count('regional'), 'keine Regional-Zeilen').toBeGreaterThan(0);
+    expect(count('bio'), 'zu wenige Bio-Zeilen').toBeGreaterThan(10);
+  });
+
   it('productKeys sind kebab-case ASCII', () => {
     for (const entry of seedPrices) {
       expect(entry.productKey, `productKey "${entry.productKey}"`).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
