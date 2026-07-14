@@ -56,6 +56,19 @@ describe('prices.seed.json', () => {
     expect(count('bio'), 'zu wenige Bio-Zeilen').toBeGreaterThan(10);
   });
 
+  it('enthält vegane Ersatzprodukte je mit Discounter-Zeile', () => {
+    const veganKeys = ['sojajoghurt', 'vegane-butter', 'veganer-kaese', 'veganer-feta', 'ei-ersatz'];
+    for (const key of veganKeys) {
+      const forKey = seedPrices.filter((e) => e.productKey === key);
+      expect(forKey.length, `keine Zeilen für "${key}"`).toBeGreaterThan(0);
+      expect(
+        forKey.some((e) => e.storeType === 'discounter'),
+        `kein Discounter-Eintrag für "${key}"`,
+      ).toBe(true);
+      expect(forKey.every((e) => (e.flags ?? []).includes('vegan')), `"${key}" ohne vegan-Flag`).toBe(true);
+    }
+  });
+
   it('productKeys sind kebab-case ASCII', () => {
     for (const entry of seedPrices) {
       expect(entry.productKey, `productKey "${entry.productKey}"`).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);

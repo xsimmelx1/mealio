@@ -1585,6 +1585,118 @@
     ]
   },
   {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "MyVay",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.21,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "Vemondo",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.25,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "Food for Future",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.28,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.32,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "REWE vegan",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.7,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "EDEKA vegan",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.77,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "ei-ersatz",
+    "label": "Ei-Ersatz (Pulver)",
+    "brand": "K-take it veggie",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "backwaren",
+    "packageSize": 20,
+    "packageUnit": "stück",
+    "pricePerPackage": 3.49,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
     "productKey": "eier",
     "label": "Eier",
     "brand": "Eigenmarke",
@@ -6018,6 +6130,125 @@
     "dataSource": "estimate"
   },
   {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "MyVay",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.37,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "Vemondo",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.39,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "Food for Future",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.4,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.42,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "REWE vegan",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.58,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "EDEKA vegan",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.61,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
+    "productKey": "sojajoghurt",
+    "label": "Pflanzenjoghurt (Soja)",
+    "brand": "K-take it veggie",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 500,
+    "packageUnit": "g",
+    "pricePerPackage": 1.49,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan",
+      "bio"
+    ]
+  },
+  {
     "productKey": "sojasauce",
     "label": "Sojasauce",
     "brand": "Eigenmarke",
@@ -6834,6 +7065,342 @@
     "packageUnit": "g",
     "pricePerPackage": 1.46,
     "dataSource": "estimate"
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "MyVay",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.11,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "Vemondo",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.13,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "Food for Future",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.15,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.18,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "REWE vegan",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.43,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "EDEKA vegan",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.47,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "vegane-butter",
+    "label": "Vegane Butter (Margarine)",
+    "brand": "K-take it veggie",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 250,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "MyVay",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "Vemondo",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.32,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "Food for Future",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.34,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.37,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "REWE vegan",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.64,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "EDEKA vegan",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.69,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-feta",
+    "label": "Vegane Feta-Alternative",
+    "brand": "K-take it veggie",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.49,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "MyVay",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.29,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "Vemondo",
+    "storeId": "lidl",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.32,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "Food for Future",
+    "storeId": "penny",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.34,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "BioBio",
+    "storeId": "netto",
+    "storeType": "discounter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.37,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "REWE vegan",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.64,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "EDEKA vegan",
+    "storeId": "edeka",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.69,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
+  },
+  {
+    "productKey": "veganer-kaese",
+    "label": "Veganer Reibekäse",
+    "brand": "K-take it veggie",
+    "storeId": "kaufland",
+    "storeType": "vollsortimenter",
+    "aisle": "kühlregal",
+    "packageSize": 200,
+    "packageUnit": "g",
+    "pricePerPackage": 2.49,
+    "dataSource": "estimate",
+    "priceDate": "2026-07",
+    "flags": [
+      "vegan"
+    ]
   },
   {
     "productKey": "zimt",

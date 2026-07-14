@@ -20,14 +20,22 @@ import { SeedPriceSchema, type SeedPrice } from '../app/src/domain/schema';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SEED_PATH = resolve(__dirname, '../app/src/assets/prices.seed.json');
-const OVERLAY_PATH = resolve(__dirname, 'labeledProducts.overlay.json');
+const OVERLAY_PATHS = [
+  resolve(__dirname, 'labeledProducts.overlay.json'),
+  resolve(__dirname, 'veganProducts.overlay.json'),
+];
 
 /** Eindeutige Signatur einer Zeile (für Idempotenz). */
 const sig = (r: SeedPrice) =>
   `${r.productKey}|${r.storeId}|${r.brand ?? ''}|${(r.flags ?? []).slice().sort().join(',')}|${r.isOffer ? 1 : 0}`;
 
 function load(path: string): SeedPrice[] {
-  const raw = JSON.parse(readFileSync(path, 'utf8')) as unknown[];
+  let raw: unknown[];
+  try {
+    raw = JSON.parse(readFileSync(path, 'utf8')) as unknown[];
+  } catch {
+    return []; // Overlay-Datei optional.
+  }
   const rows: SeedPrice[] = [];
   for (const r of raw) {
     const p = SeedPriceSchema.safeParse(r);
@@ -39,7 +47,7 @@ function load(path: string): SeedPrice[] {
 
 function main() {
   const seed = load(SEED_PATH);
-  const overlay = load(OVERLAY_PATH);
+  const overlay = OVERLAY_PATHS.flatMap((p) => load(p));
   const existing = new Set(seed.map(sig));
 
   let added = 0;

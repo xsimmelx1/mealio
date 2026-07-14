@@ -24,26 +24,31 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const SEED_PATH = resolve(__dirname, '../app/src/assets/prices.seed.json');
 const CATALOG_PATH = resolve(__dirname, 'ingredients.catalog.json');
 const FALLBACK_PATH = resolve(__dirname, '../app/src/assets/fallbackPrices.json');
-const OVERLAY_PATH = resolve(__dirname, 'labeledProducts.overlay.json');
+const OVERLAY_PATHS = [
+  resolve(__dirname, 'labeledProducts.overlay.json'),
+  resolve(__dirname, 'veganProducts.overlay.json'),
+];
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
 /** Signatur einer Zeile für Idempotenz beim Overlay-Merge. */
 const rowSig = (r: SeedPrice) =>
   `${r.productKey}|${r.storeId}|${r.brand ?? ''}|${(r.flags ?? []).slice().sort().join(',')}|${r.isOffer ? 1 : 0}`;
 
-/** Lädt den kuratierten Label-Overlay (Fairtrade/Regional/Bio-Varianten). Fehlt er → leer. */
+/** Lädt die kuratierten Overlays (Fairtrade/Regional/Bio-Varianten + vegane Ersatzprodukte). */
 function loadOverlay(): SeedPrice[] {
-  try {
-    const raw = JSON.parse(readFileSync(OVERLAY_PATH, 'utf8')) as unknown[];
-    const rows: SeedPrice[] = [];
-    for (const r of raw) {
-      const p = SeedPriceSchema.safeParse(r);
-      if (p.success) rows.push(p.data);
+  const rows: SeedPrice[] = [];
+  for (const path of OVERLAY_PATHS) {
+    try {
+      const raw = JSON.parse(readFileSync(path, 'utf8')) as unknown[];
+      for (const r of raw) {
+        const p = SeedPriceSchema.safeParse(r);
+        if (p.success) rows.push(p.data);
+      }
+    } catch {
+      /* Overlay optional */
     }
-    return rows;
-  } catch {
-    return [];
   }
+  return rows;
 }
 
 /** Lädt die einmalig gezogene SC-Fallback-Grundlage (key|store -> Zeile). Fehlt sie -> leer. */
