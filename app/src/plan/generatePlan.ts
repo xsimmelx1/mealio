@@ -26,15 +26,19 @@ export function seededShuffle<T>(items: T[], rand: () => number): T[] {
   return arr;
 }
 
-/** Ordnet Rezepte nach Präferenz-Score (desc), innerhalb gleicher Scores seeded-zufällig. */
+/**
+ * Ordnet Rezepte nach Präferenz-Score (desc), innerhalb gleicher Scores seeded-zufällig.
+ * Optionaler `scoreBoost` addiert einen weiteren Term (z. B. Spar-Modus: günstiger + Angebote).
+ */
 export function rankRecipes(
   recipes: Recipe[],
   prefs: UserPreferences,
   rand: () => number,
+  scoreBoost?: (recipe: Recipe) => number,
 ): Recipe[] {
   const shuffled = seededShuffle(recipes, rand);
   return shuffled
-    .map((r) => ({ r, score: preferenceScore(r, prefs) }))
+    .map((r) => ({ r, score: preferenceScore(r, prefs) + (scoreBoost ? scoreBoost(r) : 0) }))
     .sort((a, b) => b.score - a.score)
     .map((x) => x.r);
 }
@@ -65,6 +69,7 @@ export function pickPlan(
   recipes: Recipe[],
   prefs: UserPreferences,
   seed: number,
+  scoreBoost?: (recipe: Recipe) => number,
 ): MealPlanEntry[] {
   const rand = mulberry32(seed);
   const slots = buildSlots(prefs);
@@ -72,7 +77,7 @@ export function pickPlan(
   // Pro Mahlzeit einmal ranken (deterministisch über den geteilten rand).
   const rankedByMeal = new Map<MealType, Recipe[]>();
   for (const mt of orderedMealTypes(prefs.mealTypes)) {
-    rankedByMeal.set(mt, rankRecipes(eligibleForMeal(recipes, prefs, mt), prefs, rand));
+    rankedByMeal.set(mt, rankRecipes(eligibleForMeal(recipes, prefs, mt), prefs, rand, scoreBoost));
   }
 
   // GLOBALE Dedup: kein Rezept wiederholt sich irgendwo im Plan, solange der Pool reicht

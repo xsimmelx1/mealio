@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { db } from '../db/db';
 import type { MealType } from '../domain/enums';
 import type { MealPlan, MealPlanEntry, Recipe, UserPreferences } from '../domain/schema';
+import { buildBudgetScoreBoost } from '../plan/budgetMode';
 import { pickCheapestReplacement, pickPlan, pickReplacementSlot } from '../plan/generatePlan';
 import { LLMRecipeSource, SeedRecipeSource } from '../plan/recipeSource';
 import { isoWeekStart } from '../plan/week';
@@ -81,7 +82,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         candidates = await new SeedRecipeSource().getCandidates(prefs);
       }
 
-      const entries = pickPlan(candidates, prefs, seed);
+      // Spar-Modus: günstige + Angebots-Rezepte bevorzugen (sonst kein Boost).
+      let scoreBoost: ((recipe: Recipe) => number) | undefined;
+      if (prefs.budgetMode) {
+        const [overrides, aiEntries] = await Promise.all([
+          db.priceOverrides.toArray(),
+          db.aiPrices.toArray(),
+        ]);
+        scoreBoost = buildBudgetScoreBoost(overrides, aiEntries, prefs.preferredProductFlags);
+      }
+
+      const entries = pickPlan(candidates, prefs, seed, scoreBoost);
       const hasAny = entries.some((e) => e.recipeId);
       if (!hasAny) {
         set({ catalog: candidates, plan: null, status: 'empty', planSource, fallbackNote });

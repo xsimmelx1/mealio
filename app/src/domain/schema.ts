@@ -154,6 +154,8 @@ export const UserPreferencesSchema = z.object({
   onlinePricesEnabled: z.boolean().default(false),
   /** KI-Rezeptgenerierung (experimentell) opt-in; sonst Seed-Katalog. */
   aiRecipesEnabled: z.boolean().default(false),
+  /** Spar-Modus: Plan bevorzugt günstige Rezepte + solche mit Zutaten im Angebot. */
+  budgetMode: z.boolean().default(false),
   /** Onboarding abgeschlossen/übersprungen? */
   onboardingComplete: z.boolean().default(false),
 });

@@ -210,6 +210,31 @@ export default function PlanView() {
         </div>
       </div>
 
+      {/* Spar-Modus: bevorzugt günstige + Angebots-Rezepte (wirkt sofort per Neu-Generierung) */}
+      <button
+        type="button"
+        onClick={() => {
+          const next = !prefs.budgetMode;
+          void updatePrefs({ budgetMode: next });
+          void generate({ ...prefs, budgetMode: next });
+        }}
+        aria-pressed={prefs.budgetMode}
+        disabled={generating}
+        className={`mb-4 flex w-full items-center justify-between rounded-card px-4 py-3 text-left transition-colors disabled:opacity-60 ${
+          prefs.budgetMode ? 'bg-emerald-600 text-white' : 'bg-white text-slate-700 ring-1 ring-slate-200'
+        }`}
+      >
+        <span>
+          <span className="text-sm font-semibold">💸 Spar-Modus</span>
+          <span className={`block text-xs ${prefs.budgetMode ? 'text-emerald-50' : 'text-slate-500'}`}>
+            Bevorzugt günstige Rezepte & Zutaten im Angebot
+          </span>
+        </span>
+        <span className={`text-xs font-semibold ${prefs.budgetMode ? 'text-white' : 'text-brand-600'}`}>
+          {prefs.budgetMode ? 'AN' : 'AUS'}
+        </span>
+      </button>
+
       {/* Klar abgesetzter Einzelgericht-Einstieg (kein Teil des Wochenplans) */}
       <div className="mb-4 flex items-center justify-between gap-3 rounded-card border border-dashed border-brand-200 bg-brand-50/50 p-3">
         <div className="min-w-0">

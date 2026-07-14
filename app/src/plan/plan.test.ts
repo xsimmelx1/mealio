@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { UserPreferencesSchema, type Recipe, type UserPreferences } from '../domain/schema';
 import { isEligible, matchesMealType, preferenceScore, whySuitable } from './filterRecipes';
-import { buildSlots, pickPlan, pickReplacementSlot } from './generatePlan';
+import { buildSlots, pickPlan, pickReplacementSlot, rankRecipes } from './generatePlan';
 
 function recipe(partial: Partial<Recipe> & { id: string }): Recipe {
   return {
@@ -140,6 +140,20 @@ describe('pickPlan', () => {
     const plan = pickPlan(dinnerPool, p, 3);
     expect(plan).toHaveLength(2);
     expect(plan.every((e) => e.recipeId === null)).toBe(true);
+  });
+});
+
+describe('rankRecipes scoreBoost (Spar-Modus)', () => {
+  it('hebt per Boost bevorzugte Rezepte nach oben', () => {
+    const recipes = [recipe({ id: 'teuer' }), recipe({ id: 'guenstig' }), recipe({ id: 'mittel' })];
+    const boost = (r: Recipe) => (r.id === 'guenstig' ? 100 : 0);
+    const ranked = rankRecipes(recipes, prefs(), () => 0.5, boost);
+    expect(ranked[0].id).toBe('guenstig');
+  });
+
+  it('ohne Boost bleibt die Rangfolge unverändert (kein Crash)', () => {
+    const recipes = [recipe({ id: 'a' }), recipe({ id: 'b' })];
+    expect(rankRecipes(recipes, prefs(), () => 0.5)).toHaveLength(2);
   });
 });
 
