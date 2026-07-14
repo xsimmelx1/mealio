@@ -52,6 +52,23 @@ export interface IngredientCost {
   source: PriceSource | 'ai' | null;
 }
 
+/**
+ * Einkaufskosten EINER Rezept-Zutat über GANZE Packungen — was man tatsächlich zahlt, weil
+ * man z. B. keinen Teelöffel Kurkuma einzeln kaufen kann. Trägt zusätzlich die Anzahl Packungen
+ * und die Packungsgröße für die Anzeige (Rest bleibt übrig).
+ */
+export interface IngredientPurchase {
+  status: 'ok' | 'unmatched';
+  productKey: string | null;
+  /** Kosten der zu kaufenden ganzen Packung(en); 0 bei unmatched. */
+  cost: number;
+  /** Anzahl ganzer Packungen (≥1, wenn irgendetwas gebraucht wird). */
+  packages: number;
+  packageSize: number;
+  packageUnit: 'g' | 'ml' | 'stück';
+  source: PriceSource | 'ai' | null;
+}
+
 export interface RecipeCostEstimate {
   total: number;
   perServing: number;
@@ -245,6 +262,62 @@ export class PriceEngine {
     }
 
     return { status: 'unmatched', productKey: key, cost: 0, source: null };
+  }
+
+  /**
+   * Einkaufskosten EINER Zutatmenge über GANZE Packungen (Seed/Manual, sonst KI-Fallback).
+   * Anders als {@link ingredientCost} (anteiliger Verbrauchswert) ist dies der Betrag an der Kasse:
+   * man kauft mindestens eine ganze Packung, auch wenn das Rezept nur wenig braucht.
+   */
+  ingredientPurchase(
+    ing: Pick<Ingredient, 'name' | 'amount' | 'unit' | 'productMatchId'>,
+  ): IngredientPurchase {
+    if (ing.amount <= 0) {
+      return { status: 'ok', productKey: null, cost: 0, packages: 0, packageSize: 0, packageUnit: 'g', source: null };
+    }
+    const key = this.keyForIngredient(ing);
+
+    // 1. Seed/Manual-Preis über den gematchten Produktschlüssel.
+    if (key) {
+      const product = this.resolve(key);
+      if (product) {
+        const base = toBase(ing.amount, ing.unit);
+        const factor = reconcileFactor(base.dim, product.dim);
+        if (factor !== null) {
+          const packages = Math.max(1, Math.ceil((base.qty * factor) / product.packageSize));
+          return {
+            status: 'ok',
+            productKey: key,
+            cost: round2(packages * product.pricePerPackage),
+            packages,
+            packageSize: product.packageSize,
+            packageUnit: product.packageUnit,
+            source: product.source,
+          };
+        }
+      }
+    }
+
+    // 2. KI-Fallback (keyed nach normalisiertem Namen).
+    const ai = this.aiPrices.get(normalizeName(ing.name));
+    if (ai && ai.packageSize > 0) {
+      const base = toBase(ing.amount, ing.unit);
+      const factor = reconcileFactor(base.dim, packageDimension(ai.packageUnit));
+      if (factor !== null) {
+        const packages = Math.max(1, Math.ceil((base.qty * factor) / ai.packageSize));
+        return {
+          status: 'ok',
+          productKey: key,
+          cost: round2(packages * ai.pricePerPackage),
+          packages,
+          packageSize: ai.packageSize,
+          packageUnit: ai.packageUnit,
+          source: 'ai',
+        };
+      }
+    }
+
+    return { status: 'unmatched', productKey: key, cost: 0, packages: 0, packageSize: 0, packageUnit: 'g', source: null };
   }
 
   /** Schätzt die Kosten eines Rezepts (proportional) inkl. pro Portion. */

@@ -91,16 +91,21 @@ export default function RecipeDetailView() {
 
   const activeServings = servings ?? recipe.baseServings;
   const factor = activeServings / recipe.baseServings;
+  // Zwei Perspektiven: `purchase` = was man an der Kasse zahlt (ganze Packungen — man kann keinen
+  // Teelöffel Kurkuma einzeln kaufen), `consumed` = anteiliger Verbrauchswert im Rezept.
   const ingredientsTotal = recipe.ingredients.reduce(
     (acc, ing) => {
-      const c = engine.ingredientCost({ ...ing, amount: scaleAmount(ing.amount, factor) });
-      if (c.status === 'ok' && c.source) {
-        acc.total += c.cost;
+      const scaled = { ...ing, amount: scaleAmount(ing.amount, factor) };
+      const c = engine.ingredientCost(scaled);
+      const p = engine.ingredientPurchase(scaled);
+      if (c.status === 'ok' && c.source) acc.consumed += c.cost;
+      if (p.status === 'ok' && p.source) {
+        acc.purchase += p.cost;
         acc.matched++;
       }
       return acc;
     },
-    { total: 0, matched: 0 },
+    { purchase: 0, consumed: 0, matched: 0 },
   );
   const reasons = whySuitable(recipe, prefs);
   const cost = engine.recipeCost(recipe);
@@ -226,30 +231,63 @@ export default function RecipeDetailView() {
           </h2>
           <EstimateBadge />
         </div>
+        <div className="mb-1 flex items-baseline justify-end gap-3 text-[10px] font-medium uppercase tracking-wide text-slate-400">
+          <span className="w-24 text-right">Einkauf</span>
+          <span className="w-16 text-right">Anteil</span>
+        </div>
         <ul className="flex flex-col divide-y divide-slate-100">
           {recipe.ingredients.map((ing, i) => {
-            const c = engine.ingredientCost({ ...ing, amount: scaleAmount(ing.amount, factor) });
+            const scaled = { ...ing, amount: scaleAmount(ing.amount, factor) };
+            const c = engine.ingredientCost(scaled);
+            const p = engine.ingredientPurchase(scaled);
+            // Kauft man mehr als gebraucht? (ganze Packung größer als der Bedarf → Rest bleibt)
+            const leftover = p.status === 'ok' && p.source != null && p.cost - c.cost > 0.01;
             return (
               <li key={`${ing.name}-${i}`} className="flex items-baseline justify-between py-2">
                 <span className="min-w-0 flex-1 truncate text-slate-800">{ing.name}</span>
                 <span className="ml-2 text-sm tabular-nums text-slate-500">
-                  {formatAmount(scaleAmount(ing.amount, factor))} {ing.unit}
+                  {formatAmount(scaled.amount)} {ing.unit}
                 </span>
-                <span className="ml-3 w-16 shrink-0 text-right text-sm tabular-nums text-slate-600">
+                <span className="ml-3 w-24 shrink-0 text-right text-sm tabular-nums font-medium text-slate-800">
+                  {p.status === 'ok' && p.source ? (
+                    <>
+                      ≈ {formatPrice(p.cost, prefs.currency)}
+                      {leftover && (
+                        <span className="block text-[10px] font-normal text-slate-400">
+                          {p.packages > 1 ? `${p.packages}× ` : ''}
+                          {formatAmount(p.packageSize)} {p.packageUnit}
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    '—'
+                  )}
+                </span>
+                <span className="ml-3 w-16 shrink-0 text-right text-sm tabular-nums text-slate-400">
                   {c.status === 'ok' && c.source ? `≈ ${formatPrice(c.cost, prefs.currency)}` : '—'}
                 </span>
               </li>
             );
           })}
         </ul>
-        <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 text-sm">
-          <span className="text-slate-500">Zutaten gesamt ({activeServings} Portionen)</span>
+        <div className="mt-2 flex items-baseline justify-between border-t border-slate-100 pt-2 text-sm">
+          <span className="font-medium text-slate-700">Einkauf gesamt</span>
           <span className="font-semibold text-slate-900">
             {ingredientsTotal.matched === 0
               ? 'unbekannt'
-              : `≈ ${formatPrice(ingredientsTotal.total, prefs.currency)}`}
+              : `≈ ${formatPrice(ingredientsTotal.purchase, prefs.currency)}`}
           </span>
         </div>
+        {ingredientsTotal.matched > 0 && (
+          <div className="mt-1 flex items-baseline justify-between text-xs text-slate-400">
+            <span>davon in diesem Rezept verbraucht</span>
+            <span className="tabular-nums">≈ {formatPrice(ingredientsTotal.consumed, prefs.currency)}</span>
+          </div>
+        )}
+        <p className="mt-2 text-[11px] text-slate-400">
+          „Einkauf" = ganze Packungen an der Kasse (z. B. ein ganzes Glas Kurkuma). „Anteil" = der im
+          Rezept verbrauchte Wert. Reste bleiben für weitere Gerichte.
+        </p>
       </div>
 
       {/* Zubereitung */}
