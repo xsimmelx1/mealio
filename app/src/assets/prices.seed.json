@@ -721,11 +721,11 @@
     "aisle": "kühlregal",
     "packageSize": 250,
     "packageUnit": "g",
-    "pricePerPackage": 1.39,
+    "pricePerPackage": 1.29,
     "dataSource": "real",
     "productName": "MEGGLE Feine Butter 250 g",
     "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
+    "offerValidUntil": "KW 36/2026"
   },
   {
     "productKey": "butter",
@@ -754,21 +754,6 @@
   {
     "productKey": "butter",
     "label": "Butter",
-    "brand": "Meggle",
-    "storeId": "penny",
-    "storeType": "discounter",
-    "aisle": "kühlregal",
-    "packageSize": 250,
-    "packageUnit": "g",
-    "pricePerPackage": 1.39,
-    "dataSource": "real",
-    "productName": "MEGGLE Feine Butter 250 g",
-    "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
-  },
-  {
-    "productKey": "butter",
-    "label": "Butter",
     "brand": "Netto",
     "storeId": "netto",
     "storeType": "discounter",
@@ -781,17 +766,17 @@
   {
     "productKey": "butter",
     "label": "Butter",
-    "brand": "Meggle",
+    "brand": "Frija",
     "storeId": "netto",
     "storeType": "discounter",
     "aisle": "kühlregal",
     "packageSize": 250,
     "packageUnit": "g",
-    "pricePerPackage": 1.11,
+    "pricePerPackage": 0.89,
     "dataSource": "real",
-    "productName": "MEGGLE Feine Butter 250 g",
+    "productName": "frija Markenbutter 250 g",
     "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
+    "offerValidUntil": "KW 36/2026"
   },
   {
     "productKey": "butter",
@@ -852,21 +837,6 @@
     "packageUnit": "g",
     "pricePerPackage": 3.21,
     "dataSource": "estimate"
-  },
-  {
-    "productKey": "butter",
-    "label": "Butter",
-    "brand": "discounto.de",
-    "storeId": "kaufland",
-    "storeType": "vollsortimenter",
-    "aisle": "kühlregal",
-    "packageSize": 125,
-    "packageUnit": "g",
-    "pricePerPackage": 0.99,
-    "dataSource": "real",
-    "productName": "K-FREE LAKTOSEFREI Butter, 125-g-Packg.",
-    "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "chiasamen",
@@ -1602,6 +1572,21 @@
   {
     "productKey": "garnelen",
     "label": "Garnelen",
+    "brand": "golden-seafood",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 400,
+    "packageUnit": "g",
+    "pricePerPackage": 5.99,
+    "dataSource": "real",
+    "productName": "GOLDEN SEAFOOD Garnelen Sortiment XXL 400 g, Knoblauch-Chili",
+    "isOffer": true,
+    "offerValidUntil": "KW 36/2026"
+  },
+  {
+    "productKey": "garnelen",
+    "label": "Garnelen",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -1944,13 +1929,13 @@
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "fleisch-fisch",
-    "packageSize": 1000,
+    "packageSize": 500,
     "packageUnit": "g",
-    "pricePerPackage": 6.99,
+    "pricePerPackage": 1.99,
     "dataSource": "real",
-    "productName": "K-PURLAND Hackfleisch gemischt XXL, 1-kg-Großpackg.",
+    "productName": "K-PURLAND Schweinehackfleisch, 500-g-Packg.",
     "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
+    "offerValidUntil": "KW 36/2026"
   },
   {
     "productKey": "haehnchenbrust",
@@ -3018,6 +3003,21 @@
   {
     "productKey": "lachsfilet",
     "label": "Lachsfilet",
+    "brand": "golden-seafood",
+    "storeId": "aldi",
+    "storeType": "discounter",
+    "aisle": "fleisch-fisch",
+    "packageSize": 300,
+    "packageUnit": "g",
+    "pricePerPackage": 4.49,
+    "dataSource": "real",
+    "productName": "GOLDEN SEAFOOD Norwegisches Lachsfilet 300 g",
+    "isOffer": true,
+    "offerValidUntil": "KW 36/2026"
+  },
+  {
+    "productKey": "lachsfilet",
+    "label": "Lachsfilet",
     "brand": "Eigenmarke",
     "storeId": "lidl",
     "storeType": "discounter",
@@ -3091,21 +3091,6 @@
     "dataSource": "real",
     "priceDate": "2026-07",
     "productName": "Lachsfilet ohne Haut frisch (100g)"
-  },
-  {
-    "productKey": "lachsfilet",
-    "label": "Lachsfilet",
-    "brand": "discounto.de",
-    "storeId": "kaufland",
-    "storeType": "vollsortimenter",
-    "aisle": "fleisch-fisch",
-    "packageSize": 500,
-    "packageUnit": "g",
-    "pricePerPackage": 7.99,
-    "dataSource": "real",
-    "productName": "K-BLUE BAY Norweg. Lachsfilet-Portionen, 500-g-Packg.",
-    "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "mais",
@@ -3379,7 +3364,7 @@
   {
     "productKey": "milch",
     "label": "Vollmilch 3,5%",
-    "brand": "Baerenmarke",
+    "brand": "Weihenstephan",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "kühlregal",
@@ -3387,9 +3372,9 @@
     "packageUnit": "ml",
     "pricePerPackage": 0.99,
     "dataSource": "real",
-    "productName": "BÄRENMARKE Frische Vollmilch, 3,8 % Fett, 1-l-Packg.",
+    "productName": "WEIHENSTEPHAN Frische Vollmilch, 1-l-Packg.",
     "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
+    "offerValidUntil": "KW 36/2026"
   },
   {
     "productKey": "mozzarella",
@@ -3653,21 +3638,6 @@
     "packageUnit": "ml",
     "pricePerPackage": 7.81,
     "dataSource": "estimate"
-  },
-  {
-    "productKey": "olivenoel",
-    "label": "Olivenöl",
-    "brand": "discounto.de",
-    "storeId": "kaufland",
-    "storeType": "vollsortimenter",
-    "aisle": "sonstiges",
-    "packageSize": 500,
-    "packageUnit": "ml",
-    "pricePerPackage": 4.99,
-    "dataSource": "real",
-    "productName": "FILIPPO BERIO Natives Olivenöl extra, 500-ml-Fl.",
-    "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "oregano",
@@ -4276,24 +4246,6 @@
     "productName": "Rapsöl",
     "ean": "4099200029863",
     "ecoScore": "c"
-  },
-  {
-    "productKey": "rapsoel",
-    "label": "Rapsöl",
-    "brand": "discounto.de",
-    "storeId": "kaufland",
-    "storeType": "vollsortimenter",
-    "aisle": "sonstiges",
-    "packageSize": 750,
-    "packageUnit": "ml",
-    "pricePerPackage": 2.49,
-    "dataSource": "real",
-    "productName": "BRÄNDLE Vita-Rapsöl oder BIOVIT Bio-Sonnenblumenöl, 500 - 750-ml-Fl.",
-    "flags": [
-      "bio"
-    ],
-    "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
   },
   {
     "productKey": "reis",
@@ -5234,6 +5186,21 @@
   {
     "productKey": "thunfisch",
     "label": "Thunfisch (Dose)",
+    "brand": "discounto.de",
+    "storeId": "rewe",
+    "storeType": "vollsortimenter",
+    "aisle": "konserven",
+    "packageSize": 130,
+    "packageUnit": "g",
+    "pricePerPackage": 2.79,
+    "dataSource": "real",
+    "productName": "Followfish Thunfisch-Filets Natur 130g",
+    "isOffer": true,
+    "offerValidUntil": "KW 36/2026"
+  },
+  {
+    "productKey": "thunfisch",
+    "label": "Thunfisch (Dose)",
     "brand": "GUT&GÜNSTIG",
     "storeId": "edeka",
     "storeType": "vollsortimenter",
@@ -5258,17 +5225,17 @@
   {
     "productKey": "thunfisch",
     "label": "Thunfisch (Dose)",
-    "brand": "Saupiquet",
+    "brand": "followfood",
     "storeId": "kaufland",
     "storeType": "vollsortimenter",
     "aisle": "konserven",
-    "packageSize": 185,
+    "packageSize": 160,
     "packageUnit": "g",
     "pricePerPackage": 1.99,
     "dataSource": "real",
-    "productName": "SAUPIQUET Thunfisch, 185-g-Dose",
+    "productName": "FOLLOWFOOD Thunfisch, 160-g-Dose",
     "isOffer": true,
-    "offerValidUntil": "KW 29/2026"
+    "offerValidUntil": "KW 36/2026"
   },
   {
     "productKey": "tofu",
